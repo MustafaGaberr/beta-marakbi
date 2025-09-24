@@ -9,7 +9,7 @@ const FinalCTA = () => {
         <p className="text-sky-100 text-base font-medium font-['Poppins'] text-center max-w-lg mb-8">
           Every journey with Marakbi is tailored to perfection. From private charters to bespoke itineraries, our boats and expert captains ensure a seamless, unforgettable experience.
         </p>
-        <button className="w-56 h-12 px-6 py-2.5 bg-white rounded-lg text-sky-800 text-base font-normal font-['Poppins'] capitalize hover:bg-gray-100 transition-colors">
+        <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-white rounded-lg text-sky-800 text-base font-normal font-['Poppins'] capitalize hover:bg-gray-100 transition-colors">
           Book now
         </button>
       </div>

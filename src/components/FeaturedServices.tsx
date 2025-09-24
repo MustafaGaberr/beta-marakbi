@@ -93,7 +93,7 @@ const FeaturedServices = () => {
 
       {/* Service Icons Grid */}
       <div className="w-full flex justify-center pt-20">
-        <div className="grid grid-cols-6 gap-8 max-w-6xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 max-w-6xl">
           {services.map((service, index) => (
             <div key={index} className="flex flex-col items-center text-center">
               <div className="mb-4">

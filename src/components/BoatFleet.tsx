@@ -98,7 +98,7 @@ const BoatFleet = () => {
 
         {/* View All Boats Button */}
         <div className="text-center">
-          <button className="w-56 h-12 px-6 py-2.5 bg-sky-900 rounded-lg text-white text-base font-normal font-['Poppins'] capitalize hover:bg-sky-800 transition-colors">
+          <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-sky-900 rounded-lg text-white text-base font-normal font-['Poppins'] capitalize hover:bg-sky-800 transition-colors">
             View all boats
           </button>
         </div>

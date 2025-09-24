@@ -12,7 +12,7 @@ const Activities = () => {
       </div>
 
       {/* Activities Grid */}
-      <div className="grid grid-cols-3 grid-rows-6 gap-6 max-w-7xl mx-auto px-4 h-[800px] lg:h-[1000px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4 h-auto lg:h-[1000px]">
         {/* Water Sports - Column 1, Rows 1-3 */}
         <div className="flex flex-col row-span-3">
           <div className="relative overflow-hidden rounded-[32px] mb-4 h-full">

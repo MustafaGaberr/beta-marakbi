@@ -38,7 +38,7 @@ const WhyUs = () => {
           <p className="text-white text-xl md:text-3xl font-normal font-['Poppins'] capitalize mb-8">
             We Do Our Best For Your Convenience
           </p>
-          <button className="w-56 h-12 px-6 py-2.5 bg-orange-300 rounded-lg text-sky-900 text-base font-normal font-['Poppins'] capitalize hover:bg-orange-400 transition-colors">
+          <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-orange-300 rounded-lg text-sky-900 text-base font-normal font-['Poppins'] capitalize hover:bg-orange-400 transition-colors">
             book with us
           </button>
         </div>
