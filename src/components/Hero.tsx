@@ -7,7 +7,7 @@ const Hero = () => {
   const [tripType, setTripType] = useState('');
 
   return (
-    <section className="relative w-full h-[1024px] bg-black/30 overflow-hidden">
+    <section className="relative w-full h-[1024px] overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
@@ -17,11 +17,8 @@ const Hero = () => {
         />
       </div>
 
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/30"></div>
-
       {/* Content */}
-      <div className="relative w-full h-full flex items-center">
+      <div className="relative w-full h-full flex items-center pt-16">
         <div className="w-[1119px] mx-auto flex justify-between items-center gap-20">
           {/* Left Side: Text Content */}
           <div className="flex flex-col">

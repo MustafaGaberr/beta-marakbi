@@ -57,12 +57,11 @@ const Header = () => {
         </div>
       </div>
       {/* Main Navigation Bar */}
-      <nav className="bg-sky-900">
+      <nav className="absolute top-14 left-0 right-0 z-10">
         <div className="px-16 py-4 flex justify-between items-center">
           {/* Left: Logo */}
           <div className="flex items-center space-x-3">
-            <Logo width={24} height={60} />
-            <div className="text-blue-600 font-bold text-lg font-['Poppins']">Marakbi</div>
+            <Logo width={64} height={100} />
           </div>
           {/* Middle: Navigation Links */}
           <div className="flex gap-6">

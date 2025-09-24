@@ -22,13 +22,13 @@ const Destinations = () => {
         </div>
 
         {/* Destination Cards */}
-        <div className="flex flex-wrap justify-center gap-8 lg:gap-12 mb-8">
+        <div className="flex flex-wrap justify-center gap-8 lg:gap-6 mb-8">
           {/* Philae Temple */}
           <div className="flex flex-col items-center">
             <img
-              src="https://placehold.co/205x205"
+              src="/images/Rectangle 3463870.png"
               alt="Philae Temple"
-              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 rounded-full object-cover"
+              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
               Philae Temple
@@ -38,9 +38,9 @@ const Destinations = () => {
           {/* Botanical Garden */}
           <div className="flex flex-col items-center">
             <img
-              src="https://placehold.co/205x205"
+              src="/images/Rectangle 3463870.png"
               alt="Botanical Garden"
-              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 rounded-full object-cover"
+              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
               Botanical Garden
@@ -50,9 +50,9 @@ const Destinations = () => {
           {/* Philae Temple 2 */}
           <div className="flex flex-col items-center">
             <img
-              src="https://placehold.co/205x205"
+              src="/images/Rectangle 3463870.png"
               alt="Philae Temple"
-              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 rounded-full object-cover"
+              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
               Philae Temple
@@ -62,9 +62,9 @@ const Destinations = () => {
           {/* Philae Temple 3 */}
           <div className="flex flex-col items-center">
             <img
-              src="https://placehold.co/205x205"
+              src="/images/Rectangle 3463870.png"
               alt="Philae Temple"
-              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 rounded-full object-cover"
+              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
               Philae Temple
@@ -74,9 +74,9 @@ const Destinations = () => {
           {/* Philae Temple 4 */}
           <div className="flex flex-col items-center">
             <img
-              src="https://placehold.co/205x205"
+              src="/images/Rectangle 3463870.png"
               alt="Philae Temple"
-              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 rounded-full object-cover"
+              className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
               Philae Temple

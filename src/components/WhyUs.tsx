@@ -27,8 +27,6 @@ const WhyUs = () => {
 
   return (
     <section className="w-full bg-sky-900/95 overflow-hidden py-16">
-      {/* Background */}
-      <div className="absolute inset-0 bg-black/25"></div>
 
       {/* Content */}
       <div className="relative container mx-auto px-4">

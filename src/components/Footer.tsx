@@ -10,8 +10,8 @@ const Footer = () => {
           {/* Column 1: Logo and Description */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <Logo width={24} height={60} />
-              <div className="text-blue-600 font-bold text-lg font-['Poppins']">Marakbi</div>
+              <Logo variant="white" width={24} height={60} />
+              
             </div>
             <p className="text-gray-300 leading-relaxed">
               Experience luxury on Egyptian waters with our premium boat rental services.
