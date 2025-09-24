@@ -3,7 +3,7 @@ import BoatCard from './BoatCard';
 const BoatFleet = () => {
   const boats = [
     {
-      imageUrl: 'https://placehold.co/403x266',
+      imageUrl: '/images/Rectangle 3463853.png',
       name: 'Dandara 45',
       price: 'EGP 800 /Hour',
       location: 'Aswan- Egypt',
@@ -12,7 +12,7 @@ const BoatFleet = () => {
       rooms: 3
     },
     {
-      imageUrl: 'https://placehold.co/403x266',
+      imageUrl: '/images/Rectangle 3463853.png',
       name: 'Dandara 45',
       price: 'EGP 800 /Hour',
       location: 'Aswan- Egypt',
@@ -21,7 +21,7 @@ const BoatFleet = () => {
       rooms: 3
     },
     {
-      imageUrl: 'https://placehold.co/403x266',
+      imageUrl: '/images/Rectangle 3463853.png',
       name: 'Dandara 45',
       price: 'EGP 800 /Hour',
       location: 'Aswan- Egypt',
@@ -30,7 +30,7 @@ const BoatFleet = () => {
       rooms: 3
     },
     {
-      imageUrl: 'https://placehold.co/403x266',
+      imageUrl: '/images/Rectangle 3463853.png',
       name: 'Dandara 45',
       price: 'EGP 800 /Hour',
       location: 'Aswan- Egypt',
@@ -39,7 +39,7 @@ const BoatFleet = () => {
       rooms: 3
     },
     {
-      imageUrl: 'https://placehold.co/403x266',
+      imageUrl: '/images/Rectangle 3463853.png',
       name: 'Dandara 45',
       price: 'EGP 800 /Hour',
       location: 'Aswan- Egypt',
@@ -48,7 +48,7 @@ const BoatFleet = () => {
       rooms: 3
     },
     {
-      imageUrl: 'https://placehold.co/403x266',
+      imageUrl: '/images/Rectangle 3463853.png',
       name: 'Dandara 45',
       price: 'EGP 800 /Hour',
       location: 'Aswan- Egypt',
