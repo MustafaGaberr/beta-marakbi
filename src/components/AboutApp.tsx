@@ -18,12 +18,6 @@ const AboutApp = () => {
               you&apos;re gaining access to expert local knowledge for a safe and unforgettable journey.
             </p>
 
-            <div className="border-l-4 border-orange-300 pl-6 mb-8">
-              <p className="text-black text-sm font-normal font-['Poppins'] leading-9">
-                CTO & Founder, Marakbi App
-              </p>
-            </div>
-
             <ul className="space-y-3">
               <li className="text-black text-lg font-semibold font-['Poppins'] leading-9">
                 Premium Boats & Yachts
@@ -44,10 +38,15 @@ const AboutApp = () => {
 
             <div className="mt-8">
               <img
-                src="https://placehold.co/213x44"
+                src="/images/image 2.png"
                 alt="App Store"
                 className="w-52 h-11"
               />
+            </div>
+            <div className="border-l-4 border-orange-300 pl-6 mb-8">
+              <p className="text-black text-sm font-normal font-['Poppins'] leading-9">
+                CTO & Founder, Marakbi App
+              </p>
             </div>
           </div>
 
