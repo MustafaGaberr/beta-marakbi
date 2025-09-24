@@ -48,7 +48,7 @@ const FeaturedServices = () => {
             {/* Image 1: Felucca */}
             <div className="relative">
               <img
-                src="https://placehold.co/165x137"
+                src="/images/f1.png"
                 alt="Felucca"
                 className="w-40 h-36 rounded-lg"
               />
@@ -60,7 +60,7 @@ const FeaturedServices = () => {
             {/* Image 2: Fishing (Middle, larger) */}
             <div className="relative">
               <img
-                src="https://placehold.co/165x165"
+                src="/images/f2.png"
                 alt="Fishing"
                 className="w-40 h-40 rounded-lg"
               />
@@ -72,7 +72,7 @@ const FeaturedServices = () => {
             {/* Image 3: Kayak */}
             <div className="relative">
               <img
-                src="https://placehold.co/165x137"
+                src="/images/f3.png"
                 alt="Kayak"
                 className="w-40 h-36 rounded-lg"
               />
