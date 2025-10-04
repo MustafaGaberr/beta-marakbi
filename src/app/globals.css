@@ -1,7 +1,80 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Poppins Font - Local Files */
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-ExtraLight.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/poppins/Poppins-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
+  --font-family-primary: var(--font-poppins), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --color-brand-blue-dark: #0d2440;
   --color-brand-blue-medium: #0f3b7f;
   --color-brand-blue-light: #3b5998;
@@ -34,11 +107,15 @@
 }
 
 /* Auth Page Layout Styles */
+body {
+  font-family: var(--font-family-primary);
+}
+
 .auth-page-container {
   display: flex;
   width: 100vw;
   height: 100vh;
-  font-family: var(--font-family-sans);
+  font-family: var(--font-family-primary);
   overflow: hidden;
 }
 
@@ -85,12 +162,12 @@
   align-items: center;
   justify-content: center;
   background: white;
-  padding: 40px;
+  padding: 40px 20px;
 }
 
 .auth-form-content {
   width: 100%;
-  max-width: 480px;
+  max-width: 650px;
   padding: 0 20px;
 }
 
@@ -102,6 +179,7 @@
   border-radius: 8px;
   border: none;
   font-size: 14px;
+  font-family: var(--font-family-primary);
   color: var(--color-auth-text-gray);
   outline: none;
   box-sizing: border-box;
@@ -124,16 +202,18 @@
 }
 
 .auth-submit-button {
-  width: 100%;
+  width: 70%;
   height: 52px;
   background: var(--color-auth-primary);
   border-radius: 8px;
   border: none;
   color: white;
   font-size: 16px;
+  font-family: var(--font-family-primary);
   font-weight: 500;
   cursor: pointer;
-  margin-bottom: 30px;
+  margin: 0 auto 30px auto;
+  display: block;
   transition: background 0.3s;
 }
 
@@ -169,6 +249,7 @@
   border: none;
   cursor: pointer;
   font-size: 16px;
+  font-family: var(--font-family-primary);
   color: black;
   padding: 0;
   display: flex;
@@ -239,4 +320,13 @@ body > * {
   pointer-events: auto !important;
   position: relative;
   z-index: 999;
+}
+
+/* Poppins Font Utilities */
+.font-poppins {
+  font-family: var(--font-family-primary);
+}
+
+.text-poppins {
+  font-family: var(--font-family-primary);
 }

@@ -25,7 +25,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['"Lato"', 'sans-serif'], // Example sans-serif
+        sans: ['var(--font-poppins)', 'sans-serif'], // Primary font
         serif: ['"Playfair Display"', 'serif'], // Example serif
       },
       backgroundImage: {

@@ -80,7 +80,7 @@ export default function LoginPage() {
         <div className="auth-form-content">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-5xl font-bold text-black mb-2 text-center">
+            <h1 className="text-5xl font-bold text-black mb-2 text-center font-poppins">
               Welcome Back
             </h1>
             <p className="text-xl font-medium text-gray-500 mb-24 text-center capitalize">

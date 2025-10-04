@@ -5,24 +5,6 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { mockApi } from '@/lib/api';
 
-const EyeIcon = ({ showPassword }: { showPassword: boolean }) => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-gray-500">
-    {showPassword ? (
-      // Eye with slash (hidden)
-      <>
-        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="2" fill="none"/>
-        <path d="M7 7l10 10" stroke="currentColor" strokeWidth="2"/>
-        <path d="M3 13c1.5-3 4.5-5 9-5s7.5 2 9 5" stroke="currentColor" strokeWidth="2" fill="none"/>
-      </>
-    ) : (
-      // Normal eye (visible)
-      <>
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" strokeWidth="2" fill="none"/>
-        <path d="M12 8a4 4 0 1 0 4 4 4 4 0 0 0-4-4z" fill="currentColor"/>
-      </>
-    )}
-  </svg>
-);
 
 export default function SignUpPage() {
   const [fullName, setFullName] = useState('');
@@ -32,8 +14,6 @@ export default function SignUpPage() {
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const router = useRouter();
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -109,13 +89,13 @@ export default function SignUpPage() {
 
       {/* Right Side - Form */}
       <div className="auth-form-container">
-        <div className="max-w-md">
+        <div className="auth-form-content">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-4xl font-bold text-black mb-2 text-center">
-              Welcome
+            <h1 className="text-4xl font-bold text-black mb-2 text-center font-poppins">
+              Welcome Back
             </h1>
-            <p className="text-lg font-medium text-gray-500 mb-8 text-center">
+            <p className="text-lg font-medium text-gray-500 mb-8 text-center font-poppins">
               Join us and start your next adventure
             </p>
           </div>
@@ -157,23 +137,14 @@ export default function SignUpPage() {
               <label className="block text-gray-600 text-sm font-semibold mb-2 capitalize">
                 Password
               </label>
-              <div className="relative">
-                <input 
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="**************"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="auth-input auth-input-with-icon h-12 px-4"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="auth-eye-icon"
-                >
-                  <EyeIcon showPassword={showPassword} />
-                </button>
-              </div>
+              <input 
+                type="password"
+                placeholder="**************"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="auth-input h-12 px-4"
+                required
+              />
             </div>
 
             {/* Confirm Password Field */}
@@ -181,23 +152,14 @@ export default function SignUpPage() {
               <label className="block text-gray-600 text-sm font-semibold mb-2 capitalize">
                 Confirm Password
               </label>
-              <div className="relative">
-                <input 
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  placeholder="**************"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="auth-input auth-input-with-icon h-12 px-4"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="auth-eye-icon"
-                >
-                  <EyeIcon showPassword={showConfirmPassword} />
-                </button>
-              </div>
+              <input 
+                type="password"
+                placeholder="**************"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="auth-input h-12 px-4"
+                required
+              />
             </div>
 
             {/* Terms Agreement */}

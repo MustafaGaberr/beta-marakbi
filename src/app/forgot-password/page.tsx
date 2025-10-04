@@ -91,24 +91,24 @@ export default function ForgotPasswordPage() {
 
       {/* Right Side - Form */}
       <div className="auth-form-container">
-        <div className="w-full max-w-2xl px-5">
+        <div className="auth-form-content">
           {/* Back to Login Link */}
           <div className="mb-10">
             <button
               onClick={() => router.push('/login')}
               className="auth-back-button"
             >
-              <span className="text-lg font-bold">&lt;</span>
+              <i className="fas fa-angle-left text-lg"></i>
               Back to login
             </button>
           </div>
 
           {/* Header */}
           <div className="mb-10">
-            <h1 className="text-5xl font-bold text-black mb-5 text-left leading-tight">
+            <h1 className="text-5xl font-bold text-black mb-5 text-left leading-tight font-poppins">
               Forgot your password?
             </h1>
-              <p className="text-base text-black mb-10 leading-relaxed">
+              <p className="text-base text-black mb-10 leading-relaxed font-poppins">
                 Don't worry, happens to all of us. Enter your email below to recover your password
               </p>
           </div>

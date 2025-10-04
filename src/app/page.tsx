@@ -1,4 +1,3 @@
-import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import FeaturedServices from '@/components/FeaturedServices';
 import AboutApp from '@/components/AboutApp';
@@ -10,10 +9,14 @@ import Destinations from '@/components/Destinations';
 import FinalCTA from '@/components/FinalCTA';
 import Footer from '@/components/Footer';
 
+import Header from '@/components/Header';
+
 export default function HomePage() {
   return (
-    <main className="relative z-10">
-      <Hero />
+    <div>
+      <Header />
+      <main className="relative z-10">
+        <Hero />
       <FeaturedServices />
       <AboutApp />
       <BoatFleet />

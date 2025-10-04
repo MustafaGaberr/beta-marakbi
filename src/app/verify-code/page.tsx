@@ -4,26 +4,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { mockApi } from '@/lib/api';
 
-const EyeIcon = ({ showPassword }: { showPassword: boolean }) => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-gray-500">
-    {showPassword ? (
-      <>
-        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="2" fill="none"/>
-        <path d="M7 7l10 10" stroke="currentColor" strokeWidth="2"/>
-        <path d="M3 13c1.5-3 4.5-5 9-5s7.5 2 9 5" stroke="currentColor" strokeWidth="2" fill="none"/>
-      </>
-    ) : (
-      <>
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" strokeWidth="2" fill="none"/>
-        <path d="M12 8a4 4 0 1 0 4 4 4 4 0 0 0-4-4z" fill="currentColor"/>
-      </>
-    )}
-  </svg>
-);
 
 export default function VerifyCodePage() {
   const [code, setCode] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [resendTimer, setResendTimer] = useState(60);
@@ -32,7 +15,7 @@ export default function VerifyCodePage() {
 
   // Timer for resend functionality
   useEffect(() => {
-    let timer: number;
+    let timer: NodeJS.Timeout;
     if (resendTimer > 0) {
       timer = setTimeout(() => {
         setResendTimer(resendTimer - 1);
@@ -130,7 +113,7 @@ export default function VerifyCodePage() {
 
       {/* Right Side - Form */}
       <div className="auth-form-container">
-        <div className="max-w-lg">
+        <div className="auth-form-content">
           {/* Navigation */}
           <div className="flex items-center mb-16">
             <button
@@ -138,17 +121,17 @@ export default function VerifyCodePage() {
               onClick={() => router.push('/login')}
               className="auth-back-button"
             >
-              <span className="text-lg font-bold">&lt;</span>
+              <i className="fas fa-angle-left text-lg"></i>
               Back to login
             </button>
           </div>
 
           {/* Header */}
           <div className="mb-10">
-            <h1 className="text-4xl font-bold text-black mb-3 text-left">
+            <h1 className="text-4xl font-bold text-black mb-3 text-left font-poppins">
               Verify code
             </h1>
-            <p className="text-base text-black mb-10 text-left">
+            <p className="text-base text-black mb-10 text-left font-poppins">
               An authentication code has been sent to your email.
             </p>
           </div>
@@ -160,23 +143,14 @@ export default function VerifyCodePage() {
               <label className="block text-black text-base mb-2">
                 Enter Code
               </label>
-              <div className="relative">
-                <input 
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="**************"
-                  value={code}
-                  onChange={handleCodeChange}
-                  className="auth-input auth-input-with-icon h-12 px-4"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="auth-eye-icon"
-                >
-                  <EyeIcon showPassword={showPassword} />
-                </button>
-              </div>
+              <input 
+                type="password"
+                placeholder="**************"
+                value={code}
+                onChange={handleCodeChange}
+                className="auth-input h-12 px-4"
+                required
+              />
             </div>
 
             {/* Error Message */}
@@ -213,7 +187,7 @@ export default function VerifyCodePage() {
             <button 
               type="submit"
               disabled={loading || !code}
-              className={`w-full h-12 bg-blue-800 rounded-lg border-none text-white text-base font-medium cursor-pointer transition-colors ${
+              className={`w-[70%] h-12 bg-blue-800 rounded-lg border-none text-white text-base font-medium cursor-pointer transition-colors ${
                 loading || !code ? 'bg-gray-400 cursor-not-allowed' : 'hover:bg-blue-900'
               } ${loading ? 'opacity-50' : ''}`}
             >

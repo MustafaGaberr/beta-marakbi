@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server';
 const authPages = ['/login', '/signup', '/verify-code', '/forgot-password', '/set-password', '/quick-logout', '/test-auth'];
 
 // Always allow access to these debugging pages
-const debugPages = ['/test-auth', '/quick-logout', '/test-clicks'];
+const debugPages = ['/test-auth', '/quick-logout', '/test-clicks', '/test-middleware'];
 
 // Pages that require authentication
 const protectedPages = ['/dashboard', '/profile', '/bookings', '/admin'];
@@ -17,7 +17,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('accessToken')?.value || 
                 request.headers.get('Authorization')?.replace('Bearer ', '');
   
-  const isAuthPage = authPages.some(page => pathname.startsWith(page));
+  // const isAuthPage = authPages.some(page => pathname.startsWith(page));
   const isProtectedPage = protectedPages.some(page => pathname.startsWith(page));
 
   // Special handling for debug pages - always allow access regardless of auth status
@@ -25,16 +25,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // For forgot-password, set-password, verify-code - allow access even if logged in
-  // (users might want to reset password or verify email)
-  if (pathname.startsWith('/forgot-password') || 
-      pathname.startsWith('/set-password') || 
-      pathname.startsWith('/verify-code')) {
-    return NextResponse.next();
-  }
-
   // If user is on auth page (login/signup) and logged in, redirect to dashboard
   if ((pathname.startsWith('/login') || pathname.startsWith('/signup')) && token) {
+    return NextResponse.redirect(new URL('/dashboard', request.url));
+  }
+
+  // If logged in: block access to forgot/set-password/verify-code pages
+  if ((pathname.startsWith('/forgot-password') || 
+       pathname.startsWith('/set-password') || 
+       pathname.startsWith('/verify-code')) && token) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 

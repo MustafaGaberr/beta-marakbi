@@ -1,17 +1,58 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Lato } from 'next/font/google'
+import localFont from 'next/font/local'
 import "./globals.css";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import Header from "../components/Header";
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  variable: '--font-playfair',
-  weight: ['400', '700', '900'],
-})
-const lato = Lato({
-  subsets: ['latin'],
-  variable: '--font-lato',
-  weight: ['400', '700'],
+const poppins = localFont({
+  src: [
+    {
+      path: '../../public/fonts/poppins/Poppins-Thin.ttf',
+      weight: '100',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/poppins/Poppins-ExtraLight.ttf',
+      weight: '200',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/poppins/Poppins-Light.ttf',
+      weight: '300',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/poppins/Poppins-Regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/poppins/Poppins-Medium.ttf',
+      weight: '500',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/poppins/Poppins-SemiBold.ttf',
+      weight: '600',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/poppins/Poppins-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/poppins/Poppins-ExtraBold.ttf',
+      weight: '800',
+      style: 'normal',
+    },
+    {
+      path: '../../public/fonts/poppins/Poppins-Black.ttf',
+      weight: '900',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-poppins',
 })
 
 export const metadata: Metadata = {
@@ -27,9 +68,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${playfair.variable} ${lato.variable} font-sans`}
+        className={`${poppins.variable} font-sans`}
       >
-        <Header />
         {children}
       </body>
     </html>

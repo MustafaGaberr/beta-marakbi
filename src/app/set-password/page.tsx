@@ -4,28 +4,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { mockApi, storage } from '@/lib/api';
 
-const EyeIcon = ({ showPassword }: { showPassword: boolean }) => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" className="text-gray-500">
-    {showPassword ? (
-      <>
-        <rect x="3" y="3" width="18" height="18" rx="3" stroke="currentColor" strokeWidth="2" fill="none"/>
-        <path d="M7 7l10 10" stroke="currentColor" strokeWidth="2"/>
-        <path d="M3 13c1.5-3 4.5-5 9-5s7.5 2 9 5" stroke="currentColor" strokeWidth="2" fill="none"/>
-      </>
-    ) : (
-      <>
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" strokeWidth="2" fill="none"/>
-        <path d="M12 8a4 4 0 1 0 4 4 4 4 0 0 0-4-4z" fill="currentColor"/>
-      </>
-    )}
-  </svg>
-);
 
 export default function SetPasswordPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -102,13 +84,25 @@ export default function SetPasswordPage() {
 
       {/* Right Side - Form */}
       <div className="auth-form-container">
-        <div className="max-w-lg">
+        <div className="auth-form-content">
+          {/* Navigation */}
+          <div className="flex items-center mb-16">
+            <button
+              type="button"
+              onClick={() => router.push('/verify-code')}
+              className="auth-back-button"
+            >
+              <i className="fas fa-angle-left text-lg"></i>
+              Back to verify code
+            </button>
+          </div>
+
           {/* Header */}
           <div className="mb-10">
-            <h1 className="text-4xl font-bold text-black mb-3 text-left">
+            <h1 className="text-4xl font-bold text-black mb-3 text-left font-poppins">
               Set a password
             </h1>
-            <p className="text-base text-gray-500 mb-10 text-left leading-relaxed">
+            <p className="text-base text-gray-500 mb-10 text-left leading-relaxed font-poppins">
               Your previous password has been reseted. Please set a new password for your account.
             </p>
           </div>
@@ -120,23 +114,14 @@ export default function SetPasswordPage() {
               <label className="block text-black text-base mb-2">
                 Create Password
               </label>
-              <div className="relative">
-                <input 
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="**************"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="auth-input auth-input-with-icon h-12 px-4"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="auth-eye-icon"
-                >
-                  <EyeIcon showPassword={showPassword} />
-                </button>
-              </div>
+              <input 
+                type="password"
+                placeholder="**************"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="auth-input h-12 px-4"
+                required
+              />
             </div>
 
             {/* Re-Enter Password Field */}
@@ -144,23 +129,14 @@ export default function SetPasswordPage() {
               <label className="block text-black text-base mb-2">
                 Re-Enter Password
               </label>
-              <div className="relative">
-                <input 
-                  type={showConfirmPassword ? 'text' : 'password'}
-                  placeholder="**************"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="auth-input auth-input-with-icon h-12 px-4"
-                  required
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="auth-eye-icon"
-                >
-                  <EyeIcon showPassword={showConfirmPassword} />
-                </button>
-              </div>
+              <input 
+                type="password"
+                placeholder="**************"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="auth-input h-12 px-4"
+                required
+              />
             </div>
 
             {/* Error Message */}
@@ -174,7 +150,7 @@ export default function SetPasswordPage() {
             <button 
               type="submit"
               disabled={loading || !password || !confirmPassword}
-              className={`w-full h-12 rounded-lg border-none text-white text-base font-medium cursor-pointer transition-colors ${
+              className={`w-[70%] h-12 rounded-lg border-none text-white text-base font-medium cursor-pointer transition-colors ${
                 loading || !password || !confirmPassword ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-800 hover:bg-blue-900'
               } ${loading ? 'opacity-50' : ''}`}
             >
