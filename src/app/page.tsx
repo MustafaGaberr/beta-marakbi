@@ -17,15 +17,16 @@ export default function HomePage() {
       <Header />
       <main className="relative z-10">
         <Hero />
-      <FeaturedServices />
-      <AboutApp />
-      <BoatFleet />
-      <WhyUs />
-      <Stats />
-      <Activities />
-      <Destinations />
-      <FinalCTA />
-      <Footer />
-    </main>
+        <FeaturedServices />
+        <AboutApp />
+        <BoatFleet />
+        <WhyUs />
+        <Stats />
+        <Activities />
+        <Destinations />
+        <FinalCTA />
+        <Footer />
+      </main>
+    </div>
   );
 }

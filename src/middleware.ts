@@ -25,9 +25,24 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // If user is on auth page (login/signup) and logged in, redirect to dashboard
+  // If user is on auth page (login/signup) and logged in, redirect based on role
   if ((pathname.startsWith('/login') || pathname.startsWith('/signup')) && token) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    // Try to get user info from localStorage via cookie or default to dashboard for admins
+    const userCookie = request.cookies.get('userInfo')?.value;
+    let redirectPath = '/dashboard'; // Default for admins/boat_owners
+    
+    if (userCookie) {
+      try {
+        const user = JSON.parse(userCookie);
+        if (user.role === 'user') {
+          redirectPath = '/'; // Regular users go to home
+        }
+      } catch (e) {
+        // Default to dashboard if parsing fails
+      }
+    }
+    
+    return NextResponse.redirect(new URL(redirectPath, request.url));
   }
 
   // If logged in: block access to forgot/set-password/verify-code pages

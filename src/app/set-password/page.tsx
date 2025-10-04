@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { mockApi, storage } from '@/lib/api';
 
@@ -38,8 +38,15 @@ export default function SetPasswordPage() {
       const response = await mockApi.resetPassword(password, confirmPassword);
 
       if (response.success) {
-        // Navigate to dashboard
-        router.push('/dashboard');
+        // Get stored user to check role (in case they're completing password setup)
+        const user = storage.getUser();
+        if (user && (user.role === 'admin' || user.role === 'boat_owner')) {
+          // Admin and boat owners go to dashboard
+          router.push('/dashboard');
+        } else {
+          // Regular users go to home page
+          router.push('/');
+        }
       } else {
         setError(response.error || 'Failed to set password. Please try again.');
       }

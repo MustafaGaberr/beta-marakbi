@@ -32,8 +32,15 @@ export default function LoginPage() {
         storage.setTokens(response.data.tokens);
         storage.setUser(response.data.user);
         
-        // Navigate to dashboard
-        router.push('/dashboard');
+        // Redirect based on user role
+        const userRole = response.data.user.role;
+        if (userRole === 'admin' || userRole === 'boat_owner') {
+          // Admin and boat owners go to dashboard
+          router.push('/dashboard');
+        } else {
+          // Regular users go to home page
+          router.push('/');
+        }
       } else {
         setError(response.error || 'Login failed. Please try again.');
       }

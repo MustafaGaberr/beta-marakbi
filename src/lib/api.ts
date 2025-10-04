@@ -167,6 +167,8 @@ export const storage = {
   setUser(user: AuthUser) {
     if (typeof window !== 'undefined') {
       localStorage.setItem('user', JSON.stringify(user));
+      // Set cookie for server-side access
+      document.cookie = `userInfo=${encodeURIComponent(JSON.stringify(user))}; path=/; max-age=86400`;
     }
   },
 
@@ -203,14 +205,35 @@ export const mockApi = {
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
+    // Determine user role based on email or specific usernames
+    let userRole: 'user' | 'boat_owner' | 'admin' = 'user';
+    let fullName = 'User Name';
+    
+    // Admin users (high privileges) - redirect to dashboard
+    if (credentials.email === 'admin@marakbi.com' || 
+        credentials.email === 'manager@marakbi.com' ||
+        credentials.email.includes('admin') ||
+        credentials.email.includes('manager') ||
+        credentials.email.includes('moderator')) {
+      userRole = 'admin';
+      fullName = 'Marakbi Administrator';
+    }
+    // Boat owners - have dashboard access for managing boats
+    else if (credentials.email === 'owner@marakbi.com' ||
+             credentials.email.includes('owner') ||
+             credentials.email.includes('captain')) {
+      userRole = 'boat_owner';
+      fullName = 'Boat Owner';
+    }
+    
     return {
       success: true,
       data: {
         user: {
-          id: '1',
+          id: Math.random().toString(36).substr(2, 9),
           email: credentials.email,
-          fullName: 'User Name',
-          role: 'user' as const,
+          fullName: fullName,
+          role: userRole,
         },
         tokens: {
           accessToken: 'mock-access-token',
