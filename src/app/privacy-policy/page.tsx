@@ -1,11 +1,8 @@
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Header />
-      
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Page Title */}

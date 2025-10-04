@@ -4,15 +4,56 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Logo from './Logo';
-import { storage } from '@/lib/api';
+import { storage, authApi } from '@/lib/api';
 
-const Header = () => {
-  const [user, setUser] = useState<any>(null);
+interface HeaderProps {
+  variant?: 'transparent' | 'solid';
+  currentPage?: string;
+}
+
+const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
+  const [user, setUser] = useState<{ fullName?: string; email?: string; role?: string } | null>(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   useEffect(() => {
     const userData = storage.getUser();
     setUser(userData);
   }, []);
+
+  const textColor = variant === 'solid' ? 'text-gray-900' : 'text-white';
+  const hoverColor = variant === 'solid' ? 'hover:text-blue-600' : 'hover:text-blue-200';
+  const logoVariant = variant === 'solid' ? 'gradient' : 'white';
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    
+    try {
+      // Call logout API to clear server-side session/cookies
+      await authApi.logout();
+    } catch (error) {
+      console.error('Logout API error:', error);
+    }
+    
+    // Clear local storage and session storage
+    storage.clearAll();
+    if (typeof window !== 'undefined') {
+      localStorage.clear();
+      sessionStorage.clear();
+      
+      // Clear all cookies manually
+      document.cookie.split(";").forEach(function(c) { 
+        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+      });
+    }
+    
+    // Redirect based on current page
+    if (currentPage === 'home' || window.location.pathname === '/') {
+      window.location.href = '/';
+    } else {
+      window.location.href = '/login';
+    }
+  };
 
   return (
     <header className="relative z-50">
@@ -43,82 +84,154 @@ const Header = () => {
           <span className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins">List your Boat</span>
           <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
             {/* Facebook */}
-            <div className="w-6 h-6 relative overflow-hidden">
-              <div className="w-6 h-6 bg-orange-300 absolute"></div>
-              <svg className="w-3 h-5 absolute left-[9px] top-[4.5px]" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-              </svg>
-            </div>
+            <Link href="https://www.facebook.com/profile.php?id=61578325940602" target="_blank" rel="noopener noreferrer" className="w-6 h-6 relative overflow-hidden hover:opacity-80 transition-opacity">
+              <Image src="/icons/Facebook.svg" alt="Facebook" width={24} height={24} className="w-full h-full" />
+            </Link>
             {/* LinkedIn */}
-            <div className="w-6 h-6 relative overflow-hidden">
-              <div className="w-6 h-6 bg-orange-300 absolute"></div>
-              <svg className="w-[3.47px] h-2.5 absolute left-[4.92px] top-[4.73px]" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </div>
+            <Link href="https://www.linkedin.com/company/marakbi" target="_blank" rel="noopener noreferrer" className="w-6 h-6 relative overflow-hidden hover:opacity-80 transition-opacity">
+              <Image src="/icons/Linkedin.svg" alt="LinkedIn" width={24} height={24} className="w-full h-full" />
+            </Link>
             {/* Instagram */}
-            <div className="w-6 h-6 relative">
-              <div className="w-6 h-6 bg-orange-300 absolute"></div>
-            </div>
+            <Link href="https://www.instagram.com/marakbi_app/" target="_blank" rel="noopener noreferrer" className="w-6 h-6 relative overflow-hidden hover:opacity-80 transition-opacity">
+              <Image src="/icons/instgram.svg" alt="Instagram" width={24} height={24} className="w-full h-full" />
+            </Link>
             {/* YouTube */}
-            <div className="w-6 h-6 relative overflow-hidden">
-              <div className="w-6 h-6 bg-orange-300 absolute"></div>
-            </div>
+            <Link href="https://www.youtube.com/@marakbi" target="_blank" rel="noopener noreferrer" className="w-6 h-6 relative overflow-hidden hover:opacity-80 transition-opacity">
+              <Image src="/icons/youtube.svg" alt="YouTube" width={24} height={24} className="w-full h-full" />
+            </Link>
           </div>
         </div>
       </div>
+      
       {/* Main Navigation Bar */}
-      <nav className="absolute top-14 left-0 right-0 z-40">
+      <nav className={`absolute top-14 left-0 right-0 z-50 ${variant === 'solid' ? 'bg-white shadow-sm' : 'bg-transparent'}`}>
         <div className="px-4 sm:px-8 md:px-16 py-4 flex justify-between items-center">
           {/* Left: Logo */}
           <div className="flex items-center space-x-3">
             <Link href="/">
-              <Logo width={64} height={100} />
+              <Logo width={64} height={100} variant={logoVariant} />
             </Link>
           </div>
-          {/* Middle: Navigation Links */}
-          <div className="hidden md:flex gap-6">
-            <Link href="/" className="text-white text-base font-normal font-poppins hover:text-blue-200 transition-colors">Home</Link>
-            <span className="text-white text-base font-normal font-poppins">About us</span>
+          
+          {/* Middle: Navigation Links - Desktop */}
+          <div className="hidden md:flex gap-8">
+            <Link href="/" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>Home</Link>
+            <Link href="/about-us" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>About us</Link>
             <div className="flex items-center gap-2">
-              <span className="text-white text-base font-normal font-poppins">Our Services</span>
-              <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-                <svg className="w-2.5 h-[5px] text-zinc-900" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </div>
+              <span className={`${textColor} text-base font-normal font-poppins`}>Our Services</span>
+              <i className={`fas fa-caret-down ${textColor} text-sm`}></i>
             </div>
-            <span className="text-white text-base font-normal font-poppins">Contact</span>
-          </div>
-          {/* Right: Auth Links or Profile */}
-          <div className="flex items-center gap-4">
-            {user ? (
-              <div className="flex items-center gap-4">
-                <Link href="/profile" className="text-white text-base font-normal font-poppins hover:text-blue-200 transition-colors">
-                  My Profile
-                </Link>
-                <Link href="/dashboard" className="text-white text-base font-normal font-poppins hover:text-blue-200 transition-colors">
-                  Dashboard
-                </Link>
-              </div>
-            ) : (
-              <div className="flex items-center gap-4">
-                <Link href="/login" className="text-white text-base font-normal font-poppins hover:text-blue-200 transition-colors">
-                  Login
-                </Link>
-                <Link href="/signup" className="px-4 py-2 border border-orange-300 text-white text-base font-normal font-poppins rounded hover:bg-orange-300 hover:text-gray-900 transition-colors">
-                  Register
-                </Link>
-              </div>
-            )}
+            <Link href="/contact" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>Contact</Link>
             {/* Search Icon */}
-            <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-              <svg className="w-4 h-4 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-6 h-6 flex items-center justify-center">
+              <svg className={`w-5 h-5 ${textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
           </div>
+          
+          {/* Right: Auth Links or Profile */}
+          <div className="flex items-center gap-6">
+            {user ? (
+              <div className="hidden md:flex items-center gap-6">
+                <Link href="/profile" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>
+                  My Profile
+                </Link>
+                {currentPage !== 'dashboard' && (
+                  <Link href="/dashboard" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>
+                    Dashboard
+                  </Link>
+                )}
+                <button
+                  onClick={handleLogout}
+                  disabled={isLoggingOut}
+                  className={`px-4 py-2 rounded-lg transition-colors flex items-center gap-2 ${
+                    isLoggingOut 
+                      ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
+                      : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md'
+                  }`}
+                >
+                  {isLoggingOut && (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  )}
+                  {isLoggingOut ? 'Logging out...' : 'Logout'}
+                </button>
+              </div>
+            ) : (
+              <div className="hidden md:flex items-center gap-6">
+                <Link href="/signup" className={`px-4 py-2 border border-orange-300 text-orange-300 text-base font-normal font-poppins rounded hover:bg-orange-300 hover:text-white transition-colors`}>
+                  Register
+                </Link>
+                <Link href="/login" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>
+                  Login
+                </Link>
+              </div>
+            )}
+            
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`md:hidden p-2 rounded-lg ${variant === 'solid' ? 'hover:bg-gray-100' : 'hover:bg-white/10'} transition-colors`}
+            >
+              <svg className={`w-6 h-6 ${textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
+        
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className={`md:hidden ${variant === 'solid' ? 'bg-white shadow-lg' : 'bg-white/95 backdrop-blur-sm'} border-t border-gray-200`}>
+            <div className="px-4 py-4 space-y-4">
+              <Link href="/" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">Home</Link>
+              <Link href="/about-us" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">About us</Link>
+              <span className="block text-gray-800 text-base font-normal font-poppins">Our Services</span>
+              <Link href="/contact" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">Contact</Link>
+              
+              {/* Mobile Auth Links */}
+              {user ? (
+                <div className="pt-4 border-t border-gray-200 space-y-2">
+                  <Link href="/profile" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">
+                    My Profile
+                  </Link>
+                  {currentPage !== 'dashboard' && (
+                    <Link href="/dashboard" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">
+                      Dashboard
+                    </Link>
+                  )}
+                  <button
+                    onClick={handleLogout}
+                    disabled={isLoggingOut}
+                    className={`px-4 py-2 rounded-lg transition-colors flex items-center gap-2 text-center ${
+                      isLoggingOut 
+                        ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
+                        : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md'
+                    }`}
+                  >
+                    {isLoggingOut && (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    )}
+                    {isLoggingOut ? 'Logging out...' : 'Logout'}
+                  </button>
+                </div>
+              ) : (
+                <div className="pt-4 border-t border-gray-200 space-y-2">
+                  <Link href="/login" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">
+                    Login
+                  </Link>
+                  <Link href="/signup" className="block px-4 py-2 border border-orange-300 text-gray-800 text-base font-normal font-poppins rounded hover:bg-orange-300 hover:text-white transition-colors text-center">
+                    Register
+                  </Link>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </nav>
     </header>
   );

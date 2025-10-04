@@ -2,12 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { storage, authApi } from '@/lib/api';
+import { storage } from '@/lib/api';
 import Header from '../../components/Header';
 
 export default function DashboardPage() {
   const [user, setUser] = useState<any>(null);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -19,32 +18,6 @@ export default function DashboardPage() {
     }
     setUser(userData);
   }, [router]);
-
-  const handleLogout = async () => {
-    setIsLoggingOut(true);
-    
-    try {
-      // Call logout API to clear server-side session/cookies
-      await authApi.logout();
-    } catch (error) {
-      console.error('Logout API error:', error);
-    }
-    
-    // Clear local storage and session storage
-    storage.clearAll();
-    if (typeof window !== 'undefined') {
-      localStorage.clear();
-      sessionStorage.clear();
-      
-      // Clear all cookies manually
-      document.cookie.split(";").forEach(function(c) { 
-        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
-      });
-    }
-    
-    // Force page reload to clear any cached state
-    window.location.href = '/login';
-  };
 
   if (!user) {
     return (
@@ -59,7 +32,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
+      <Header variant="solid" currentPage="dashboard" />
       {/* Header */}
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,20 +41,6 @@ export default function DashboardPage() {
               <h1 className="text-2xl font-bold text-gray-900 font-poppins">Marakbi Dashboard</h1>
               <p className="text-gray-600 font-poppins">Welcome back, {user.fullName}</p>
             </div>
-            <button
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-              className={`px-4 py-2 rounded-lg transition-colors flex items-center gap-2 cursor-pointer ${
-                isLoggingOut 
-                  ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
-                  : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md'
-              }`}
-            >
-              {isLoggingOut && (
-                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              )}
-              {isLoggingOut ? 'Logging out...' : 'Logout'}
-            </button>
           </div>
         </div>
       </div>
