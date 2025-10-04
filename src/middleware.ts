@@ -5,7 +5,7 @@ import type { NextRequest } from 'next/server';
 const authPages = ['/login', '/signup', '/verify-code', '/forgot-password', '/set-password', '/quick-logout', '/test-auth'];
 
 // Always allow access to these debugging pages
-const debugPages = ['/test-auth', '/quick-logout'];
+const debugPages = ['/test-auth', '/quick-logout', '/test-clicks'];
 
 // Pages that require authentication
 const protectedPages = ['/dashboard', '/profile', '/bookings', '/admin'];

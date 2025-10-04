@@ -33,7 +33,7 @@ const Hero = () => {
             <div className="text-white text-xl sm:text-2xl lg:text-3xl font-medium font-['Poppins'] capitalize mb-8">
               Your Dream boats
             </div>
-            <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-['Poppins'] mx-auto lg:mx-0">
+            <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-['Poppins'] mx-auto lg:mx-0 clickable">
               Explore Now
             </button>
           </div>
@@ -81,11 +81,9 @@ const Hero = () => {
             </div>
 
             {/* Book now Button */}
-            <div className="w-full sm:w-52 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5">
-              <div className="text-white text-base font-normal font-['Poppins']">
-                Book now
-              </div>
-            </div>
+            <button className="w-full sm:w-52 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-['Poppins'] clickable">
+              Book now
+            </button>
           </div>
         </div>
       </div>

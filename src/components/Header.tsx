@@ -4,7 +4,7 @@ import Logo from './Logo';
 
 const Header = () => {
   return (
-    <header className="relative">
+    <header className="relative z-50">
       {/* Top Bar */}
       <div className="bg-sky-900 h-14 flex items-center justify-between px-4 sm:px-8 md:px-16">
         {/* Left Side: Phone and Email */}
@@ -57,7 +57,7 @@ const Header = () => {
         </div>
       </div>
       {/* Main Navigation Bar */}
-      <nav className="absolute top-14 left-0 right-0 z-10">
+      <nav className="absolute top-14 left-0 right-0 z-40">
         <div className="px-4 sm:px-8 md:px-16 py-4 flex justify-between items-center">
           {/* Left: Logo */}
           <div className="flex items-center space-x-3">

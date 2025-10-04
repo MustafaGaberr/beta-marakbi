@@ -12,7 +12,7 @@ import Footer from '@/components/Footer';
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="relative z-10">
       <Hero />
       <FeaturedServices />
       <AboutApp />

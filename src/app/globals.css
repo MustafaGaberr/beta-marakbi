@@ -194,3 +194,49 @@
 h1, h2, h3, h4, .font-serif {
   font-family: var(--font-family-serif);
 }
+
+/* Fix for clickable elements */
+button, a, [role="button"] {
+  cursor: pointer;
+  pointer-events: auto !important;
+  z-index: 9999;
+  position: relative;
+}
+
+/* Ensure buttons are interactive */
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:not(:disabled):hover {
+  transform: translateY(-1px);
+}
+
+/* Fix for auth buttons */
+.auth-link-button,
+.auth-submit-button,
+.auth-back-button {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  z-index: 10;
+  position: relative;
+}
+
+/* Ensure no overlay is blocking clicks */
+* {
+  pointer-events: auto;
+}
+
+/* Fix potential overlay issues */
+body > * {
+  pointer-events: auto;
+}
+
+/* Debug click fix */
+.clickable {
+  cursor: pointer;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 999;
+}
