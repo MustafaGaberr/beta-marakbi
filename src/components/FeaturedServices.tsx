@@ -39,7 +39,7 @@ const FeaturedServices = () => {
       {/* Featured Activities Box */}
       <div className="max-w-4xl mx-auto mb-16 bg-white rounded-tl-lg rounded-tr-lg shadow-lg">
         <div className="p-6">
-          <h2 className="text-blue-700 text-lg font-medium font-['Poppins'] capitalize mb-4">
+          <h2 className="text-blue-700 text-lg font-medium font-poppins capitalize mb-4">
             Featured Activities
           </h2>
 
@@ -52,7 +52,7 @@ const FeaturedServices = () => {
                 alt="Felucca"
                 className="w-40 h-36 rounded-lg"
               />
-              <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-['Poppins']">
+              <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
                 01
               </div>
             </div>
@@ -64,7 +64,7 @@ const FeaturedServices = () => {
                 alt="Fishing"
                 className="w-40 h-40 rounded-lg"
               />
-              <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-['Poppins']">
+              <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
                 02
               </div>
             </div>
@@ -76,7 +76,7 @@ const FeaturedServices = () => {
                 alt="Kayak"
                 className="w-40 h-36 rounded-lg"
               />
-              <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-['Poppins']">
+              <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
                 03
               </div>
             </div>
@@ -84,7 +84,7 @@ const FeaturedServices = () => {
 
           {/* Bottom bar */}
           <div className="mt-4 w-40 h-8 bg-black/30 rounded-bl-lg rounded-br-lg flex items-center justify-center mx-auto">
-            <span className="text-white text-lg font-normal font-['Poppins'] capitalize">
+            <span className="text-white text-lg font-normal font-poppins capitalize">
               Felucca
             </span>
           </div>

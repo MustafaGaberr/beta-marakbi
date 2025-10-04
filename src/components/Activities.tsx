@@ -3,10 +3,10 @@ const Activities = () => {
     <section className="relative py-16">
       {/* Title */}
       <div className="text-center mb-12">
-        <h2 className="text-black text-4xl md:text-6xl font-bold font-['Poppins'] capitalize leading-tight">
+        <h2 className="text-black text-4xl md:text-6xl font-bold font-poppins capitalize leading-tight">
           Discover the Best Activities <br />at waterways
         </h2>
-        <p className="text-zinc-500 text-lg md:text-2xl font-medium font-['Poppins'] capitalize mt-8 max-w-3xl mx-auto px-4">
+        <p className="text-zinc-500 text-lg md:text-2xl font-medium font-poppins capitalize mt-8 max-w-3xl mx-auto px-4">
           From thrilling water sports to serene sunset cruises, enjoy handpicked activities that make every moment at sea unforgettable.
         </p>
       </div>
@@ -22,7 +22,7 @@ const Activities = () => {
               className="w-full h-full object-cover rounded-[32px]"
             />
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-['Poppins'] capitalize">
+              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
                 Water Sports
               </span>
             </div>
@@ -38,7 +38,7 @@ const Activities = () => {
               className="w-full h-full object-cover rounded-[32px]"
             />
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-['Poppins'] capitalize">
+              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
                 Boat Rides
               </span>
             </div>
@@ -56,7 +56,7 @@ const Activities = () => {
               className="w-full h-full object-cover rounded-[32px]"
             />
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-['Poppins'] capitalize">
+              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
                 Fishing Trips
               </span>
             </div>
@@ -74,7 +74,7 @@ const Activities = () => {
               className="w-full h-full object-cover rounded-[32px]"
             />
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-['Poppins'] capitalize">
+              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
                 Family Activities
               </span>
             </div>
@@ -95,7 +95,7 @@ const Activities = () => {
               className="w-full h-full object-cover rounded-[32px]"
             />
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-['Poppins'] capitalize">
+              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
                 Snorkelling & Diving
               </span>
             </div>
@@ -111,7 +111,7 @@ const Activities = () => {
               className="w-full h-full object-cover rounded-[32px]"
             />
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-['Poppins'] capitalize">
+              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
                 Cruises
               </span>
             </div>

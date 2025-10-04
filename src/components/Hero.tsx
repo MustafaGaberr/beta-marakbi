@@ -25,28 +25,28 @@ const Hero = () => {
             <div className="text-orange-300 text-2xl sm:text-3xl lg:text-4xl font-normal font-['SignPainter'] capitalize mb-4">
               With Marakbi
             </div>
-            <div className="text-white text-3xl sm:text-4xl lg:text-6xl font-bold font-['Poppins'] capitalize leading-tight lg:leading-[68px] mb-8">
+            <div className="text-white text-3xl sm:text-4xl lg:text-6xl font-bold font-poppins capitalize leading-tight lg:leading-[68px] mb-8">
               <span className="text-white">Most Reliable<br/></span>
               <span className="text-orange-300">Luxury Boats </span>
               <span className="text-white">Rentals</span>
             </div>
-            <div className="text-white text-xl sm:text-2xl lg:text-3xl font-medium font-['Poppins'] capitalize mb-8">
+            <div className="text-white text-xl sm:text-2xl lg:text-3xl font-medium font-poppins capitalize mb-8">
               Your Dream boats
             </div>
-            <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-['Poppins'] mx-auto lg:mx-0 clickable">
+            <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-poppins mx-auto lg:mx-0 clickable">
               Explore Now
             </button>
           </div>
 
           {/* Right Side: Booking Form */}
           <div className="w-full sm:w-72 h-96 bg-white/10 rounded-lg overflow-hidden flex flex-col justify-center items-center p-3">
-            <div className="text-white text-sm font-normal font-['Poppins'] capitalize mb-3">
+            <div className="text-white text-sm font-normal font-poppins capitalize mb-3">
               Where to go
             </div>
 
             {/* City Dropdown */}
             <div className="w-full sm:w-52 h-12 p-3 bg-neutral-200 rounded-lg flex justify-between items-center mb-3">
-              <div className="text-neutral-400 text-sm font-normal font-['Poppins'] capitalize">
+              <div className="text-neutral-400 text-sm font-normal font-poppins capitalize">
                 City
               </div>
               <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
@@ -58,7 +58,7 @@ const Hero = () => {
 
             {/* Boat Type Dropdown */}
             <div className="w-full sm:w-52 h-12 p-3 bg-neutral-200 rounded-lg flex justify-between items-center mb-3">
-              <div className="text-neutral-400 text-sm font-normal font-['Poppins'] capitalize">
+              <div className="text-neutral-400 text-sm font-normal font-poppins capitalize">
                 Felucca
               </div>
               <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
@@ -70,7 +70,7 @@ const Hero = () => {
 
             {/* Trip Type Dropdown */}
             <div className="w-full sm:w-52 h-12 p-3 bg-neutral-200 rounded-lg flex justify-between items-center mb-3">
-              <div className="text-neutral-400 text-sm font-normal font-['Poppins'] capitalize">
+              <div className="text-neutral-400 text-sm font-normal font-poppins capitalize">
                 Per Hour
               </div>
               <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
@@ -81,7 +81,7 @@ const Hero = () => {
             </div>
 
             {/* Book now Button */}
-            <button className="w-full sm:w-52 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-['Poppins'] clickable">
+            <button className="w-full sm:w-52 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-poppins clickable">
               Book now
             </button>
           </div>

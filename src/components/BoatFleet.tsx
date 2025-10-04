@@ -70,12 +70,12 @@ const BoatFleet = () => {
           <div className="w-14 h-1 bg-orange-300 mb-8"></div>
 
           {/* Title */}
-          <h2 className="text-white text-3xl md:text-5xl font-semibold font-['Poppins'] mb-4">
+          <h2 className="text-white text-3xl md:text-5xl font-semibold font-poppins mb-4">
             Fleet of Luxury Boats
           </h2>
 
           {/* Description */}
-          <p className="text-white text-sm font-normal font-['Poppins'] max-w-2xl leading-9 px-4">
+          <p className="text-white text-sm font-normal font-poppins max-w-2xl leading-9 px-4">
             Explore our exquisite collection of high-end yachts and premium vessels, perfect for tailored trips across Aswan&apos;s majestic Nile and Egypt&apos;s stunning Red Sea.
           </p>
         </div>
@@ -98,7 +98,7 @@ const BoatFleet = () => {
 
         {/* View All Boats Button */}
         <div className="text-center">
-          <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-sky-900 rounded-lg text-white text-base font-normal font-['Poppins'] capitalize hover:bg-sky-800 transition-colors">
+          <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-sky-900 rounded-lg text-white text-base font-normal font-poppins capitalize hover:bg-sky-800 transition-colors">
             View all boats
           </button>
         </div>

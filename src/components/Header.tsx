@@ -1,8 +1,19 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import Logo from './Logo';
+import { storage } from '@/lib/api';
 
 const Header = () => {
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const userData = storage.getUser();
+    setUser(userData);
+  }, []);
+
   return (
     <header className="relative z-50">
       {/* Top Bar */}
@@ -15,7 +26,7 @@ const Header = () => {
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
               </svg>
             </div>
-            <span className="text-white text-xs sm:text-sm md:text-base font-normal font-['Poppins']">Phone: +2010 31 41 6 900</span>
+            <span className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins">Phone: +2010 31 41 6 900</span>
           </div>
           <div className="hidden sm:flex items-center gap-2">
             <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
@@ -24,12 +35,12 @@ const Header = () => {
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
               </svg>
             </div>
-            <span className="text-white text-xs sm:text-sm md:text-base font-normal font-['Poppins']">Email: info@marakbi.tours</span>
+            <span className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins">Email: info@marakbi.tours</span>
           </div>
         </div>
         {/* Right Side: List your Boat and Social Icons */}
         <div className="flex items-center gap-4 sm:gap-8">
-          <span className="text-white text-xs sm:text-sm md:text-base font-normal font-['Poppins']">List your Boat</span>
+          <span className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins">List your Boat</span>
           <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
             {/* Facebook */}
             <div className="w-6 h-6 relative overflow-hidden">
@@ -61,27 +72,51 @@ const Header = () => {
         <div className="px-4 sm:px-8 md:px-16 py-4 flex justify-between items-center">
           {/* Left: Logo */}
           <div className="flex items-center space-x-3">
-            <Logo width={64} height={100} />
+            <Link href="/">
+              <Logo width={64} height={100} />
+            </Link>
           </div>
           {/* Middle: Navigation Links */}
           <div className="hidden md:flex gap-6">
-            <span className="text-white text-base font-normal font-['Poppins']">Home</span>
-            <span className="text-white text-base font-normal font-['Poppins']">About us</span>
+            <Link href="/" className="text-white text-base font-normal font-poppins hover:text-blue-200 transition-colors">Home</Link>
+            <span className="text-white text-base font-normal font-poppins">About us</span>
             <div className="flex items-center gap-2">
-              <span className="text-white text-base font-normal font-['Poppins']">Our Services</span>
+              <span className="text-white text-base font-normal font-poppins">Our Services</span>
               <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
                 <svg className="w-2.5 h-[5px] text-zinc-900" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </div>
             </div>
-            <span className="text-white text-base font-normal font-['Poppins']">Contact</span>
+            <span className="text-white text-base font-normal font-poppins">Contact</span>
           </div>
-          {/* Right: Search Icon */}
-          <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-            <svg className="w-4 h-4 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+          {/* Right: Auth Links or Profile */}
+          <div className="flex items-center gap-4">
+            {user ? (
+              <div className="flex items-center gap-4">
+                <Link href="/profile" className="text-white text-base font-normal font-poppins hover:text-blue-200 transition-colors">
+                  My Profile
+                </Link>
+                <Link href="/dashboard" className="text-white text-base font-normal font-poppins hover:text-blue-200 transition-colors">
+                  Dashboard
+                </Link>
+              </div>
+            ) : (
+              <div className="flex items-center gap-4">
+                <Link href="/login" className="text-white text-base font-normal font-poppins hover:text-blue-200 transition-colors">
+                  Login
+                </Link>
+                <Link href="/signup" className="px-4 py-2 border border-orange-300 text-white text-base font-normal font-poppins rounded hover:bg-orange-300 hover:text-gray-900 transition-colors">
+                  Register
+                </Link>
+              </div>
+            )}
+            {/* Search Icon */}
+            <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
+              <svg className="w-4 h-4 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
           </div>
         </div>
       </nav>

@@ -7,11 +7,11 @@ const AboutApp = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Left Side: Text Content */}
           <div>
-            <h2 className="text-black text-5xl font-semibold font-['Poppins'] mb-8">
+            <h2 className="text-black text-5xl font-semibold font-poppins mb-8">
               Providing a large fleet of Boats for a perfect and dreamy experience
             </h2>
 
-            <p className="text-black text-lg font-normal font-['Poppins'] leading-9 mb-8">
+            <p className="text-black text-lg font-normal font-poppins leading-9 mb-8">
               Born in Aswan, Marakbi offers authentic experiences across Egypt&apos;s prime waters.
               We connect you to a network of vetted, professional boat owners and captains on the
               Nile River, the Red Sea, and the Mediterranean Sea. You&apos;re not just renting a boat;
@@ -19,19 +19,19 @@ const AboutApp = () => {
             </p>
 
             <ul className="space-y-3">
-              <li className="text-black text-lg font-semibold font-['Poppins'] leading-9">
+              <li className="text-black text-lg font-semibold font-poppins leading-9">
                 Premium Boats & Yachts
               </li>
-              <li className="text-black text-lg font-semibold font-['Poppins'] leading-9">
+              <li className="text-black text-lg font-semibold font-poppins leading-9">
                 Our Professional Approach
               </li>
-              <li className="text-black text-lg font-semibold font-['Poppins'] leading-9">
+              <li className="text-black text-lg font-semibold font-poppins leading-9">
                 AR/VR Experience
               </li>
-              <li className="text-black text-lg font-semibold font-['Poppins'] leading-9">
+              <li className="text-black text-lg font-semibold font-poppins leading-9">
                 360 Video Experience
               </li>
-              <li className="text-black text-lg font-semibold font-['Poppins'] leading-9">
+              <li className="text-black text-lg font-semibold font-poppins leading-9">
                 AI Chatbot
               </li>
             </ul>
@@ -44,7 +44,7 @@ const AboutApp = () => {
               />
             </div>
             <div className="border-l-4 border-orange-300 pl-6 mb-8">
-              <p className="text-black text-sm font-normal font-['Poppins'] leading-9">
+              <p className="text-black text-sm font-normal font-poppins leading-9">
                 CTO & Founder, Marakbi App
               </p>
             </div>

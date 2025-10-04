@@ -32,13 +32,13 @@ const WhyUs = () => {
       <div className="relative container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-white text-3xl md:text-5xl font-bold font-['Poppins'] capitalize mb-4">
+          <h2 className="text-white text-3xl md:text-5xl font-bold font-poppins capitalize mb-4">
             Why Choosing US
           </h2>
-          <p className="text-white text-xl md:text-3xl font-normal font-['Poppins'] capitalize mb-8">
+          <p className="text-white text-xl md:text-3xl font-normal font-poppins capitalize mb-8">
             We Do Our Best For Your Convenience
           </p>
-          <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-orange-300 rounded-lg text-sky-900 text-base font-normal font-['Poppins'] capitalize hover:bg-orange-400 transition-colors">
+          <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-orange-300 rounded-lg text-sky-900 text-base font-normal font-poppins capitalize hover:bg-orange-400 transition-colors">
             book with us
           </button>
         </div>
@@ -48,10 +48,10 @@ const WhyUs = () => {
           {features.map((feature, index) => (
             <div key={index} className="bg-sky-950/50 backdrop-blur-sm rounded-lg p-6 border border-sky-100/20 hover:bg-sky-950/70 transition-colors">
               <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-white text-xl font-semibold font-['Poppins'] capitalize mb-4">
+              <h3 className="text-white text-xl font-semibold font-poppins capitalize mb-4">
                 {feature.title}
               </h3>
-              <p className="text-orange-300 text-base font-normal font-['Poppins'] leading-6">
+              <p className="text-orange-300 text-base font-normal font-poppins leading-6">
                 {feature.description}
               </p>
             </div>

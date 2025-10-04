@@ -16,7 +16,7 @@ const Destinations = () => {
       <div className="container mx-auto px-4">
         {/* Title */}
         <div className="text-center mb-8">
-          <h2 className="text-4xl md:text-6xl lg:text-8xl font-bold font-['Poppins'] capitalize text-black/10 mb-4">
+          <h2 className="text-4xl md:text-6xl lg:text-8xl font-bold font-poppins capitalize text-black/10 mb-4">
             Destination
           </h2>
         </div>
@@ -30,7 +30,7 @@ const Destinations = () => {
               alt="Philae Temple"
               className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
-            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
+            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
               Philae Temple
             </div>
           </div>
@@ -42,7 +42,7 @@ const Destinations = () => {
               alt="Botanical Garden"
               className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
-            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
+            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
               Botanical Garden
             </div>
           </div>
@@ -54,7 +54,7 @@ const Destinations = () => {
               alt="Philae Temple"
               className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
-            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
+            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
               Philae Temple
             </div>
           </div>
@@ -66,7 +66,7 @@ const Destinations = () => {
               alt="Philae Temple"
               className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
-            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
+            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
               Philae Temple
             </div>
           </div>
@@ -78,7 +78,7 @@ const Destinations = () => {
               alt="Philae Temple"
               className="w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 object-cover"
             />
-            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-['Poppins'] capitalize">
+            <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
               Philae Temple
             </div>
           </div>
@@ -105,7 +105,7 @@ const Destinations = () => {
         <div className="text-stone-500 text-2xl md:text-4xl font-normal font-['SignPainter'] capitalize mb-2">
           Where to sail Now
         </div>
-        <div className="text-black text-3xl md:text-5xl font-bold font-['Poppins'] capitalize">
+        <div className="text-black text-3xl md:text-5xl font-bold font-poppins capitalize">
           Top Destination
         </div>
       </div>
