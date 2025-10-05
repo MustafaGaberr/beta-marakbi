@@ -2,7 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import Logo from './Logo';
 import { storage, authApi } from '@/lib/api';
 
@@ -12,13 +13,74 @@ interface HeaderProps {
 }
 
 const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
+  const router = useRouter();
   const [user, setUser] = useState<{ fullName?: string; email?: string; role?: string } | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  const servicesMenuRef = useRef<HTMLDivElement | null>(null);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const servicesHoverTimeoutRef = useRef<number | null>(null);
+
+  type Suggestion = { label: string; href: string; keywords?: string[] };
+
+  const searchSuggestions: Suggestion[] = [
+    { label: 'PRIVATE BOATS', href: '/services/private-boats', keywords: ['boats', 'private', 'مراكب', 'قوارب', 'مركب'] },
+    { label: 'SHARING BOATS', href: '/services/sharing-boats', keywords: ['sharing', 'shared', 'مشتركة', 'رحلة مشتركة', 'قارب مشترك'] },
+    { label: 'TRAVEL BOATS', href: '/services/travel-boats', keywords: ['travel', 'trip', 'رحلات', 'سفر', 'رحلة'] },
+    { label: 'FISHING BOATS', href: '/services/fishing-boats', keywords: ['fishing', 'fish', 'صيد', 'مراكب صيد'] },
+    { label: 'STAYOVER BOATS', href: '/services/stayover-boats', keywords: ['stayover', 'overnight', 'مبيت', 'مبيت بحري'] },
+    { label: 'WATER ACTIVITIES', href: '/services/water-activities', keywords: ['activities', 'water', 'نشاطات', 'أنشطة', 'أنشطة مائية'] },
+    { label: 'OCCASIONS', href: '/services/occasions', keywords: ['occasions', 'party', 'مناسبات', 'حفلات'] },
+    { label: 'FELUCCA', href: '/services/felucca', keywords: ['felucca', 'فلوكة', 'فلوكه'] },
+    { label: 'YACHT', href: '/services/yacht', keywords: ['yacht', 'يخت', 'يachts'] },
+    { label: 'TRIPS', href: '/services/trips', keywords: ['trips', 'tours', 'رحلات', 'جولات'] },
+    { label: 'BOAT FLEET', href: '/#boat-fleet', keywords: ['fleet', 'boats', 'أسطول', 'أسطول القوارب', 'مراكب'] },
+    { label: 'DESTINATIONS', href: '/#destinations', keywords: ['destinations', 'أماكن', 'وجهات', 'معبد'] },
+  ];
+
+  const normalizeArabic = (text: string) =>
+    text
+      .toLowerCase()
+      .replace(/أ|إ|آ/g, 'ا')
+      .replace(/ى/g, 'ي')
+      .replace(/ة/g, 'ه')
+      .replace(/ؤ/g, 'و')
+      .replace(/ئ/g, 'ي')
+      .replace(/\s+/g, ' ') // collapse spaces
+      .trim();
+
+  const tokenStartsWith = (source: string, query: string) => {
+    const q = normalizeArabic(query);
+    if (!q) return false;
+    return normalizeArabic(source)
+      .split(' ')
+      .some((tok) => tok.startsWith(q));
+  };
+
+  const filteredSuggestions = searchQuery.trim()
+    ? searchSuggestions.filter((s) => {
+        const pool = [s.label, ...(s.keywords ?? [])];
+        return pool.some((p) => tokenStartsWith(p, searchQuery));
+      }).slice(0, 8)
+    : [];
 
   useEffect(() => {
     const userData = storage.getUser();
     setUser(userData);
+  }, []);
+
+  useEffect(() => {
+    const handleClickAway = (e: MouseEvent) => {
+      if (!servicesMenuRef.current) return;
+      if (!servicesMenuRef.current.contains(e.target as Node)) {
+        setIsServicesOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickAway);
+    return () => document.removeEventListener('mousedown', handleClickAway);
   }, []);
 
   const textColor = variant === 'solid' ? 'text-gray-900' : 'text-white';
@@ -117,16 +179,93 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
           <div className="hidden md:flex gap-8">
             <Link href="/" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>Home</Link>
             <Link href="/about-us" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>About us</Link>
-            <div className="flex items-center gap-2">
-              <span className={`${textColor} text-base font-normal font-poppins`}>Our Services</span>
-              <i className={`fas fa-caret-down ${textColor} text-sm`}></i>
+            {/* Our Services Dropdown */}
+            <div
+              ref={servicesMenuRef}
+              className="relative"
+              onMouseEnter={() => {
+                if (servicesHoverTimeoutRef.current) window.clearTimeout(servicesHoverTimeoutRef.current);
+                setIsServicesOpen(true);
+              }}
+              onMouseLeave={() => {
+                if (servicesHoverTimeoutRef.current) window.clearTimeout(servicesHoverTimeoutRef.current);
+                servicesHoverTimeoutRef.current = window.setTimeout(() => setIsServicesOpen(false), 100);
+              }}
+            >
+              <div className="flex items-center gap-2 cursor-pointer select-none">
+                <span className={`${textColor} text-base font-normal font-poppins`}>Our Services</span>
+                <i className={`fas fa-caret-down ${textColor} text-sm transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`}></i>
+              </div>
+              {/* Dropdown menu */}
+              <div className={`absolute left-0 mt-2 min-w-[220px] rounded-md bg-white py-2 shadow-lg ring-1 ring-black/5 ${isServicesOpen ? 'block' : 'hidden'}`}>
+                <Link href="/services/private-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">PRIVATE BOATS</Link>
+                <Link href="/services/sharing-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">SHARING BOATS</Link>
+                <Link href="/services/travel-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">TRAVEL BOATS</Link>
+                <Link href="/services/fishing-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">FISHING BOATS</Link>
+                <Link href="/services/stayover-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">STAYOVER BOATS</Link>
+                <Link href="/services/water-activities" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">WATER ACTIVITIES</Link>
+                <Link href="/services/occasions" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">OCCASIONS</Link>
+              </div>
             </div>
             <Link href="/contact" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>Contact</Link>
-            {/* Search Icon */}
-            <div className="w-6 h-6 flex items-center justify-center">
-              <svg className={`w-5 h-5 ${textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+            {/* Search Icon + Expanding Input (Desktop) */}
+            <div className="relative flex items-center">
+              <button
+                aria-label="Open search"
+                onClick={() => {
+                  setIsSearchOpen((v) => !v);
+                  setTimeout(() => searchInputRef.current?.focus(), 0);
+                }}
+                className="w-6 h-6 flex items-center justify-center"
+              >
+                <svg className={`w-5 h-5 ${textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+              <input
+                ref={searchInputRef}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    const target = (filteredSuggestions[0] ?? null);
+                    if (target) {
+                      router.push(target.href);
+                      setIsSearchOpen(false);
+                    }
+                  } else if (e.key === 'Escape') {
+                    setIsSearchOpen(false);
+                  }
+                }}
+                onBlur={() => setTimeout(() => setIsSearchOpen(false), 120)}
+                placeholder="Search..."
+                className={`absolute left-full ml-2 h-9 rounded-full bg-white text-gray-900 placeholder-gray-400 shadow border border-gray-200 px-4 transition-all duration-300 ease-out ${
+                  isSearchOpen ? 'w-64 opacity-100' : 'w-0 opacity-0'
+                }`}
+              />
+              {/* Suggestions Dropdown */}
+              {isSearchOpen && searchQuery.trim() && (
+                <div className={`absolute left-full top-full ml-2 mt-2 w-64 rounded-md bg-white shadow-lg ring-1 ring-black/5 overflow-hidden transition-opacity duration-200 ${isSearchOpen ? 'opacity-100' : 'opacity-0'}`}>
+                  {filteredSuggestions.map((s, idx) => (
+                    <Link
+                      key={`${s.href}-${idx}`}
+                      href={s.href}
+                      className="block px-3 py-2 text-sm text-gray-800 hover:bg-gray-50"
+                      onMouseDown={(e) => {
+                        // prevent input blur from cancelling navigation before push
+                        e.preventDefault();
+                        router.push(s.href);
+                        setIsSearchOpen(false);
+                      }}
+                    >
+                      {s.label}
+                    </Link>
+                  ))}
+                  {filteredSuggestions.length === 0 && (
+                    <div className="px-3 py-2 text-sm text-gray-500">No results</div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
           
@@ -191,6 +330,15 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
               <Link href="/" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">Home</Link>
               <Link href="/about-us" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">About us</Link>
               <span className="block text-gray-800 text-base font-normal font-poppins">Our Services</span>
+              <div className="ml-3 space-y-2">
+                <Link href="/services/private-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">PRIVATE BOATS</Link>
+                <Link href="/services/sharing-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">SHARING BOATS</Link>
+                <Link href="/services/travel-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">TRAVEL BOATS</Link>
+                <Link href="/services/fishing-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">FISHING BOATS</Link>
+                <Link href="/services/stayover-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">STAYOVER BOATS</Link>
+                <Link href="/services/water-activities" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">WATER ACTIVITIES</Link>
+                <Link href="/services/occasions" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">OCCASIONS</Link>
+              </div>
               <Link href="/contact" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">Contact</Link>
               
               {/* Mobile Auth Links */}
