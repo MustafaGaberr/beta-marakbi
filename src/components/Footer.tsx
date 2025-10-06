@@ -3,33 +3,69 @@ import Logo from './Logo';
 
 const Footer = () => {
   return (
-    <footer className="bg-sky-900 text-white">
+    <footer className="text-white bg-gradient-to-t from-[#083872] via-[#0A4489] to-[#106BD8]">
       {/* Main Footer Grid */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div className="container mx-auto px-1 pt-16 pb-4">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           {/* Column 1: Logo and Description */}
-          <div className="space-y-4">
+          <div className="space-y-6 md:col-span-2 md:pr-8 lg:pr-10">
             <div className="flex items-center space-x-3">
-              <Logo variant="white" width={24} height={60} />
-              
+              <Logo variant="white" width={72} height={90} />
             </div>
-            <p className="text-gray-300 leading-relaxed font-poppins">
-              Experience luxury on Egyptian waters with our premium boat rental services.
+            <p className="text-gray-300 text-base leading-7 font-poppins">
+              <span>Marakbi is your premier digital gateway to</span><br/>
+              <span>effortless boat rentals across Egypt&apos;s</span><br/>
+              <span>majestic Nile and vibrant Red Sea. We</span><br/>
+              <span>connect you with a diverse fleet, from</span><br/>
+              <span>authentic feluccas to luxury yachts,</span><br/>
+              <span>blending local expertise with cutting-edge</span><br/>
+              <span>technology for your unforgettable aquatic</span><br/>
+              <span>adventure.</span>
             </p>
           </div>
 
           {/* Column 2: Services */}
           <div>
-            <h4 className="text-xl font-semibold mb-6 font-poppins">Services</h4>
+            <h4 className="text-xl text-amber-300 font-semibold mb-6 font-poppins">Marakbi Services</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="#" className="text-gray-300 hover:text-orange-300 transition-colors font-poppins">
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
                   Boat Rentals
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-300 hover:text-orange-300 transition-colors font-poppins">
-                  Private Tours
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                  Water Sports
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                  Family activities
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                  Corporate Events
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                  Fishing Trips
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                  Occassions
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                  Travel Boat
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                  Dahabya
                 </Link>
               </li>
             </ul>
@@ -37,36 +73,31 @@ const Footer = () => {
 
           {/* Column 3: Useful Links */}
           <div>
-            <h4 className="text-xl font-semibold mb-6 font-poppins">Useful Links</h4>
+            <h4 className="text-xl text-amber-300 font-semibold mb-6 font-poppins">Useful Links</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="#" className="text-gray-300 hover:text-orange-300 transition-colors font-poppins">
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-300 hover:text-orange-300 transition-colors font-poppins">
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
                   Our Team
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-300 hover:text-orange-300 transition-colors font-poppins">
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                  Our Services
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                  FAQs
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
                   Contact Us
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-gray-300 hover:text-orange-300 transition-colors font-poppins">
-                  Destinations
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-gray-300 hover:text-orange-300 transition-colors font-poppins">
-                  Safety Guidelines
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="text-gray-300 hover:text-orange-300 transition-colors font-poppins">
-                  FAQ
                 </Link>
               </li>
             </ul>
@@ -74,17 +105,24 @@ const Footer = () => {
 
           {/* Column 4: Subscribe */}
           <div>
-            <h4 className="text-xl font-semibold mb-6 font-poppins">Subscribe</h4>
-            <p className="text-gray-300 mb-4 font-poppins">
-              Get the latest updates on new boats, special offers, and exclusive destinations.
-            </p>
-            <div className="flex flex-col space-y-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="px-4 py-3 rounded-lg bg-sky-800 text-white placeholder-gray-300 border border-gray-600 focus:border-orange-300 focus:outline-none font-poppins"
-              />
-              <button className="bg-orange-300 text-sky-900 px-6 py-3 rounded-lg font-semibold hover:bg-orange-400 transition-colors font-poppins">
+            <h4 className="text-xl text-amber-300 font-semibold mb-6 font-poppins">Subscribe</h4>
+            <p className="text-gray-300 font-poppins mb-6">If you want to stay updated and receive regular information subscribing is a great option.</p>
+            <p className="text-gray-300 mb-3 font-poppins">Email Newsletter</p>
+            <div className="flex items-stretch w-full rounded-xl overflow-hidden shadow-sm">
+              <div className="relative bg-white/90 flex-[4]">
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  className="w-full h-14 pl-5 pr-12 bg-transparent text-[#093B77] placeholder-gray-500 focus:outline-none font-poppins"
+                />
+                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-500">
+                  <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                </span>
+              </div>
+              <div className="w-px bg-[#0E5AA3]" />
+              <button className="h-14 px-6 bg-[#CEAF6E] text-[#093B77] font-semibold hover:bg-[#d8ba78] transition-colors font-poppins flex-[1]">
                 Subscribe
               </button>
             </div>
@@ -115,7 +153,7 @@ const Footer = () => {
                 <svg className="w-5 h-5 text-orange-300" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
-                <span className="text-gray-300 font-poppins">Cairo, Egypt</span>
+                <span className="text-gray-300 font-poppins">Aswan - Egypt</span>
               </div>
             </div>
 

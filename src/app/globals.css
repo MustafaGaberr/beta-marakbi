@@ -9,6 +9,15 @@
   font-display: swap;
 }
 
+/* SignPainter - Local */
+@font-face {
+  font-family: 'SignPainter';
+  src: url('/fonts/signpainter/SignPainterHouseScript.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: 'Poppins';
   src: url('/fonts/poppins/Poppins-ExtraLight.ttf') format('truetype');
@@ -329,6 +338,20 @@ body > * {
 
 .text-poppins {
   font-family: var(--font-family-primary);
+}
+
+/* SignPainter Utilities */
+.font-signpainter {
+  font-family: 'SignPainter', cursive;
+}
+
+.signpainter-title {
+  color: #927C4E;
+  font-size: 38px;
+  font-family: 'SignPainter', cursive;
+  font-weight: 400;
+  text-transform: capitalize;
+  word-wrap: break-word;
 }
 
 /* Privacy Policy Custom Styles */

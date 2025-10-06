@@ -1,24 +1,83 @@
+import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
 export default function AboutUsPage() {
   return (
     <div className="min-h-screen bg-white">
-      <Header variant="solid" />
+      <Header />
       
-      {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        {/* Page Title */}
-        <div className="mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 mb-3 font-poppins">About Us</h1>
-          <p className="text-lg text-gray-600 font-poppins">Discover the story behind Marakbi</p>
+      {/* Hero Section (same style as My Profile) */}
+      <div className="bg-black relative overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 bg-cover bg-center opacity-60" 
+             style={{backgroundImage: "url('/images/Rectangle 3463880.jpg')"}}></div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="flex items-center justify-center">
+            {/* Left Side - Title */}
+            <div className="flex flex-col items-start">
+              <h1 className="text-6xl font-bold text-white font-poppins leading-tight">About</h1>
+              <h1 className="text-6xl font-bold text-white font-poppins leading-tight">Us</h1>
+            </div>
+            
+            {/* Vertical Line */}
+            <div className="w-px h-32 bg-white mx-8"></div>
+            
+            {/* Right Side - Description */}
+            <div className="flex-1 max-w-2xl">
+              <p className="text-xl text-white leading-relaxed font-poppins">
+                No Matter The Journey, We Have A Boat For Your Story. Explore Egypt&apos;s Stunning Waterways With A Curated Selection Of Vessels And Seasoned Captains.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* What We Aim Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="text-center mb-10">
+          <p className="signpainter-title">Know Us More</p>
+          <h2 className="text-5xl sm:text-6xl font-bold font-poppins text-gray-900 mt-2">What We Aim</h2>
         </div>
 
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Images cluster */}
+          <div className="lg:col-span-6 flex justify-center">
+            <div className="w-full max-w-3xl flex items-center justify-center gap-6">
+              {/* Small left (up) */}
+              <div className="transform -translate-y-6">
+                <Image src="/images/Frame 1321316468.png" alt="Boat trip" width={260} height={220} className="rounded" />
+              </div>
+              {/* Center main */}
+              <div className="w-[300px] sm:w-[340px] md:w-[380px] lg:w-[420px] border-4 border-sky-500">
+                <Image src="/images/Frame 1321316466.png" alt="Nile view" width={420} height={420} className="w-full h-auto" />
+              </div>
+              {/* Small right (down) */}
+              <div className="transform translate-y-6">
+                <Image src="/images/Frame 1321316468.png" alt="Boat trip" width={300} height={240} className="rounded" />
+              </div>
+            </div>
+          </div>
+
+          {/* Text content */}
+          <div className="lg:col-span-6">
+            <p className="leading-relaxed mb-4">
+              <span className="text-black text-[18px] font-poppins font-bold">Marakbi is dedicated to making boat trips easy for everyone.</span>{' '}
+              <span className="text-black text-[18px] font-poppins font-normal">We believe that every person—whether you are booking your first boat or you&apos;re an experienced sailor—should have no trouble finding the perfect ride.</span>
+            </p>
+            <p className="leading-relaxed">
+              <span className="text-black text-[18px] font-poppins font-bold">Our main focus is making it fast to book a boat anywhere you need one.</span>{' '}
+              <span className="text-black text-[18px] font-poppins font-normal">We are always improving our service and listing new boats. Most importantly, we have strong rules to make sure every trip is safe and respects the environment.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Content */}
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         {/* Main Content - All in Gray Background */}
-        <div className="bg-gray-100 pt-16 px-24 pb-24 rounded-lg">
-          {/* Empty space under About Us */}
-          <div className="mb-8"></div>
-          
+        <div className="bg-gray-100 pt-16 px-6 sm:px-10 lg:px-24 pb-24 rounded-lg">
           {/* Inner Container - Smaller width */}
           <div className="max-w-4xl">
             {/* Main Heading */}
