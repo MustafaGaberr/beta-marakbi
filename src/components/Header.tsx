@@ -120,30 +120,31 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
   return (
     <header className="relative z-50">
       {/* Top Bar */}
-      <div className="bg-sky-900 h-14 flex items-center justify-between px-4 sm:px-8 md:px-16">
+      <div className="bg-[#093B77] h-14 flex items-center justify-between px-4 sm:px-8 md:px-16">
         {/* Left Side: Phone and Email */}
         <div className="flex items-center gap-4 sm:gap-8 md:gap-16">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-              </svg>
+          <div className="flex items-center gap-0.5">
+            <div className="w-6 h-6 flex items-center justify-center">
+              <Image src="/icons/phone_in_talk.svg" alt="Phone" width={18} height={18} />
             </div>
-            <span className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins">Phone: +2010 31 41 6 900</span>
+            <Link href="tel:+201031416900" className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
+              Phone: +2010 31 41 6 900
+            </Link>
           </div>
-          <div className="hidden sm:flex items-center gap-2">
-            <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-              <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-              </svg>
+          <div className="hidden sm:flex items-center gap-0.5">
+            <div className="w-6 h-6 flex items-center justify-center">
+              <Image src="/icons/mail.svg" alt="Email" width={18} height={18} />
             </div>
-            <span className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins">Email: info@marakbi.tours</span>
+            <Link href="mailto:info@marakbi.tours" className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
+              Email: info@marakbi.tours
+            </Link>
           </div>
         </div>
         {/* Right Side: List your Boat and Social Icons */}
         <div className="flex items-center gap-4 sm:gap-8">
-          <span className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins">List your Boat</span>
+          <Link href="/list-boat" className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
+            List your Boat
+          </Link>
           <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
             {/* Facebook */}
             <Link href="https://www.facebook.com/profile.php?id=61578325940602" target="_blank" rel="noopener noreferrer" className="w-6 h-6 relative overflow-hidden hover:opacity-80 transition-opacity">
@@ -171,7 +172,7 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
           {/* Left: Logo */}
           <div className="flex items-center space-x-3">
             <Link href="/">
-              <Logo width={64} height={100} variant={logoVariant} />
+              <Logo width={64} height={80} variant={logoVariant} />
             </Link>
           </div>
           
