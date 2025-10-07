@@ -10,6 +10,7 @@ export default function ProfilePage() {
   const [user, setUser] = useState<{id?: string; fullName?: string; email?: string; role?: 'user' | 'boat_owner' | 'admin'} | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [profileImage, setProfileImage] = useState<string>('');
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -47,6 +48,12 @@ export default function ProfilePage() {
           newPassword: '',
           confirmPassword: ''
         });
+
+        // Load profile image from localStorage
+        const savedImage = localStorage.getItem('profileImage');
+        if (savedImage) {
+          setProfileImage(savedImage);
+        }
       } catch (error) {
         console.error('Error fetching profile:', error);
         // If profile doesn't exist, we'll create it when user saves
@@ -129,6 +136,34 @@ export default function ProfilePage() {
     }
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError('Please select a valid image file');
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Image size should be less than 5MB');
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const result = event.target?.result as string;
+        setProfileImage(result);
+        // Save to localStorage temporarily
+        localStorage.setItem('profileImage', result);
+        setSuccess('Profile image updated successfully!');
+        setTimeout(() => setSuccess(''), 3000);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleCancel = () => {
     setError('');
     setSuccess('');
@@ -200,49 +235,93 @@ export default function ProfilePage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Left Sidebar - Profile Navigation */}
-          <div className="lg:col-span-1">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
+          <div className="lg:col-span-1 flex">
+            <div className="bg-white py-8 rounded-lg shadow-sm w-full flex flex-col">
               <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2 font-poppins">Welcome!</h2>
-                <p className="text-[#0C4A8C] text-2xl font-bold font-poppins">{user.fullName?.split(' ')[0] || 'User'}</p>
+                <h2 className="text-5xl font-bold text-gray-900 mb-2 font-poppins">Welcome!</h2>
+                <p className="text-blue-500 text-5xl font-bold font-poppins">{user.fullName?.split(' ')[0] || 'User'}</p>
               </div>
               
               {/* Profile Picture */}
               <div className="flex justify-center mb-6">
-                <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center">
-                  <span className="text-4xl font-bold text-gray-500 font-poppins">
-                    {user.fullName?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
-                  </span>
+                <div className="relative">
+                  <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
+                    {profileImage ? (
+                      <img 
+                        src={profileImage} 
+                        alt="Profile" 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-4xl font-bold text-gray-500 font-poppins">
+                        {user.fullName?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                      </span>
+                    )}
+                  </div>
+                  
+                  {/* Edit icon when in edit mode */}
+                  {isEditing && (
+                    <div className="absolute -bottom-1 -right-1">
+                      <label htmlFor="profileImageInput" className="cursor-pointer">
+                        <img 
+                          src="/icons/iconamoon_edit-fill.svg" 
+                          alt="Edit" 
+                          className="w-5 h-5 text-blue-500 drop-shadow-lg"
+                          style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%)' }}
+                        />
+                      </label>
+                      <input
+                        id="profileImageInput"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        className="hidden"
+                      />
+                    </div>
+                  )}
+                  
+                  {/* Click to upload when in edit mode */}
+                  {isEditing && (
+                    <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 rounded-full transition-all duration-200 cursor-pointer">
+                      <label htmlFor="profileImageInput" className="w-full h-full flex items-center justify-center cursor-pointer">
+                        <span className="text-white text-sm font-poppins opacity-0 hover:opacity-100 transition-opacity">
+                          Click to upload
+                        </span>
+                      </label>
+                    </div>
+                  )}
                 </div>
               </div>
               
               {/* Full Name */}
               <div className="text-center mb-6">
-                <p className="text-lg font-semibold text-gray-900 font-poppins">{user.fullName || 'User Name'}</p>
+                <p className="text-xl font-semibold text-gray-900 font-poppins">{user.fullName || 'User Name'}</p>
               </div>
               
               {/* Edit Profile Button */}
               <div className="flex justify-center mb-8">
                 <button 
                   onClick={() => setIsEditing(!isEditing)}
-                  className="flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 font-poppins hover:bg-gray-50 transition-colors"
+                  className="flex items-center justify-center gap-3 px-6 py-3 bg-white border border-gray-300 rounded-lg text-gray-700 font-poppins hover:bg-gray-50 transition-colors"
                 >
-                  <span className="font-poppins">Edit Profile</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
+                  <span className="font-poppins text-base">Edit Profile</span>
+                  <img 
+                    src="/icons/iconamoon_edit-fill.svg" 
+                    alt="Edit" 
+                    className="w-5 h-5"
+                  />
                 </button>
               </div>
               
-              <div>
-                <nav className="space-y-1">
-                  <a href="/profile" className="block bg-[#0C4A8C] text-white px-4 py-2 rounded-lg font-medium font-poppins text-base">
+              <div className="mt-auto">
+                <nav className=" space-y-2">
+                  <a href="/profile" className="py-5 px-4 block bg-[#0C4A8C] text-white font-medium font-poppins text-base text-left w-full">
                     Profile
                   </a>
-                  <a href="/manage-account" className="block text-gray-900 font-poppins text-base hover:text-[#0C4A8C] transition-colors py-2">
+                  <a href="/manage-account" className=" py-5 px-4 block text-gray-900 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left">
                     Manage My Account
                   </a>
-                  <a href="/payment-options" className="block text-gray-900 font-poppins text-base hover:text-[#0C4A8C] transition-colors py-2">
+                  <a href="/payment-options" className=" py-5 px-4 block text-gray-900 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left">
                     My Payment Options
                   </a>
                 </nav>
@@ -251,11 +330,11 @@ export default function ProfilePage() {
           </div>
 
           {/* Right Content - Edit Profile Form */}
-          <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg p-8 shadow-sm">
-              <h2 className="text-2xl font-medium text-[#0C4A8C] mb-6 font-poppins">Edit Your Profile</h2>
+          <div className="lg:col-span-2 flex">
+            <div className="bg-white rounded-lg p-8 shadow-sm w-full flex flex-col">
+              <h2 className="text-2xl font-medium text-blue-500 mb-6 font-poppins">Edit Your Profile</h2>
               
-              <form onSubmit={handleSaveChanges} className="space-y-6">
+              <form onSubmit={handleSaveChanges} className="space-y-6 flex-1">
                 {/* Personal Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
