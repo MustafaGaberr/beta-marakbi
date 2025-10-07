@@ -1,62 +1,8 @@
 import BoatCard from './BoatCard';
 
-const BoatFleet = () => {
-  const boats = [
-    {
-      imageUrl: '/images/Rectangle 3463853.png',
-      name: 'Dandara 45',
-      price: 'EGP 800 /Hour',
-      location: 'Aswan- Egypt',
-      guests: 45,
-      status: 'available',
-      rooms: 3
-    },
-    {
-      imageUrl: '/images/Rectangle 3463853.png',
-      name: 'Dandara 45',
-      price: 'EGP 800 /Hour',
-      location: 'Aswan- Egypt',
-      guests: 45,
-      status: 'available',
-      rooms: 3
-    },
-    {
-      imageUrl: '/images/Rectangle 3463853.png',
-      name: 'Dandara 45',
-      price: 'EGP 800 /Hour',
-      location: 'Aswan- Egypt',
-      guests: 45,
-      status: 'available',
-      rooms: 3
-    },
-    {
-      imageUrl: '/images/Rectangle 3463853.png',
-      name: 'Dandara 45',
-      price: 'EGP 800 /Hour',
-      location: 'Aswan- Egypt',
-      guests: 45,
-      status: 'available',
-      rooms: 3
-    },
-    {
-      imageUrl: '/images/Rectangle 3463853.png',
-      name: 'Dandara 45',
-      price: 'EGP 800 /Hour',
-      location: 'Aswan- Egypt',
-      guests: 45,
-      status: 'available',
-      rooms: 3
-    },
-    {
-      imageUrl: '/images/Rectangle 3463853.png',
-      name: 'Dandara 45',
-      price: 'EGP 800 /Hour',
-      location: 'Aswan- Egypt',
-      guests: 45,
-      status: 'available',
-      rooms: 3
-    }
-  ];
+const BoatFleet = ({ homeData }) => {
+  // Use API data if available, otherwise fallback to empty array
+  const boats = homeData?.new_joiners || [];
 
   return (
     <section className="relative w-full bg-slate-900/70 overflow-hidden py-16">
@@ -82,18 +28,24 @@ const BoatFleet = () => {
 
         {/* Boat Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
-          {boats.map((boat, index) => (
-            <BoatCard
-              key={index}
-              imageUrl={boat.imageUrl}
-              name={boat.name}
-              price={boat.price}
-              location={boat.location}
-              guests={boat.guests}
-              status={boat.status}
-              rooms={boat.rooms}
-            />
-          ))}
+          {boats.length > 0 ? (
+            boats.map((boat, index) => (
+              <BoatCard
+                key={boat.id || index}
+                imageUrl={boat.images?.[0] || '/images/Rectangle 3463853.png'}
+                name={boat.name}
+                price={`EGP ${boat.price_per_hour} /Hour`}
+                location={boat.cities?.[0] || 'Aswan- Egypt'}
+                guests={boat.max_seats}
+                status="available"
+                rooms={boat.max_seats_stay}
+              />
+            ))
+          ) : (
+            <div className="col-span-full text-center text-white">
+              <p>No boats available at the moment.</p>
+            </div>
+          )}
         </div>
 
         {/* View All Boats Button */}

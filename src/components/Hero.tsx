@@ -1,10 +1,28 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getCities } from '@/lib/api';
 
-const Hero = () => {
+const Hero = ({ homeData }) => {
   const [city, setCity] = useState('');
   const [boatType, setBoatType] = useState('');
   const [tripType, setTripType] = useState('');
+  const [cities, setCities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const data = await getCities();
+        setCities(data.cities || []);
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCities();
+  }, []);
 
   return (
     <section className="relative w-full h-[1024px] overflow-hidden">
@@ -45,16 +63,18 @@ const Hero = () => {
             </div>
 
             {/* City Dropdown */}
-            <div className="w-full sm:w-52 h-12 p-3 bg-neutral-200 rounded-lg flex justify-between items-center mb-3">
-              <div className="text-neutral-400 text-sm font-normal font-poppins capitalize">
-                City
-              </div>
-              <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-                <svg className="w-2.5 h-[5px] text-zinc-900" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </div>
-            </div>
+            <select 
+              className="w-full sm:w-52 h-12 p-3 bg-neutral-200 rounded-lg text-neutral-400 text-sm font-normal font-poppins capitalize"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            >
+              <option value="">Select City</option>
+              {cities.map((cityOption) => (
+                <option key={cityOption.id} value={cityOption.id}>
+                  {cityOption.name}
+                </option>
+              ))}
+            </select>
 
             {/* Boat Type Dropdown */}
             <div className="w-full sm:w-52 h-12 p-3 bg-neutral-200 rounded-lg flex justify-between items-center mb-3">

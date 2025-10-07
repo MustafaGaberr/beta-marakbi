@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Logo from './Logo';
-import { storage, authApi } from '@/lib/api';
+import { getToken, clearToken, isAuthenticated } from '@/lib/api';
 
 interface HeaderProps {
   variant?: 'transparent' | 'solid';
@@ -68,8 +68,12 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
     : [];
 
   useEffect(() => {
-    const userData = storage.getUser();
-    setUser(userData);
+    // Check if user is authenticated
+    if (isAuthenticated()) {
+      setUser({ fullName: 'User', email: '', role: 'user' });
+    } else {
+      setUser(null);
+    }
   }, []);
 
   useEffect(() => {
@@ -91,29 +95,14 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
     setIsLoggingOut(true);
     
     try {
-      // Call logout API to clear server-side session/cookies
-      await authApi.logout();
+      // Clear token and user data
+      clearToken();
+      setUser(null);
+      router.push('/');
     } catch (error) {
-      console.error('Logout API error:', error);
-    }
-    
-    // Clear local storage and session storage
-    storage.clearAll();
-    if (typeof window !== 'undefined') {
-      localStorage.clear();
-      sessionStorage.clear();
-      
-      // Clear all cookies manually
-      document.cookie.split(";").forEach(function(c) { 
-        document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
-      });
-    }
-    
-    // Redirect based on current page
-    if (currentPage === 'home' || window.location.pathname === '/') {
-      window.location.href = '/';
-    } else {
-      window.location.href = '/login';
+      console.error('Logout error:', error);
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 

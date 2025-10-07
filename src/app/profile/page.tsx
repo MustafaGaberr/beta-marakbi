@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { storage } from '@/lib/api';
+import { getCustomerProfile, updateCustomerProfile, createCustomerProfile, getToken, handleApiError } from '@/lib/api';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -24,23 +24,43 @@ export default function ProfilePage() {
   const router = useRouter();
 
   useEffect(() => {
-    const userData = storage.getUser();
-    if (!userData) {
+    const token = getToken();
+    if (!token) {
       router.push('/login');
       return;
     }
-    
-    setUser(userData);
-    setFormData({
-      firstName: userData.fullName?.split(' ')[0] || '',
-      lastName: userData.fullName?.split(' ').slice(1).join(' ') || '',
-      email: userData.email || '',
-      address: '',
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: ''
-    });
-    setLoading(false);
+
+    const fetchProfile = async () => {
+      try {
+        const profileData = await getCustomerProfile();
+        console.log('Profile data:', profileData);
+        
+        // Set user data from API response
+        setUser({
+          id: profileData.user_id?.toString(),
+          fullName: profileData.username,
+          email: profileData.email || '',
+          role: 'user'
+        });
+        
+        setFormData({
+          firstName: profileData.username || '',
+          lastName: '',
+          email: profileData.email || '',
+          address: profileData.address || '',
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        });
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        // If profile doesn't exist, we'll create it when user saves
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
   }, [router]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,10 +88,23 @@ export default function ProfilePage() {
     }
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const profileData = {
+        bio: `${formData.firstName} ${formData.lastName}`.trim(),
+        phone: formData.email, // Using email as phone for now
+        address: formData.address
+      };
+
+      // Try to update existing profile first
+      try {
+        await updateCustomerProfile(profileData);
+        setSuccess('Profile updated successfully!');
+      } catch (updateError) {
+        // If update fails, try to create new profile
+        await createCustomerProfile(profileData);
+        setSuccess('Profile created successfully!');
+      }
       
-      // Update user data
+      // Update local user data
       const updatedUser = {
         id: user?.id || '1',
         fullName: `${formData.firstName} ${formData.lastName}`.trim(),
@@ -79,10 +112,7 @@ export default function ProfilePage() {
         role: (user?.role as 'user' | 'boat_owner' | 'admin') || 'user'
       };
       
-      storage.setUser(updatedUser);
       setUser(updatedUser);
-      // setIsEditing(false);
-      setSuccess('Profile updated successfully!');
       
       // Clear password fields
       setFormData(prev => ({
@@ -92,8 +122,9 @@ export default function ProfilePage() {
         confirmPassword: ''
       }));
       
-    } catch {
-      setError('Failed to update profile. Please try again.');
+    } catch (error) {
+      console.error('Profile update error:', error);
+      setError(handleApiError(error));
     }
   };
 

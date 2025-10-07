@@ -1,4 +1,9 @@
-const Activities = () => {
+const Activities = ({ homeData }) => {
+  // Get activities data from API
+  const fishingTrips = homeData?.fishing_trips || [];
+  const waterGames = homeData?.water_games || [];
+  const nileCruises = homeData?.nile_cruises || [];
+  const occasions = homeData?.occasions || [];
   return (
     <section className="relative py-16">
       {/* Title */}

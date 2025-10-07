@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { mockApi, storage } from '@/lib/api';
+import { login, setToken, handleApiError } from '@/lib/api';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -24,30 +24,22 @@ export default function LoginPage() {
         return;
       }
 
-      // Call API
-      const response = await mockApi.login({ email, password, rememberMe });
+      // Call API - using email as username for now
+      const response = await login(email, password);
 
-      if (response.success && response.data) {
-        // Save tokens and user data
-        storage.setTokens(response.data.tokens);
-        storage.setUser(response.data.user);
+      if (response.data && response.data.access_token) {
+        // Save token
+        setToken(response.data.access_token);
         
-        // Redirect based on user role
-        const userRole = response.data.user.role;
-        if (userRole === 'admin' || userRole === 'boat_owner') {
-          // Admin and boat owners go to dashboard
-          router.push('/dashboard');
-        } else {
-          // Regular users go to home page
-          router.push('/');
-        }
+        // Redirect to home page
+        router.push('/');
       } else {
-        setError(response.error || 'Login failed. Please try again.');
+        setError('Login failed. Please try again.');
       }
       
     } catch (err) {
       console.error('Login error:', err);
-      setError('Login failed. Please check your credentials.');
+      setError(handleApiError(err));
     } finally {
       setLoading(false);
     }

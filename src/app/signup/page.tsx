@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { mockApi } from '@/lib/api';
+import { register, handleApiError } from '@/lib/api';
 
 
 export default function SignUpPage() {
@@ -38,19 +38,19 @@ export default function SignUpPage() {
         return;
       }
 
-      // Call API
-      const response = await mockApi.signup({ fullName, email, password });
+      // Call API - using email as username for now
+      const response = await register(email, password, email);
 
-      if (response.success) {
-        // Navigate to verification page
-        router.push('/verify-code');
+      if (response.data) {
+        // Navigate to login page after successful registration
+        router.push('/login');
       } else {
-        setError(response.error || 'Sign up failed. Please try again.');
+        setError('Sign up failed. Please try again.');
       }
       
     } catch (err) {
       console.error('Sign up error:', err);
-      setError('Sign up failed. Please try again.');
+      setError(handleApiError(err));
     } finally {
       setLoading(false);
     }
