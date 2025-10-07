@@ -118,13 +118,26 @@ export async function getHomeData() {
                 id: 2,
                 name: "Traditional Felucca",
                 description: "Authentic Egyptian sailing experience",
-                price_per_hour: 200,
+                price_per_hour: 150,
                 max_seats: 8,
                 max_seats_stay: 4,
                 images: ["/images/Rectangle 3463853.png"],
                 categories: ["Traditional", "Felucca"],
                 cities: ["Aswan"],
                 owner_username: "sailor_mohamed",
+                created_at: "2025-01-20T10:00:00Z"
+            },
+            {
+                id: 4,
+                name: "Nile Felucca",
+                description: "Classic Egyptian felucca for romantic trips",
+                price_per_hour: 120,
+                max_seats: 6,
+                max_seats_stay: 3,
+                images: ["/images/Rectangle 3463853.png"],
+                categories: ["Traditional", "Romantic"],
+                cities: ["Aswan"],
+                owner_username: "romantic_sailor",
                 created_at: "2025-01-20T10:00:00Z"
             }
         ],
@@ -245,7 +258,7 @@ export async function getBoats() {
                 id: 2,
                 name: "Traditional Felucca",
                 description: "Authentic Egyptian sailing boat",
-                price_per_hour: 200,
+                price_per_hour: 150,
                 max_seats: 8,
                 max_seats_stay: 4,
                 images: ["/images/Rectangle 3463853.png"],
@@ -266,12 +279,38 @@ export async function getBoats() {
                 total_reviews: 12,
                 user_id: 3,
                 created_at: "2025-01-20T10:00:00Z"
+            },
+            {
+                id: 4,
+                name: "Nile Felucca",
+                description: "Classic Egyptian felucca for romantic trips",
+                price_per_hour: 120,
+                max_seats: 6,
+                max_seats_stay: 3,
+                images: ["/images/Rectangle 3463853.png"],
+                categories: ["Traditional", "Romantic"],
+                total_reviews: 25,
+                user_id: 4,
+                created_at: "2025-01-20T10:00:00Z"
+            },
+            {
+                id: 5,
+                name: "Fishing Boat",
+                description: "Professional fishing boat with equipment",
+                price_per_hour: 180,
+                max_seats: 8,
+                max_seats_stay: 4,
+                images: ["/images/Rectangle 3463853.png"],
+                categories: ["Fishing", "Professional"],
+                total_reviews: 18,
+                user_id: 5,
+                created_at: "2025-01-20T10:00:00Z"
             }
         ],
         page: 1,
         pages: 1,
         per_page: 10,
-        total: 3
+        total: 5
     };
 }
 
@@ -748,7 +787,7 @@ export async function getSharingVoyages() {
                     description: "Authentic Egyptian sailing experience",
                     max_seats: 8,
                     max_seats_stay: 4,
-                    price_per_hour: 200,
+                    price_per_hour: 150,
                     total_reviews: 8,
                     created_at: "2025-01-20T10:00:00Z"
                 },
@@ -757,7 +796,7 @@ export async function getSharingVoyages() {
                 max_seats: 8,
                 current_seats_taken: 3,
                 available_seats: 5,
-                price_per_hour: 200,
+                price_per_hour: 150,
                 status: "active",
                 voyage_type: "Sharing",
                 created_at: "2025-01-21T09:00:00Z",

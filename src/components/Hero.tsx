@@ -1,27 +1,34 @@
 "use client"
 import { useState, useEffect } from 'react';
-import { getCities } from '@/lib/api';
+import { getCities, getBoats } from '@/lib/api';
 
 const Hero = ({ homeData }) => {
   const [city, setCity] = useState('');
   const [boatType, setBoatType] = useState('');
   const [tripType, setTripType] = useState('');
   const [cities, setCities] = useState([]);
+  const [boats, setBoats] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCities = async () => {
+    const fetchData = async () => {
       try {
-        const data = await getCities();
-        setCities(data.cities || []);
+        const [citiesData, boatsData] = await Promise.all([
+          getCities(),
+          getBoats()
+        ]);
+        setCities(citiesData.cities || []);
+        setBoats(boatsData.boats || []);
+        console.log('Cities loaded:', citiesData.cities);
+        console.log('Boats loaded:', boatsData.boats);
       } catch (error) {
-        console.error('Error fetching cities:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCities();
+    fetchData();
   }, []);
 
   return (
@@ -37,9 +44,9 @@ const Hero = ({ homeData }) => {
 
       {/* Content */}
       <div className="relative w-full h-full flex items-center pt-16">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-20">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-32">
           {/* Left Side: Text Content */}
-          <div className="flex flex-col text-center lg:text-left">
+          <div className="flex flex-col text-center lg:text-left lg:ml-8">
             <div className="text-orange-300 text-2xl sm:text-3xl lg:text-4xl font-normal font-['SignPainter'] capitalize mb-4">
               With Marakbi
             </div>
@@ -51,57 +58,66 @@ const Hero = ({ homeData }) => {
             <div className="text-white text-xl sm:text-2xl lg:text-3xl font-medium font-poppins capitalize mb-8">
               Your Dream boats
             </div>
-            <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-poppins mx-auto lg:mx-0 clickable">
+            <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-[#0C4A8C] rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-poppins mx-auto lg:mx-0 clickable hover:bg-[#0A3D7A] transition-colors">
               Explore Now
             </button>
           </div>
 
           {/* Right Side: Booking Form */}
-          <div className="w-full sm:w-72 h-96 bg-white/10 rounded-lg overflow-hidden flex flex-col justify-center items-center p-3">
-            <div className="text-white text-sm font-normal font-poppins capitalize mb-3">
-              Where to go
-            </div>
+          <div className="w-full sm:w-80 h-96 bg-white/20 backdrop-blur-md rounded-2xl overflow-hidden flex flex-col justify-start items-center p-6 shadow-2xl border border-white/30 space-y-4">
 
             {/* City Dropdown */}
-            <select 
-              className="w-full sm:w-52 h-12 p-3 bg-neutral-200 rounded-lg text-neutral-400 text-sm font-normal font-poppins capitalize"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            >
-              <option value="">Select City</option>
-              {cities.map((cityOption) => (
-                <option key={cityOption.id} value={cityOption.id}>
-                  {cityOption.name}
-                </option>
-              ))}
-            </select>
+            <div className="w-full sm:w-64">
+              <p className="text-white text-base font-normal font-poppins mb-2">Where To Go</p>
+              <select 
+                className="w-full h-12 p-3 bg-white/30 backdrop-blur-sm rounded-lg text-gray-700 text-sm font-normal font-poppins capitalize border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/50"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              >
+                <option value="">City</option>
+                {cities.map((cityOption) => (
+                  <option key={cityOption.id} value={cityOption.id}>
+                    {cityOption.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
             {/* Boat Type Dropdown */}
-            <div className="w-full sm:w-52 h-12 p-3 bg-neutral-200 rounded-lg flex justify-between items-center mb-3">
-              <div className="text-neutral-400 text-sm font-normal font-poppins capitalize">
-                Felucca
-              </div>
-              <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-                <svg className="w-2.5 h-[5px] text-zinc-900" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </div>
+            <div className="w-full sm:w-64">
+              <p className="text-white text-base font-normal font-poppins mb-2">Boat Type</p>
+              <select 
+                className="w-full h-12 p-3 bg-white/30 backdrop-blur-sm rounded-lg text-gray-700 text-sm font-normal font-poppins capitalize border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/50"
+                value={boatType}
+                onChange={(e) => setBoatType(e.target.value)}
+              >
+                <option value="">Felucca</option>
+                {boats.map((boat) => (
+                  <option key={boat.id} value={boat.id}>
+                    {boat.name}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {/* Trip Type Dropdown */}
-            <div className="w-full sm:w-52 h-12 p-3 bg-neutral-200 rounded-lg flex justify-between items-center mb-3">
-              <div className="text-neutral-400 text-sm font-normal font-poppins capitalize">
-                Per Hour
-              </div>
-              <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-                <svg className="w-2.5 h-[5px] text-zinc-900" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
-              </div>
+            <div className="w-full sm:w-64">
+              <p className="text-white text-base font-normal font-poppins mb-2">Trip Type</p>
+              <select 
+                className="w-full h-12 p-3 bg-white/30 backdrop-blur-sm rounded-lg text-gray-700 text-sm font-normal font-poppins capitalize border border-white/20 focus:outline-none focus:ring-2 focus:ring-white/50"
+                value={tripType}
+                onChange={(e) => setTripType(e.target.value)}
+              >
+                <option value="">Per Hour</option>
+                <option value="per_hour">Per Hour</option>
+                <option value="half_day">Half Day</option>
+                <option value="full_day">Full Day</option>
+                <option value="multi_day">Multi Day</option>
+              </select>
             </div>
 
             {/* Book now Button */}
-            <button className="w-full sm:w-52 h-12 px-6 py-2.5 bg-sky-900 rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-poppins clickable">
+            <button className="w-full sm:w-64 h-12 px-6 py-2.5 bg-[#0C4A8C] backdrop-blur-sm rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-poppins clickable hover:bg-[#0A3D7A] transition-all duration-300 shadow-lg mt-auto">
               Book now
             </button>
           </div>
