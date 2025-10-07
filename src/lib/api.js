@@ -537,7 +537,7 @@ export async function bookTrip(tripId, bookingData) {
             trip_id: tripId,
             boat_id: bookingData.boat_id,
             user_id: 1,
-            username: "user123",
+            username: "mustafagaber",
             start_date: bookingData.start_date,
             end_date: new Date(new Date(bookingData.start_date).getTime() + 4 * 60 * 60 * 1000).toISOString(),
             guest_count: bookingData.guest_count,
@@ -578,7 +578,7 @@ export async function createBoatReview(boatId, rating, comment) {
             id: Math.floor(Math.random() * 1000) + 1,
             boat_id: boatId,
             user_id: 1,
-            username: "user123",
+            username: "mustafagaber",
             rating: rating,
             comment: comment,
             created_at: new Date().toISOString()
@@ -592,11 +592,11 @@ export async function getCustomerProfile() {
 
     return {
         user_id: 1,
-        username: "user123",
-        email: "user@example.com",
+        username: "Mustafa Gaber",
+        email: "mustafagaber@marakbi.com",
         bio: "Boat enthusiast and adventure seeker",
         phone: "+20 123 456 7890",
-        address: "Cairo, Egypt",
+        address: "Aswan, Egypt",
         avatar_url: null,
         member_since: "2024-01-01T00:00:00Z"
     };
@@ -704,7 +704,7 @@ export async function createCustomerReview(reviewData) {
             id: Math.floor(Math.random() * 1000) + 1,
             client_id: reviewData.client_id,
             user_id: 1,
-            username: "user123",
+            username: "mustafagaber",
             review_text: reviewData.review_text,
             rating: reviewData.rating,
             created_at: new Date().toISOString()
@@ -858,7 +858,7 @@ export async function joinSharingVoyage(voyageId, guestCount) {
                 },
                 {
                     user_id: 4,
-                    username: "user123",
+                    username: "mustafagaber",
                     guest_count: guestCount
                 }
             ]
