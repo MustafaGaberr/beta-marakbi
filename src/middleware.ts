@@ -7,8 +7,11 @@ const authPages = ['/login', '/signup', '/verify-code', '/forgot-password', '/se
 // Always allow access to these debugging pages
 const debugPages = ['/test-auth', '/quick-logout', '/test-clicks', '/test-middleware'];
 
+// For dummy data mode, allow access to profile without authentication
+const dummyDataPages = ['/profile'];
+
 // Pages that require authentication
-const protectedPages = ['/dashboard', '/profile', '/bookings', '/admin'];
+const protectedPages = ['/dashboard', '/bookings', '/admin'];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -22,6 +25,11 @@ export function middleware(request: NextRequest) {
 
   // Special handling for debug pages - always allow access regardless of auth status
   if (debugPages.some(page => pathname.startsWith(page))) {
+    return NextResponse.next();
+  }
+
+  // Special handling for dummy data pages - allow access without authentication
+  if (dummyDataPages.some(page => pathname.startsWith(page))) {
     return NextResponse.next();
   }
 

@@ -9,6 +9,7 @@ import Footer from '@/components/Footer';
 export default function ProfilePage() {
   const [user, setUser] = useState<{id?: string; fullName?: string; email?: string; role?: 'user' | 'boat_owner' | 'admin'} | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -18,18 +19,12 @@ export default function ProfilePage() {
     newPassword: '',
     confirmPassword: ''
   });
-  // const [isEditing, setIsEditing] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const router = useRouter();
 
   useEffect(() => {
-    const token = getToken();
-    if (!token) {
-      router.push('/login');
-      return;
-    }
-
+    // For dummy data mode, simulate logged in user
     const fetchProfile = async () => {
       try {
         const profileData = await getCustomerProfile();
@@ -44,8 +39,8 @@ export default function ProfilePage() {
         });
         
         setFormData({
-          firstName: profileData.username || '',
-          lastName: '',
+          firstName: profileData.username?.split(' ')[0] || '',
+          lastName: profileData.username?.split(' ')[1] || '',
           email: profileData.email || '',
           address: profileData.address || '',
           currentPassword: '',
@@ -122,6 +117,12 @@ export default function ProfilePage() {
         confirmPassword: ''
       }));
       
+      // Exit edit mode after successful save
+      setIsEditing(false);
+      
+      // Hide success message after 3 seconds
+      setTimeout(() => setSuccess(''), 3000);
+      
     } catch (error) {
       console.error('Profile update error:', error);
       setError(handleApiError(error));
@@ -129,9 +130,9 @@ export default function ProfilePage() {
   };
 
   const handleCancel = () => {
-    // setIsEditing(false);
     setError('');
     setSuccess('');
+    setIsEditing(false);
     // Reset form data
     setFormData(prev => ({
       ...prev,
@@ -200,19 +201,48 @@ export default function ProfilePage() {
           
           {/* Left Sidebar - Profile Navigation */}
           <div className="lg:col-span-1">
-            <div className="bg-white p-6">
-              <div className="mb-8">
-                <h2 className="text-5xl font-bold text-gray-900 mb-2 font-poppins">Welcome!</h2>
-                <p className="text-blue-600 text-5xl font-bold font-poppins">{user.fullName?.split(' ')[0] || 'User'}</p>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2 font-poppins">Welcome!</h2>
+                <p className="text-[#0C4A8C] text-2xl font-bold font-poppins">{user.fullName?.split(' ')[0] || 'User'}</p>
+              </div>
+              
+              {/* Profile Picture */}
+              <div className="flex justify-center mb-6">
+                <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center">
+                  <span className="text-4xl font-bold text-gray-500 font-poppins">
+                    {user.fullName?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                  </span>
+                </div>
+              </div>
+              
+              {/* Full Name */}
+              <div className="text-center mb-6">
+                <p className="text-lg font-semibold text-gray-900 font-poppins">{user.fullName || 'User Name'}</p>
+              </div>
+              
+              {/* Edit Profile Button */}
+              <div className="flex justify-center mb-8">
+                <button 
+                  onClick={() => setIsEditing(!isEditing)}
+                  className="flex items-center justify-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-gray-700 font-poppins hover:bg-gray-50 transition-colors"
+                >
+                  <span className="font-poppins">Edit Profile</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </button>
               </div>
               
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-4 font-poppins">Manage My Account</h3>
                 <nav className="space-y-1">
-                  <a href="/profile" className="block text-blue-600 font-medium font-poppins text-base">
-                    My Profile
+                  <a href="/profile" className="block bg-[#0C4A8C] text-white px-4 py-2 rounded-lg font-medium font-poppins text-base">
+                    Profile
                   </a>
-                  <a href="/payment-options" className="block text-gray-600 font-poppins text-base">
+                  <a href="/manage-account" className="block text-gray-900 font-poppins text-base hover:text-[#0C4A8C] transition-colors py-2">
+                    Manage My Account
+                  </a>
+                  <a href="/payment-options" className="block text-gray-900 font-poppins text-base hover:text-[#0C4A8C] transition-colors py-2">
                     My Payment Options
                   </a>
                 </nav>
@@ -222,8 +252,8 @@ export default function ProfilePage() {
 
           {/* Right Content - Edit Profile Form */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg p-8">
-              <h2 className="text-2xl font-medium text-blue-600 mb-6 font-poppins">Edit Your Profile</h2>
+            <div className="bg-white rounded-lg p-8 shadow-sm">
+              <h2 className="text-2xl font-medium text-[#0C4A8C] mb-6 font-poppins">Edit Your Profile</h2>
               
               <form onSubmit={handleSaveChanges} className="space-y-6">
                 {/* Personal Information */}
@@ -235,7 +265,12 @@ export default function ProfilePage() {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white font-poppins"
+                      disabled={!isEditing}
+                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                        isEditing 
+                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                      }`}
                       placeholder="First Name"
                       required
                     />
@@ -248,7 +283,12 @@ export default function ProfilePage() {
                       name="lastName"
                       value={formData.lastName}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white font-poppins"
+                      disabled={!isEditing}
+                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                        isEditing 
+                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                      }`}
                       placeholder="Last Name"
                       required
                     />
@@ -261,7 +301,12 @@ export default function ProfilePage() {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white font-poppins"
+                      disabled={!isEditing}
+                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                        isEditing 
+                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                      }`}
                       placeholder="Email"
                       required
                     />
@@ -274,7 +319,12 @@ export default function ProfilePage() {
                       name="address"
                       value={formData.address}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white font-poppins"
+                      disabled={!isEditing}
+                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                        isEditing 
+                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                      }`}
                       placeholder="Address"
                     />
                   </div>
@@ -292,7 +342,12 @@ export default function ProfilePage() {
                       name="currentPassword"
                       value={formData.currentPassword}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white font-poppins"
+                      disabled={!isEditing}
+                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                        isEditing 
+                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                      }`}
                       placeholder="Current Password"
                     />
                     </div>
@@ -304,7 +359,12 @@ export default function ProfilePage() {
                       name="newPassword"
                       value={formData.newPassword}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white font-poppins"
+                      disabled={!isEditing}
+                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                        isEditing 
+                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                      }`}
                       placeholder="New Password"
                     />
                     </div>
@@ -316,7 +376,12 @@ export default function ProfilePage() {
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white font-poppins"
+                      disabled={!isEditing}
+                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                        isEditing 
+                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                      }`}
                       placeholder="Confirm New Password"
                     />
                     </div>
@@ -336,18 +401,28 @@ export default function ProfilePage() {
                   </div>
                 )}
 
-                {/* Action Buttons */}
+                {/* Action Buttons - Always visible but disabled when not editing */}
                 <div className="flex justify-end space-x-4 pt-6">
                   <button
                     type="button"
                     onClick={handleCancel}
-                    className="px-6 py-3 text-gray-700 hover:text-gray-900 font-medium font-poppins"
+                    disabled={!isEditing}
+                    className={`px-6 py-3 font-medium font-poppins transition-colors ${
+                      isEditing 
+                        ? 'text-gray-700 hover:text-gray-900 cursor-pointer' 
+                        : 'text-gray-400 cursor-not-allowed'
+                    }`}
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-8 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors font-poppins"
+                    disabled={!isEditing}
+                    className={`px-8 py-3 font-medium rounded-lg transition-colors font-poppins ${
+                      isEditing 
+                        ? 'bg-[#0C4A8C] text-white hover:bg-[#0A3D7A] cursor-pointer' 
+                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                    }`}
                   >
                     Save Changes
                   </button>
