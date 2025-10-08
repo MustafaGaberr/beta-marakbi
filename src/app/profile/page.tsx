@@ -318,10 +318,10 @@ export default function ProfilePage() {
                   <a href="/profile" className="py-5 px-4 block bg-[#0C4A8C] text-white font-medium font-poppins text-base text-left w-full">
                     Profile
                   </a>
-                  <a href="/manage-account" className=" py-5 px-4 block text-gray-900 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left">
+                  <a href="/manage-account" className=" py-5 px-4 block text-gray-600 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left">
                     Manage My Account
                   </a>
-                  <a href="/payment-options" className=" py-5 px-4 block text-gray-900 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left">
+                  <a href="/payment-options" className=" py-5 px-4 block text-gray-600 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left">
                     My Payment Options
                   </a>
                 </nav>
