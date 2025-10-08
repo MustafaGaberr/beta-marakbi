@@ -114,7 +114,7 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
         <div className="flex items-center gap-4 sm:gap-8 md:gap-16">
           <div className="flex items-center gap-0.5">
             <div className="w-6 h-6 flex items-center justify-center">
-              <Image src="/icons/phone_in_talk.svg" alt="Phone" width={18} height={18} />
+              <Image src="/icons/phone_in_talk-1.svg" alt="Phone" width={18} height={18} />
             </div>
             <Link href="tel:+201031416900" className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
               Phone: +2010 31 41 6 900

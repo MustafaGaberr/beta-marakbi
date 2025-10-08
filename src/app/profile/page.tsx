@@ -313,7 +313,7 @@ export default function ProfilePage() {
                 </button>
               </div>
               
-              <div className="mt-auto">
+              <div className="mt-auto border-t border-gray-200 pt-6">
                 <nav className=" space-y-2">
                   <a href="/profile" className="py-5 px-4 block bg-[#0C4A8C] text-white font-medium font-poppins text-base text-left w-full">
                     Profile
@@ -410,59 +410,59 @@ export default function ProfilePage() {
                 </div>
 
                 {/* Password Changes Section */}
-                <div className="border-t pt-6">
+                <div className="pt-8">
                   <h3 className="text-lg font-semibold text-gray-900 mb-4 font-poppins">Password Changes</h3>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">Current Password</label>
-                    <input
-                      type="password"
-                      name="currentPassword"
-                      value={formData.currentPassword}
-                      onChange={handleInputChange}
-                      disabled={!isEditing}
-                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                        isEditing 
-                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                          : 'bg-gray-100 border border-gray-200 text-gray-500'
-                      }`}
-                      placeholder="Current Password"
-                    />
+                      <input
+                        type="password"
+                        name="currentPassword"
+                        value={formData.currentPassword}
+                        onChange={handleInputChange}
+                        disabled={!isEditing}
+                        className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                          isEditing 
+                            ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                            : 'bg-gray-100 border border-gray-200 text-gray-500'
+                        }`}
+                        placeholder="Current Password"
+                      />
                     </div>
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">New Password</label>
-                    <input
-                      type="password"
-                      name="newPassword"
-                      value={formData.newPassword}
-                      onChange={handleInputChange}
-                      disabled={!isEditing}
-                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                        isEditing 
-                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                          : 'bg-gray-100 border border-gray-200 text-gray-500'
-                      }`}
-                      placeholder="New Password"
-                    />
+                      <input
+                        type="password"
+                        name="newPassword"
+                        value={formData.newPassword}
+                        onChange={handleInputChange}
+                        disabled={!isEditing}
+                        className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                          isEditing 
+                            ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                            : 'bg-gray-100 border border-gray-200 text-gray-500'
+                        }`}
+                        placeholder="New Password"
+                      />
                     </div>
                     
-                    <div className="md:col-span-2">
+                    <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">Confirm New Password</label>
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={handleInputChange}
-                      disabled={!isEditing}
-                      className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                        isEditing 
-                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                          : 'bg-gray-100 border border-gray-200 text-gray-500'
-                      }`}
-                      placeholder="Confirm New Password"
-                    />
+                      <input
+                        type="password"
+                        name="confirmPassword"
+                        value={formData.confirmPassword}
+                        onChange={handleInputChange}
+                        disabled={!isEditing}
+                        className={`w-full px-4 py-3 rounded-lg font-poppins ${
+                          isEditing 
+                            ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
+                            : 'bg-gray-100 border border-gray-200 text-gray-500'
+                        }`}
+                        placeholder="Confirm New Password"
+                      />
                     </div>
                   </div>
                 </div>
