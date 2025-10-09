@@ -1,70 +1,72 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Auth pages that don't require authentication
-const authPages = ['/login', '/signup', '/verify-code', '/forgot-password', '/set-password', '/quick-logout', '/test-auth'];
-
-// Always allow access to these debugging pages
-const debugPages = ['/test-auth', '/quick-logout', '/test-clicks', '/test-middleware'];
-
-// For dummy data mode, allow access to profile without authentication
-const dummyDataPages = ['/profile'];
-
-// Pages that require authentication
-const protectedPages = ['/dashboard', '/bookings', '/admin'];
+// JWT token validation helper
+function isTokenValid(token: string): boolean {
+  if (!token) return false;
+  
+  try {
+    // Decode JWT token (basic validation)
+    const parts = token.split('.');
+    if (parts.length !== 3) return false;
+    
+    const payload = JSON.parse(atob(parts[1]));
+    const currentTime = Math.floor(Date.now() / 1000);
+    
+    // Check if token is expired
+    if (payload.exp && payload.exp < currentTime) {
+      return false;
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('Token validation error:', error);
+    return false;
+  }
+}
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
-  // Get authentication token from cookies or headers
-  const token = request.cookies.get('accessToken')?.value || 
-                request.headers.get('Authorization')?.replace('Bearer ', '');
+  // Get token from cookies
+  const token = request.cookies.get('access_token')?.value;
   
-  // const isAuthPage = authPages.some(page => pathname.startsWith(page));
+  // Public pages that don't require authentication
+  // const publicPages = [
+  //   '/',
+  //   '/about-us',
+  //   '/contact',
+  //   '/privacy-policy',
+  //   '/terms-conditions',
+  //   '/faqs',
+  //   '/login',
+  //   '/signup',
+  //   '/forgot-password',
+  //   '/verify-code',
+  //   '/set-password'
+  // ];
+  
+  // Protected pages that require authentication
+  const protectedPages = [
+    '/dashboard',
+    '/profile'
+  ];
+  
+  // Check if current page is protected
   const isProtectedPage = protectedPages.some(page => pathname.startsWith(page));
-
-  // Special handling for debug pages - always allow access regardless of auth status
-  if (debugPages.some(page => pathname.startsWith(page))) {
+  
+  // For protected pages, we'll let the client-side handle authentication
+  // since middleware can't access localStorage
+  if (isProtectedPage) {
+    // Let the page load and handle auth check client-side
     return NextResponse.next();
   }
-
-  // Special handling for dummy data pages - allow access without authentication
-  if (dummyDataPages.some(page => pathname.startsWith(page))) {
-    return NextResponse.next();
+  
+  // If user is authenticated and trying to access login/signup, redirect to home
+  if (token && isTokenValid(token) && (pathname === '/login' || pathname === '/signup')) {
+    return NextResponse.redirect(new URL('/', request.url));
   }
-
-  // If user is on auth page (login/signup) and logged in, redirect based on role
-  if ((pathname.startsWith('/login') || pathname.startsWith('/signup')) && token) {
-    // Try to get user info from localStorage via cookie or default to dashboard for admins
-    const userCookie = request.cookies.get('userInfo')?.value;
-    let redirectPath = '/dashboard'; // Default for admins/boat_owners
-    
-    if (userCookie) {
-      try {
-        const user = JSON.parse(userCookie);
-        if (user.role === 'user') {
-          redirectPath = '/'; // Regular users go to home
-        }
-      } catch (e) {
-        // Default to dashboard if parsing fails
-      }
-    }
-    
-    return NextResponse.redirect(new URL(redirectPath, request.url));
-  }
-
-  // If logged in: block access to forgot/set-password/verify-code pages
-  if ((pathname.startsWith('/forgot-password') || 
-       pathname.startsWith('/set-password') || 
-       pathname.startsWith('/verify-code')) && token) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
-  }
-
-  // If user tries to access protected page without auth, redirect to login
-  if (isProtectedPage && !token) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-
+  
   return NextResponse.next();
 }
 

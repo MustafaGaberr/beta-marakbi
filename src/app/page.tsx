@@ -12,24 +12,30 @@ import Destinations from '@/components/Destinations';
 import FinalCTA from '@/components/FinalCTA';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import { getHomeData, handleApiError } from '@/lib/api';
+import { clientApi } from '@/lib/api';
 
 export default function HomePage() {
-  const [homeData, setHomeData] = useState(null);
+  const [homeData, setHomeData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchHomeData = async () => {
       try {
         setLoading(true);
-        console.log('📡 Fetching home data (dummy mode)...');
-        const data = await getHomeData();
-        console.log('✅ Home data loaded:', data);
-        setHomeData(data);
+        console.log('📡 Fetching home data...');
+        const response = await clientApi.getHomeData();
+        console.log('✅ Home data loaded:', response);
+        
+        if (response.success && response.data) {
+          setHomeData(response.data);
+        } else {
+          setError(response.error || 'Failed to fetch data');
+        }
       } catch (err) {
         console.error('❌ Error fetching home data:', err);
-        setError(handleApiError(err));
+        const errorMessage = err instanceof Error ? err.message : 'Failed to fetch data from server';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
@@ -75,7 +81,7 @@ export default function HomePage() {
       <Header currentPage="home" />
       <main className="relative z-10">
         <Hero homeData={homeData} />
-        <FeaturedServices homeData={homeData} />
+        <FeaturedServices />
         <AboutApp />
         <BoatFleet homeData={homeData} />
         <WhyUs />

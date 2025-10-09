@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getCustomerProfile, updateCustomerProfile, createCustomerProfile, getToken, handleApiError } from '@/lib/api';
+import { storage } from '@/lib/api';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -25,29 +25,50 @@ export default function ProfilePage() {
   const router = useRouter();
 
   useEffect(() => {
-    // For dummy data mode, simulate logged in user
     const fetchProfile = async () => {
       try {
-        const profileData = await getCustomerProfile();
-        console.log('Profile data:', profileData);
-        
-        // Set user data from API response
-        setUser({
-          id: profileData.user_id?.toString(),
-          fullName: profileData.username,
-          email: profileData.email || '',
-          role: 'user'
-        });
-        
-        setFormData({
-          firstName: profileData.username?.split(' ')[0] || '',
-          lastName: profileData.username?.split(' ')[1] || '',
-          email: profileData.email || '',
-          address: profileData.address || '',
-          currentPassword: '',
-          newPassword: '',
-          confirmPassword: ''
-        });
+        // Check if user is authenticated
+        if (!storage.getToken()) {
+          console.log('No token found, redirecting to login');
+          router.push('/login');
+          return;
+        }
+
+        // Get user from storage first
+        const storedUser = storage.getUser();
+        if (storedUser) {
+          setUser({
+            id: storedUser.id.toString(),
+            fullName: storedUser.username,
+            email: storedUser.email || '',
+            role: 'user'
+          });
+        }
+
+        // Profile API is not available on server, use stored user data
+        if (storedUser) {
+          // Try to load saved profile data from localStorage
+          const savedProfile = localStorage.getItem('userProfile');
+          let profileData = null;
+          
+          if (savedProfile) {
+            try {
+              profileData = JSON.parse(savedProfile);
+            } catch (error) {
+              console.error('Error parsing saved profile:', error);
+            }
+          }
+          
+          setFormData({
+            firstName: profileData?.bio?.split(' ')[0] || storedUser.username?.split(' ')[0] || '',
+            lastName: profileData?.bio?.split(' ').slice(1).join(' ') || storedUser.username?.split(' ').slice(1).join(' ') || '',
+            email: profileData?.phone || storedUser.email || '',
+            address: profileData?.address || '',
+            currentPassword: '',
+            newPassword: '',
+            confirmPassword: ''
+          });
+        }
 
         // Load profile image from localStorage
         const savedImage = localStorage.getItem('profileImage');
@@ -90,20 +111,21 @@ export default function ProfilePage() {
     }
 
     try {
-      const profileData = {
-        bio: `${formData.firstName} ${formData.lastName}`.trim(),
-        phone: formData.email, // Using email as phone for now
-        address: formData.address
-      };
-
-      // Try to update existing profile first
+      // Profile API is not available, save to localStorage
       try {
-        await updateCustomerProfile(profileData);
+        // Save profile data to localStorage
+        const profileData = {
+          bio: `${formData.firstName} ${formData.lastName}`.trim(),
+          phone: formData.email, // Using email as phone for now
+          address: formData.address
+        };
+        
+        localStorage.setItem('userProfile', JSON.stringify(profileData));
         setSuccess('Profile updated successfully!');
-      } catch (updateError) {
-        // If update fails, try to create new profile
-        await createCustomerProfile(profileData);
-        setSuccess('Profile created successfully!');
+      } catch (error) {
+        console.error('Error saving profile:', error);
+        setError('Failed to save profile. Please try again.');
+        return;
       }
       
       // Update local user data
@@ -132,7 +154,7 @@ export default function ProfilePage() {
       
     } catch (error) {
       console.error('Profile update error:', error);
-      setError(handleApiError(error));
+      setError(error instanceof Error ? error.message : 'Failed to save profile. Please try again.');
     }
   };
 

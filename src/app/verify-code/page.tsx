@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { mockApi } from '@/lib/api';
+import { authApi } from '@/lib/api';
 
 
 export default function VerifyCodePage() {
@@ -31,8 +31,7 @@ export default function VerifyCodePage() {
     setError('');
   };
 
-  const handleVerify = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleVerify = async () => {
     setError('');
     setLoading(true);
 
@@ -40,11 +39,12 @@ export default function VerifyCodePage() {
       // Check if code is entered
       if (!code) {
         setError('Please enter the verification code');
+        setLoading(false);
         return;
       }
 
       // Call API
-      const response = await mockApi.verifyCode(code);
+      const response = await authApi.verifyCode(code);
 
       if (response.success) {
         // Navigate to set password page on success
@@ -68,7 +68,7 @@ export default function VerifyCodePage() {
     setError('');
     
     try {
-      const response = await mockApi.resendCode();
+      const response = await authApi.resendCode();
       
       if (!response.success) {
         setError(response.error || 'Failed to resend code. Please try again.');
@@ -137,7 +137,7 @@ export default function VerifyCodePage() {
           </div>
 
           {/* Verification Code Form */}
-          <form onSubmit={handleVerify}>
+          <form noValidate>
             {/* Code Input */}
             <div className="mb-6">
               <label className="block text-black text-base mb-2">
@@ -185,7 +185,8 @@ export default function VerifyCodePage() {
 
             {/* Verify Button */}
             <button 
-              type="submit"
+              type="button"
+              onClick={handleVerify}
               disabled={loading || !code}
               className={`w-[70%] h-12 bg-blue-800 rounded-lg border-none text-white text-base font-medium cursor-pointer transition-colors ${
                 loading || !code ? 'bg-gray-400 cursor-not-allowed' : 'hover:bg-blue-900'

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Logo from './Logo';
-import { getToken, clearToken, isAuthenticated } from '@/lib/api';
+import { storage, isAuthenticated } from '@/lib/api';
 
 interface HeaderProps {
   variant?: 'transparent' | 'solid';
@@ -70,7 +70,14 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
   useEffect(() => {
     // Check if user is authenticated
     if (isAuthenticated()) {
-      setUser({ fullName: 'User', email: '', role: 'user' });
+      const userData = storage.getUser();
+      if (userData) {
+        setUser({
+          fullName: userData.username,
+          email: userData.email || '',
+          role: userData.role || 'user'
+        });
+      }
     } else {
       setUser(null);
     }
@@ -96,7 +103,12 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
     
     try {
       // Clear token and user data
-      clearToken();
+      storage.clearAll();
+      
+      // Clear cookies
+      document.cookie = 'access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      document.cookie = 'refresh_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+      
       setUser(null);
       router.push('/');
     } catch (error) {

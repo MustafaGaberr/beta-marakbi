@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { mockApi } from '@/lib/api';
+import { authApi } from '@/lib/api';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -12,8 +12,7 @@ export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     setError('');
     setSuccess('');
     setLoading(true);
@@ -22,22 +21,22 @@ export default function ForgotPasswordPage() {
       // Simple validation
       if (!email) {
         setError('Please enter your email address');
+        setLoading(false);
         return;
       }
 
       // Call API
-      const response = await mockApi.forgotPassword(email);
+      const response = await authApi.forgotPassword(email);
 
       if (response.success) {
-        setSuccess(response.message || 'Password reset code has been sent to your email');
+        setSuccess(response.data?.message || 'Password reset code has been sent to your email');
         
         // Navigate to verification page after showing success message
         setTimeout(() => {
           router.push('/verify-code');
         }, 1500);
-        
       } else {
-        setError(response.error || 'Failed to send reset link. Please try again.');
+        setError(response.error || 'Failed to send reset code. Please try again.');
       }
       
     } catch (err) {
@@ -114,7 +113,7 @@ export default function ForgotPasswordPage() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit}>
+          <form noValidate>
             {/* Email Field */}
             <div className="mb-8">
               <label className="block text-black text-base mb-3">
@@ -146,7 +145,8 @@ export default function ForgotPasswordPage() {
 
             {/* Submit Button */}
             <button 
-              type="submit"
+              type="button"
+              onClick={handleSubmit}
               disabled={loading}
               className="auth-submit-button mb-10"
             >

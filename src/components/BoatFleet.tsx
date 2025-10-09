@@ -1,7 +1,6 @@
 import BoatCard from './BoatCard';
 
-const BoatFleet = ({ homeData }) => {
-  // Use API data if available, otherwise fallback to empty array
+const BoatFleet = ({ homeData }: { homeData: any }) => {
   const boats = homeData?.new_joiners || [];
 
   return (
@@ -29,13 +28,13 @@ const BoatFleet = ({ homeData }) => {
         {/* Boat Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
           {boats.length > 0 ? (
-            boats.map((boat, index) => (
+            boats.map((boat: any, index: number) => (
               <BoatCard
                 key={boat.id || index}
-                imageUrl={boat.images?.[0] || '/images/Rectangle 3463853.png'}
+                imageUrl={boat.images?.[0] || boat.image || '/images/Rectangle 3463853.png'}
                 name={boat.name}
-                price={`EGP ${boat.price_per_hour} /Hour`}
-                location={boat.cities?.[0] || 'Aswan- Egypt'}
+                price={`EGP ${boat.price_per_hour || boat.price || 0} /Hour`}
+                location={boat.cities?.[0] || boat.location || 'Aswan- Egypt'}
                 guests={boat.max_seats}
                 status="available"
                 rooms={boat.max_seats_stay}

@@ -1,4 +1,4 @@
-const Activities = ({ homeData }) => {
+const Activities = ({ homeData }: { homeData: any }) => {
   // Get activities data from API
   const fishingTrips = homeData?.fishing_trips || [];
   const waterGames = homeData?.water_games || [];

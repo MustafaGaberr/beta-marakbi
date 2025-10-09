@@ -2,44 +2,73 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { login, setToken, handleApiError } from '@/lib/api';
+import { authApi, storage } from '@/lib/api';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     setError('');
     setLoading(true);
 
     try {
       // Simple validation
-      if (!email || !password) {
+      if (!username || !password) {
         setError('Please fill in all fields');
+        setLoading(false);
         return;
       }
 
-      // Call API - using email as username for now
-      const response = await login(email, password);
+      // Username validation
+      if (username.length < 3) {
+        setError('Username must be at least 3 characters long');
+        setLoading(false);
+        return;
+      }
 
-      if (response.data && response.data.access_token) {
-        // Save token
-        setToken(response.data.access_token);
+      // Password validation
+      if (password.length < 6) {
+        setError('Password must be at least 6 characters long');
+        setLoading(false);
+        return;
+      }
+
+      // Call API
+      const response = await authApi.login({
+        username,
+        password
+      });
+
+      if (response.success && response.data) {
+        // Save tokens and user data
+        storage.setTokens({
+          access_token: response.data.access_token,
+          refresh_token: response.data.refresh_token
+        });
+        
+        storage.setUser({
+          id: response.data.user_id,
+          username: response.data.username,
+          role: 'user'
+        });
+
+        // Also set cookie for middleware
+        document.cookie = `access_token=${response.data.access_token}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
         
         // Redirect to home page
         router.push('/');
       } else {
-        setError('Login failed. Please try again.');
+        setError(response.error || 'Login failed. Please try again.');
       }
       
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('Login error:', err);
-      setError(handleApiError(err));
+      setError(err instanceof Error ? err.message : 'Login failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -88,19 +117,20 @@ export default function LoginPage() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleLogin}>
-            {/* Email Field */}
+          <form noValidate>
+            {/* Username Field */}
             <div className="mb-8">
               <label className="block text-gray-600 text-sm font-semibold mb-2 capitalize">
-                Email
+                Username
               </label>
               <input 
-                type="email"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 className="auth-input"
                 required
+                minLength={3}
               />
             </div>
 
@@ -116,6 +146,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 className="auth-input"
                 required
+                minLength={6}
               />
             </div>
 
@@ -152,7 +183,8 @@ export default function LoginPage() {
 
             {/* Login Button */}
             <button 
-              type="submit"
+              type="button"
+              onClick={handleLogin}
               disabled={loading}
               className="auth-submit-button"
             >
@@ -161,7 +193,7 @@ export default function LoginPage() {
 
             {/* Sign Up Link */}
             <p className="text-center text-base text-gray-500 capitalize">
-              You Don't Have An Account?{' '}
+              You Don&apos;t Have An Account?{' '}
               <button
                 type="button"
                 onClick={() => router.push('/signup')}

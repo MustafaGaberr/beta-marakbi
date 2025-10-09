@@ -1,15 +1,15 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { diagnoseConnection, testConnection } from '@/lib/api';
+import { diagnoseConnection } from '@/lib/api';
 
 interface DiagnosticResult {
   success: boolean;
   error?: string;
   errorType?: string;
-  diagnostics?: any;
+  diagnostics?: { status: string; message: string; details: any };
   status?: number;
-  data?: any;
+  data?: { status: string; message: string; details: any };
 }
 
 export default function DiagnosticReport() {
@@ -72,12 +72,12 @@ export default function DiagnosticReport() {
       recommendations.push('🔧 Add CORS configuration to your Flask app');
     }
     
-    if (result.diagnostics?.isHttps && result.diagnostics?.baseUrl?.startsWith('http:')) {
+    if (result.diagnostics?.details?.isHttps && result.diagnostics?.details?.baseUrl?.startsWith('http:')) {
       recommendations.push('🔧 Mixed content error: HTTPS page trying to fetch HTTP resource');
       recommendations.push('🔧 Solution: Change BASE_URL to HTTPS or run frontend on HTTP');
     }
     
-    if (!result.diagnostics?.isLocalhost) {
+    if (!result.diagnostics?.details?.isLocalhost) {
       recommendations.push('🔧 Consider using localhost instead of 127.0.0.1 for better compatibility');
     }
 
@@ -145,22 +145,22 @@ export default function DiagnosticReport() {
               <h3 className="text-lg font-semibold mb-2 text-blue-800">System Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
-                  <strong>Backend URL:</strong> {diagnostics.diagnostics.baseUrl}
+                  <strong>Backend URL:</strong> {diagnostics.diagnostics?.details?.baseUrl || 'N/A'}
                 </div>
                 <div>
-                  <strong>Current Protocol:</strong> {diagnostics.diagnostics.currentProtocol}
+                  <strong>Current Protocol:</strong> {diagnostics.diagnostics?.details?.currentProtocol || 'N/A'}
                 </div>
                 <div>
-                  <strong>Current Host:</strong> {diagnostics.diagnostics.currentHost}
+                  <strong>Current Host:</strong> {diagnostics.diagnostics?.details?.currentHost || 'N/A'}
                 </div>
                 <div>
-                  <strong>Is HTTPS:</strong> {diagnostics.diagnostics.isHttps ? 'Yes' : 'No'}
+                  <strong>Is HTTPS:</strong> {diagnostics.diagnostics?.details?.isHttps ? 'Yes' : 'No'}
                 </div>
                 <div>
-                  <strong>Is Localhost:</strong> {diagnostics.diagnostics.isLocalhost ? 'Yes' : 'No'}
+                  <strong>Is Localhost:</strong> {diagnostics.diagnostics?.details?.isLocalhost ? 'Yes' : 'No'}
                 </div>
                 <div>
-                  <strong>Timestamp:</strong> {new Date(diagnostics.diagnostics.timestamp).toLocaleString()}
+                  <strong>Timestamp:</strong> {diagnostics.diagnostics?.details?.timestamp ? new Date(diagnostics.diagnostics.details.timestamp).toLocaleString() : 'N/A'}
                 </div>
               </div>
             </div>

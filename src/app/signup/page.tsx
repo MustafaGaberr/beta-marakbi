@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { register, handleApiError } from '@/lib/api';
+import { authApi } from '@/lib/api';
 
 
 export default function SignUpPage() {
@@ -13,44 +13,56 @@ export default function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSignUp = async () => {
     setError('');
+    setSuccess('');
     setLoading(true);
 
     try {
       // Validation
       if (!fullName || !email || !password || !confirmPassword) {
         setError('Please fill in all fields');
+        setLoading(false);
         return;
       }
 
       if (password !== confirmPassword) {
         setError('Passwords do not match');
+        setLoading(false);
         return;
       }
 
       if (!agreeTerms) {
         setError('Please agree to the Terms of Service and Privacy Policy');
+        setLoading(false);
         return;
       }
 
-      // Call API - using email as username for now
-      const response = await register(email, password, email);
+      // Call API
+      const response = await authApi.register({
+        username: fullName, // Map fullName to username
+        email,
+        password
+      });
 
-      if (response.data) {
+      if (response.success) {
+        setSuccess('Account created successfully! Redirecting to login...');
+        
         // Navigate to login page after successful registration
-        router.push('/login');
+        setTimeout(() => {
+          router.push('/login');
+        }, 2000);
       } else {
-        setError('Sign up failed. Please try again.');
+        setError(response.error || 'Sign up failed. Please try again.');
       }
       
-    } catch (err) {
+    } catch (err: unknown) {
       console.error('Sign up error:', err);
-      setError(handleApiError(err));
+      setError(err instanceof Error ? err.message : 'Sign up failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -101,7 +113,7 @@ export default function SignUpPage() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSignUp}>
+          <form noValidate>
             {/* Full Name Field */}
             <div className="mb-5">
               <label className="block text-gray-600 text-sm font-semibold mb-2 capitalize">
@@ -199,9 +211,17 @@ export default function SignUpPage() {
               </div>
             )}
 
+            {/* Success Message */}
+            {success && (
+              <div className="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded-lg mb-4">
+                {success}
+              </div>
+            )}
+
             {/* Sign Up Button */}
             <button 
-              type="submit"
+              type="button"
+              onClick={handleSignUp}
               disabled={loading}
               className="auth-submit-button h-12 mb-5"
             >

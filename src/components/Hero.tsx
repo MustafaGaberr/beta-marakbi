@@ -1,26 +1,32 @@
 "use client"
 import { useState, useEffect } from 'react';
-import { getCities, getBoats } from '@/lib/api';
+import { clientApi } from '@/lib/api';
 
-const Hero = ({ homeData }) => {
+const Hero = ({ homeData }: { homeData: any }) => {
   const [city, setCity] = useState('');
   const [boatType, setBoatType] = useState('');
   const [tripType, setTripType] = useState('');
-  const [cities, setCities] = useState([]);
-  const [boats, setBoats] = useState([]);
+  const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
+  const [boats, setBoats] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [citiesData, boatsData] = await Promise.all([
-          getCities(),
-          getBoats()
+        const [citiesResponse, boatsResponse] = await Promise.all([
+          clientApi.getCities(),
+          clientApi.getBoats()
         ]);
-        setCities(citiesData.cities || []);
-        setBoats(boatsData.boats || []);
-        console.log('Cities loaded:', citiesData.cities);
-        console.log('Boats loaded:', boatsData.boats);
+        
+        if (citiesResponse.success && citiesResponse.data) {
+          setCities(citiesResponse.data.cities || []);
+          console.log('Cities loaded:', citiesResponse.data.cities);
+        }
+        
+        if (boatsResponse.success && boatsResponse.data) {
+          setBoats(boatsResponse.data.boats || []);
+          console.log('Boats loaded:', boatsResponse.data.boats);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {

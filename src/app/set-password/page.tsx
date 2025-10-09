@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { mockApi, storage } from '@/lib/api';
+import { authApi, storage } from '@/lib/api';
 
 
 export default function SetPasswordPage() {
@@ -12,8 +12,7 @@ export default function SetPasswordPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const handleSetPassword = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSetPassword = async () => {
     setError('');
     setLoading(true);
 
@@ -21,21 +20,24 @@ export default function SetPasswordPage() {
       // Validation
       if (!password || !confirmPassword) {
         setError('Please fill in all password fields');
+        setLoading(false);
         return;
       }
 
       if (password !== confirmPassword) {
         setError('Passwords do not match');
+        setLoading(false);
         return;
       }
 
       if (password.length < 6) {
         setError('Password must be at least 6 characters long');
+        setLoading(false);
         return;
       }
 
       // Call API
-      const response = await mockApi.resetPassword(password, confirmPassword);
+      const response = await authApi.resetPassword('', password);
 
       if (response.success) {
         // Get stored user to check role (in case they're completing password setup)
@@ -115,7 +117,7 @@ export default function SetPasswordPage() {
           </div>
 
           {/* Password Form */}
-          <form onSubmit={handleSetPassword}>
+          <form noValidate>
             {/* Create Password Field */}
             <div className="mb-6">
               <label className="block text-black text-base mb-2">
@@ -155,7 +157,8 @@ export default function SetPasswordPage() {
 
             {/* Set Password Button */}
             <button 
-              type="submit"
+              type="button"
+              onClick={handleSetPassword}
               disabled={loading || !password || !confirmPassword}
               className={`w-[70%] h-12 rounded-lg border-none text-white text-base font-medium cursor-pointer transition-colors ${
                 loading || !password || !confirmPassword ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-800 hover:bg-blue-900'

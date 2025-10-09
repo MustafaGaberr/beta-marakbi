@@ -2,22 +2,23 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { storage } from '@/lib/api';
+// Removed API imports - using local state only
 import Header from '../../components/Header';
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<any>(null);
-  const router = useRouter();
+  const [user, setUser] = useState<{ id: string; fullName: string; email: string; role: string } | null>(null);
 
   useEffect(() => {
-    // Check if user is logged in
-    const userData = storage.getUser();
-    if (!userData) {
-      router.push('/login');
-      return;
-    }
-    setUser(userData);
-  }, [router]);
+    // Static data - no API calls
+    const mockUser = {
+      id: '1',
+      fullName: 'John Doe',
+      email: 'john@example.com',
+      role: 'user'
+    };
+    
+    setUser(mockUser);
+  }, []);
 
   if (!user) {
     return (
