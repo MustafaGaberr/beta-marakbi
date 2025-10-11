@@ -345,6 +345,14 @@ body > * {
   font-family: 'SignPainter', cursive;
 }
 
+/* Gradient Text */
+.gradiant-text {
+  background: linear-gradient(135deg, #106BD8 0%, #083872 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .signpainter-title {
   color: #927C4E;
   font-size: 38px;
