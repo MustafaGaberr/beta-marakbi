@@ -1,9 +1,15 @@
 @import "tailwindcss";
 
+html,
+body,
+:root {
+  height: 100%;
+}
+
 /* Poppins Font - Local Files */
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-Thin.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-Thin.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -11,79 +17,80 @@
 
 /* SignPainter - Local */
 @font-face {
-  font-family: 'SignPainter';
-  src: url('/fonts/signpainter/SignPainterHouseScript.ttf') format('truetype');
+  font-family: "SignPainter";
+  src: url("/fonts/signpainter/SignPainterHouseScript.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-ExtraLight.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-ExtraLight.ttf") format("truetype");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-Light.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-Regular.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-Medium.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-SemiBold.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-Bold.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-ExtraBold.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-ExtraBold.ttf") format("truetype");
   font-weight: 800;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Poppins';
-  src: url('/fonts/poppins/Poppins-Black.ttf') format('truetype');
+  font-family: "Poppins";
+  src: url("/fonts/poppins/Poppins-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
 :root {
-  --font-family-primary: var(--font-poppins), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --font-family-primary: var(--font-poppins), -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   --color-brand-blue-dark: #0d2440;
   --color-brand-blue-medium: #0f3b7f;
   --color-brand-blue-light: #3b5998;
@@ -93,26 +100,26 @@
   --color-brand-gray-text: #5f5f5f;
 
   /* Auth Colors */
-  --color-auth-primary: #093B77;
+  --color-auth-primary: #093b77;
   --color-auth-primary-hover: #0a4a94;
-  --color-auth-secondary: #106BD8;
-  --color-auth-text-gray: #7D7D7D;
+  --color-auth-secondary: #106bd8;
+  --color-auth-text-gray: #7d7d7d;
   --color-auth-text-dark: #616161;
-  --color-auth-bg-light: #F7F7F7;
-  --color-auth-border: #E5E7EB;
-  --color-auth-error-bg: #FEE2E2;
-  --color-auth-error-border: #FECACA;
-  --color-auth-error-text: #DC2626;
-  --color-auth-success-bg: #DCFCE7;
-  --color-auth-success-border: #BBF7D0;
-  --color-auth-success-text: #16A34A;
+  --color-auth-bg-light: #f7f7f7;
+  --color-auth-border: #e5e7eb;
+  --color-auth-error-bg: #fee2e2;
+  --color-auth-error-border: #fecaca;
+  --color-auth-error-text: #dc2626;
+  --color-auth-success-bg: #dcfce7;
+  --color-auth-success-border: #bbf7d0;
+  --color-auth-success-text: #16a34a;
 
   --font-family-sans: "Poppins", sans-serif;
   --font-family-serif: "Playfair Display", serif;
 
-  --bg-hero-pattern: url('/images/hero-bg.png');
-  --bg-why-us-pattern: url('/images/why-us-yacht.jpg');
-  --bg-cta-pattern: url('/images/cta-yacht.jpg');
+  --bg-hero-pattern: url("/images/hero-bg.png");
+  --bg-why-us-pattern: url("/images/why-us-yacht.jpg");
+  --bg-cta-pattern: url("/images/cta-yacht.jpg");
 }
 
 /* Auth Page Layout Styles */
@@ -271,22 +278,28 @@ body {
   .auth-page-container {
     flex-direction: column;
   }
-  
+
   .auth-left-side {
     flex: 0 0 40%;
   }
-  
+
   .auth-form-container {
     padding: 20px;
   }
 }
 
-h1, h2, h3, h4, .font-serif {
+h1,
+h2,
+h3,
+h4,
+.font-serif {
   font-family: var(--font-family-serif);
 }
 
 /* Fix for clickable elements */
-button, a, [role="button"] {
+button,
+a,
+[role="button"] {
   cursor: pointer;
   pointer-events: auto !important;
   z-index: 9999;
@@ -342,21 +355,21 @@ body > * {
 
 /* SignPainter Utilities */
 .font-signpainter {
-  font-family: 'SignPainter', cursive;
+  font-family: "SignPainter", cursive;
 }
 
 /* Gradient Text */
 .gradiant-text {
-  background: linear-gradient(135deg, #106BD8 0%, #083872 100%);
+  background: linear-gradient(135deg, #106bd8 0%, #083872 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .signpainter-title {
-  color: #927C4E;
+  color: #927c4e;
   font-size: 38px;
-  font-family: 'SignPainter', cursive;
+  font-family: "SignPainter", cursive;
   font-weight: 400;
   text-transform: capitalize;
   word-wrap: break-word;
@@ -367,7 +380,7 @@ body > * {
   width: 100%;
   color: #232536;
   font-size: 36px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 600;
   line-height: 54px;
   word-wrap: break-word;
@@ -376,7 +389,7 @@ body > * {
 .privacy-page-title {
   color: black;
   font-size: 46px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 700;
   text-transform: capitalize;
   word-wrap: break-word;
@@ -385,16 +398,16 @@ body > * {
 .privacy-last-updated {
   color: #232536;
   font-size: 16px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   line-height: 24px;
   word-wrap: break-word;
 }
 
 .privacy-section-heading {
-  color: #0B4C99;
+  color: #0b4c99;
   font-size: 24px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   text-transform: capitalize;
   word-wrap: break-word;
@@ -403,7 +416,7 @@ body > * {
 .privacy-section-text {
   color: #232536;
   font-size: 16px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   line-height: 24px;
   word-wrap: break-word;
