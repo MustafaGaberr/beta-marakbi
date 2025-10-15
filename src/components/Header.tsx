@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Logo from './Logo';
+import ServicesDropdown from './ServicesDropdown';
 import { storage, isAuthenticated } from '@/lib/api';
 
 interface HeaderProps {
@@ -20,9 +21,6 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef<HTMLInputElement | null>(null);
-  const servicesMenuRef = useRef<HTMLDivElement | null>(null);
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
-  const servicesHoverTimeoutRef = useRef<number | null>(null);
 
   type Suggestion = { label: string; href: string; keywords?: string[] };
 
@@ -83,16 +81,6 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
     }
   }, []);
 
-  useEffect(() => {
-    const handleClickAway = (e: MouseEvent) => {
-      if (!servicesMenuRef.current) return;
-      if (!servicesMenuRef.current.contains(e.target as Node)) {
-        setIsServicesOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickAway);
-    return () => document.removeEventListener('mousedown', handleClickAway);
-  }, []);
 
   const textColor = variant === 'solid' ? 'text-gray-900' : 'text-white';
   const hoverColor = variant === 'solid' ? 'hover:text-blue-600' : 'hover:text-blue-200';
@@ -182,33 +170,7 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
             <Link href="/" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>Home</Link>
             <Link href="/about-us" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>About us</Link>
             {/* Our Services Dropdown */}
-            <div
-              ref={servicesMenuRef}
-              className="relative"
-              onMouseEnter={() => {
-                if (servicesHoverTimeoutRef.current) window.clearTimeout(servicesHoverTimeoutRef.current);
-                setIsServicesOpen(true);
-              }}
-              onMouseLeave={() => {
-                if (servicesHoverTimeoutRef.current) window.clearTimeout(servicesHoverTimeoutRef.current);
-                servicesHoverTimeoutRef.current = window.setTimeout(() => setIsServicesOpen(false), 100);
-              }}
-            >
-              <div className="flex items-center gap-2 cursor-pointer select-none">
-                <span className={`${textColor} text-base font-normal font-poppins`}>Our Services</span>
-                <i className={`fas fa-caret-down ${textColor} text-sm transition-transform duration-200 ${isServicesOpen ? 'rotate-180' : ''}`}></i>
-              </div>
-              {/* Dropdown menu */}
-              <div className={`absolute left-0 mt-2 min-w-[220px] rounded-md bg-white py-2 shadow-lg ring-1 ring-black/5 ${isServicesOpen ? 'block' : 'hidden'}`}>
-                <Link href="/services/private-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">PRIVATE BOATS</Link>
-                <Link href="/services/sharing-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">SHARING BOATS</Link>
-                <Link href="/services/travel-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">TRAVEL BOATS</Link>
-                <Link href="/services/fishing-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">FISHING BOATS</Link>
-                <Link href="/services/stayover-boats" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">STAYOVER BOATS</Link>
-                <Link href="/services/water-activities" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">WATER ACTIVITIES</Link>
-                <Link href="/services/occasions" className="block px-4 py-2 text-sm text-gray-800 hover:bg-gray-50">OCCASIONS</Link>
-              </div>
-            </div>
+            <ServicesDropdown variant={variant} />
             <Link href="/contact" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>Contact</Link>
             {/* Search Icon + Expanding Input (Desktop) */}
             <div className="relative flex items-center">
