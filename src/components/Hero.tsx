@@ -9,6 +9,7 @@ const Hero = ({ homeData }: { homeData: any }) => {
   const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
   const [boats, setBoats] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,6 +36,15 @@ const Hero = ({ homeData }: { homeData: any }) => {
     };
 
     fetchData();
+  }, []);
+
+  // Timer for image gallery animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveImageIndex((prevIndex) => (prevIndex + 1) % 3);
+    }, 2000); // Change every 2 seconds
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -131,33 +141,41 @@ const Hero = ({ homeData }: { homeData: any }) => {
       </div>
 
       {/* Featured Activities Section - Bottom Center */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4">
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 max-w-5xl w-[600px] px-4">
         <div className="bg-white rounded-tl-lg rounded-tr-lg shadow-lg">
-          <div className="p-6">
-            <h2 className="text-blue-700 text-lg font-medium font-poppins capitalize mb-4 text-center">
+          <div className="p-4 min-h-[200px] overflow-hidden">
+            <h2 className="text-blue-700 text-lg font-medium font-poppins capitalize mb-4">
               Featured Activities
             </h2>
 
             {/* Image Gallery */}
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4 h-40">
               {/* Image 1: Felucca */}
-              <div className="relative">
+              <div className="relative transition-all duration-500 ease-in-out">
                 <img
                   src="/images/f1.png"
                   alt="Felucca"
-                  className="w-40 h-36 rounded-lg"
+                  className={`rounded-lg transition-all duration-500 ease-in-out ${
+                    activeImageIndex === 0 
+                      ? 'w-44 h-40 scale-105' 
+                      : 'w-40 h-36'
+                  }`}
                 />
                 <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
                   01
                 </div>
               </div>
 
-              {/* Image 2: Fishing (Middle, larger) */}
-              <div className="relative">
+              {/* Image 2: Fishing */}
+              <div className="relative transition-all duration-500 ease-in-out">
                 <img
                   src="/images/f2.png"
                   alt="Fishing"
-                  className="w-40 h-40 rounded-lg"
+                  className={`rounded-lg transition-all duration-500 ease-in-out ${
+                    activeImageIndex === 1 
+                      ? 'w-44 h-40 scale-105' 
+                      : 'w-40 h-36'
+                  }`}
                 />
                 <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
                   02
@@ -165,11 +183,15 @@ const Hero = ({ homeData }: { homeData: any }) => {
               </div>
 
               {/* Image 3: Kayak */}
-              <div className="relative">
+              <div className="relative transition-all duration-500 ease-in-out">
                 <img
                   src="/images/f3.png"
                   alt="Kayak"
-                  className="w-40 h-36 rounded-lg"
+                  className={`rounded-lg transition-all duration-500 ease-in-out ${
+                    activeImageIndex === 2 
+                      ? 'w-44 h-40 scale-105' 
+                      : 'w-40 h-36'
+                  }`}
                 />
                 <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
                   03
