@@ -56,13 +56,13 @@ const Hero = ({ homeData }: { homeData: any }) => {
             <div className="text-orange-300 text-2xl sm:text-3xl lg:text-4xl font-normal font-['SignPainter'] capitalize mb-4">
               With Marakbi
             </div>
-            <div className="text-white text-3xl sm:text-4xl lg:text-6xl font-bold font-poppins capitalize leading-tight lg:leading-[68px] mb-8">
-              <span className="text-white">Most Reliable<br/></span>
-              <span className="text-orange-300">Luxury Boats </span>
-              <span className="text-white">Rentals</span>
-            </div>
             <div className="text-white text-xl sm:text-2xl lg:text-3xl font-medium font-poppins capitalize mb-8">
               Your Dream boats
+            </div>
+            <div className="text-white text-3xl sm:text-4xl lg:text-6xl font-bold font-poppins capitalize leading-tight lg:leading-[68px] mb-8">
+              <span className="text-white">Most Reliable<br/></span>
+              <span className="text-white">Luxury Boats </span>
+              <span className="text-orange-300">Rentals</span>
             </div>
             <button className="w-full sm:w-56 h-12 px-6 py-2.5 bg-[#0C4A8C] rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-poppins mx-auto lg:mx-0 clickable hover:bg-[#0A3D7A] transition-colors">
               Explore Now
@@ -126,6 +126,56 @@ const Hero = ({ homeData }: { homeData: any }) => {
             <button className="w-full sm:w-64 h-12 px-6 py-2.5 bg-[#0C4A8C] backdrop-blur-sm rounded-lg flex justify-center items-center gap-2.5 text-white text-base font-normal font-poppins clickable hover:bg-[#0A3D7A] transition-all duration-300 shadow-lg mt-auto">
               Book now
             </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Featured Activities Section - Bottom Center */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4">
+        <div className="bg-white rounded-tl-lg rounded-tr-lg shadow-lg">
+          <div className="p-6">
+            <h2 className="text-blue-700 text-lg font-medium font-poppins capitalize mb-4 text-center">
+              Featured Activities
+            </h2>
+
+            {/* Image Gallery */}
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              {/* Image 1: Felucca */}
+              <div className="relative">
+                <img
+                  src="/images/f1.png"
+                  alt="Felucca"
+                  className="w-40 h-36 rounded-lg"
+                />
+                <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
+                  01
+                </div>
+              </div>
+
+              {/* Image 2: Fishing (Middle, larger) */}
+              <div className="relative">
+                <img
+                  src="/images/f2.png"
+                  alt="Fishing"
+                  className="w-40 h-40 rounded-lg"
+                />
+                <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
+                  02
+                </div>
+              </div>
+
+              {/* Image 3: Kayak */}
+              <div className="relative">
+                <img
+                  src="/images/f3.png"
+                  alt="Kayak"
+                  className="w-40 h-36 rounded-lg"
+                />
+                <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
+                  03
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

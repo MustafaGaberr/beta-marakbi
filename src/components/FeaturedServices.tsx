@@ -36,60 +36,6 @@ const FeaturedServices = () => {
 
   return (
     <section className="relative py-16">
-      {/* Featured Activities Box */}
-      <div className="max-w-4xl mx-auto mb-16 bg-white rounded-tl-lg rounded-tr-lg shadow-lg">
-        <div className="p-6">
-          <h2 className="text-blue-700 text-lg font-medium font-poppins capitalize mb-4">
-            Featured Activities
-          </h2>
-
-          {/* Image Gallery */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-            {/* Image 1: Felucca */}
-            <div className="relative">
-              <img
-                src="/images/f1.png"
-                alt="Felucca"
-                className="w-40 h-36 rounded-lg"
-              />
-              <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
-                01
-              </div>
-            </div>
-
-            {/* Image 2: Fishing (Middle, larger) */}
-            <div className="relative">
-              <img
-                src="/images/f2.png"
-                alt="Fishing"
-                className="w-40 h-40 rounded-lg"
-              />
-              <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
-                02
-              </div>
-            </div>
-
-            {/* Image 3: Kayak */}
-            <div className="relative">
-              <img
-                src="/images/f3.png"
-                alt="Kayak"
-                className="w-40 h-36 rounded-lg"
-              />
-              <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
-                03
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom bar */}
-          <div className="mt-4 w-40 h-8 bg-black/30 rounded-bl-lg rounded-br-lg flex items-center justify-center mx-auto">
-            <span className="text-white text-lg font-normal font-poppins capitalize">
-              Felucca
-            </span>
-          </div>
-        </div>
-      </div>
 
       {/* Service Icons Grid */}
       <div className="w-full flex justify-center pt-20">
