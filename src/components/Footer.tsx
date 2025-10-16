@@ -81,7 +81,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="#" className=" hover:text-orange-300 transition-colors font-poppins">
+                <Link href="our-team" className=" hover:text-orange-300 transition-colors font-poppins">
                   Our Team
                 </Link>
               </li>

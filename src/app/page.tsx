@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Hero from '@/components/Hero';
-import FeaturedServices from '@/components/FeaturedServices';
+import OurServices from '@/components/OurServices';
 import AboutApp from '@/components/AboutApp';
 import BoatFleet from '@/components/BoatFleet';
 import WhyUs from '@/components/WhyUs';
@@ -81,7 +81,7 @@ export default function HomePage() {
       <Header currentPage="home" />
       <main className="relative z-10">
         <Hero homeData={homeData} />
-        <FeaturedServices />
+        <OurServices />
         <AboutApp />
         <BoatFleet homeData={homeData} />
         <WhyUs />
