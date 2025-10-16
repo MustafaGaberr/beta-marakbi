@@ -4,25 +4,37 @@ const BoatFleet = ({ homeData }: { homeData: any }) => {
   const boats = homeData?.new_joiners || [];
 
   return (
-    <section className="relative w-full bg-slate-900/70 overflow-hidden py-16">
-      {/* Background Overlay */}
-      <div className="absolute inset-0 bg-black/25"></div>
+    <section className="relative w-full overflow-hidden py-16">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{backgroundImage: "url('/images/Frame 1321316346.png')"}}
+      ></div>
+      
+  
 
       <div className="relative">
         {/* Hero Content */}
-        <div className="flex flex-col items-center justify-center text-center mb-16">
-          {/* Orange Line */}
-          <div className="w-14 h-1 bg-orange-300 mb-8"></div>
-
+        <div className="flex flex-col items-center justify-center text-center mb-10 ">
+         
           {/* Title */}
-          <h2 className="text-white text-3xl md:text-5xl font-semibold font-poppins mb-4">
+          <h2 className="text-white text-3xl md:text-5xl font-semibold font-poppins mb-4 mt-4">
             Fleet of Luxury Boats
           </h2>
 
-          {/* Description */}
-          <p className="text-white text-sm font-normal font-poppins max-w-2xl leading-9 px-4">
+            {/* Description */}
+            <p className="text-white text-s font-normal font-poppins max-w-4xl leading-relaxed px-4 mb-6">
             Explore our exquisite collection of high-end yachts and premium vessels, perfect for tailored trips across Aswan&apos;s majestic Nile and Egypt&apos;s stunning Red Sea.
-          </p>
+            </p>
+
+          {/* Golden Wavy Line */}
+          <div className="flex justify-center">
+            <img 
+              src="/icons/Line 74.svg" 
+              alt="Decorative line"
+              className="h-4"
+            />
+          </div>
         </div>
 
         {/* Boat Cards Grid */}
