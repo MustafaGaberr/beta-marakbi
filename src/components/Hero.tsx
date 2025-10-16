@@ -129,6 +129,56 @@ const Hero = ({ homeData }: { homeData: any }) => {
           </div>
         </div>
       </div>
+
+      {/* Featured Activities Section - Bottom Center */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-full max-w-4xl px-4">
+        <div className="bg-white rounded-tl-lg rounded-tr-lg shadow-lg">
+          <div className="p-6">
+            <h2 className="text-blue-700 text-lg font-medium font-poppins capitalize mb-4 text-center">
+              Featured Activities
+            </h2>
+
+            {/* Image Gallery */}
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+              {/* Image 1: Felucca */}
+              <div className="relative">
+                <img
+                  src="/images/f1.png"
+                  alt="Felucca"
+                  className="w-40 h-36 rounded-lg"
+                />
+                <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
+                  01
+                </div>
+              </div>
+
+              {/* Image 2: Fishing (Middle, larger) */}
+              <div className="relative">
+                <img
+                  src="/images/f2.png"
+                  alt="Fishing"
+                  className="w-40 h-40 rounded-lg"
+                />
+                <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
+                  02
+                </div>
+              </div>
+
+              {/* Image 3: Kayak */}
+              <div className="relative">
+                <img
+                  src="/images/f3.png"
+                  alt="Kayak"
+                  className="w-40 h-36 rounded-lg"
+                />
+                <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
+                  03
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
