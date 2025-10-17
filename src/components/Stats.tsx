@@ -4,41 +4,41 @@ const Stats = () => {
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src="/images/image 3.png"
-          alt="Stats Background"
-          className="w-full h-full object-cover"
+          src="/images/wmap.png"
+          alt="World Map Background"
+          className="w-[1600px] h-[300px] object-contain"
         />
-        <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
       {/* Stats Cards */}
-      <div className="relative container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {/* Boat Owners */}
-          <div className="w-full h-52 bg-purple-700 rounded-2xl flex flex-col justify-center items-center shadow-lg">
-            <div className="text-white text-4xl md:text-6xl font-bold font-poppins capitalize">100 +</div>
-            <div className="text-white text-lg md:text-2xl font-normal font-poppins capitalize text-center">Boat Owners</div>
-          </div>
+      <div className="relative container mx-auto px-4 mt-16 mb-16">
+        <div className="flex justify-center gap-6 max-w-6xl mx-auto">
+            {/* Boat Owners */}
+            <div className="w-64 h-46 bg-purple-700 rounded-2xl flex flex-col justify-center items-center shadow-lg ">
+              <div className="text-white text-[66px] font-bold font-poppins capitalize break-words">100 +</div>
+              <div className="text-white text-[23px] font-normal font-poppins text-center capitalize break-words">Boat Owners</div>
+            </div>
 
-          {/* Water Activities */}
-          <div className="w-full h-52 bg-orange-300 rounded-2xl flex flex-col justify-center items-center shadow-lg">
-            <div className="text-white text-4xl md:text-6xl font-bold font-poppins capitalize">100 +</div>
-            <div className="text-white text-lg md:text-2xl font-normal font-poppins capitalize text-center">water Activities</div>
-          </div>
+            {/* Water Activities */}
+            <div className="w-64 h-46 bg-orange-300 rounded-2xl flex flex-col justify-center items-center shadow-lg mt-16">
+              <div className="text-white text-[66px] font-bold font-poppins capitalize break-words">100 +</div>
+              <div className="text-white text-[23px] font-normal font-poppins text-center capitalize break-words">Water Activities</div>
+            </div>
 
-          {/* Available Trips */}
-          <div className="w-full h-52 bg-teal-500 rounded-2xl flex flex-col justify-center items-center shadow-lg">
-            <div className="text-white text-4xl md:text-6xl font-bold font-poppins capitalize">157 +</div>
-            <div className="text-white text-lg md:text-2xl font-normal font-poppins capitalize text-center">available trips</div>
-          </div>
+            {/* Available Trips */}
+            <div className="w-64 h-46 bg-teal-500 rounded-2xl flex flex-col justify-center items-center shadow-lg">
+              <div className="text-white text-[66px] font-bold font-poppins capitalize break-words">157 +</div>
+              <div className="text-white text-[23px] font-normal font-poppins text-center capitalize break-words">Available Trips</div>
+            </div>
 
-          {/* Trips Done */}
-          <div className="w-full h-52 bg-red-500 rounded-2xl flex flex-col justify-center items-center shadow-lg">
-            <div className="text-white text-4xl md:text-6xl font-bold font-poppins capitalize">10 +</div>
-            <div className="text-white text-lg md:text-2xl font-normal font-poppins capitalize text-center">trips done</div>
-          </div>
+            {/* Trips Done */}
+            <div className="w-64 h-46 bg-red-500 rounded-2xl flex flex-col justify-center items-center shadow-lg mt-16">
+              <div className="text-white text-[66px] font-bold font-poppins capitalize break-words">10 +</div>
+              <div className="text-white text-[23px] font-normal font-poppins text-center capitalize break-words">Trips Done</div>
+            </div>
         </div>
       </div>
+
     </section>
   );
 };

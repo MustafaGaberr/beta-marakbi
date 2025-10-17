@@ -1,11 +1,15 @@
 const Activities = ({ homeData }: { homeData: any }) => {
-  // Get activities data from API
-  const fishingTrips = homeData?.fishing_trips || [];
-  const waterGames = homeData?.water_games || [];
-  const nileCruises = homeData?.nile_cruises || [];
-  const occasions = homeData?.occasions || [];
+  const activities = [
+    { src: '/images/Rectangle 3463860.png', title: 'Water Sports', height: 'h-150' },
+    { src: '/images/Rectangle 3463863.png', title: 'Family Activities', height: 'h-150' },
+    { src: '/images/Rectangle 3463861.png', title: 'Boat Rides', height: 'h-200' },
+    { src: '/images/Rectangle 3463865.png', title: 'Cruises', height: 'h-100' },
+    { src: '/images/Rectangle 3463862.png', title: 'Fishing Trips', height: 'h-150' },
+    { src: '/images/Rectangle 3463864.png', title: 'Snorkelling & Diving', height: 'h-150' },
+  ];
+
   return (
-    <section className="relative py-16">
+    <section className="relative py-2">
       {/* Title */}
       <div className="text-center mb-12">
         <h2 className="text-black text-4xl md:text-6xl font-bold font-poppins capitalize leading-tight">
@@ -16,113 +20,34 @@ const Activities = ({ homeData }: { homeData: any }) => {
         </p>
       </div>
 
-      {/* Activities Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto px-4 h-auto lg:h-[1000px]">
-        {/* Water Sports - Column 1, Rows 1-3 */}
-        <div className="flex flex-col row-span-3">
-          <div className="relative overflow-hidden rounded-[32px] mb-4 h-full">
+      {/* Activities Masonry Layout */}
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-6 max-w-7xl mx-auto px-4">
+        {activities.map((item, i) => (
+          <div
+            key={i}
+            className={`relative overflow-hidden rounded-[32px] mb-6 break-inside-avoid ${item.height} group`}
+          >
+            {/* الصورة */}
             <img
-              src="/images/Rectangle 3463860.png"
-              alt="Water Sports"
-              className="w-full h-full object-cover rounded-[32px]"
+              src={item.src}
+              alt={item.title}
+              className="w-full h-full object-cover rounded-[32px] transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
-                Water Sports
-              </span>
-            </div>
+
+            {/* الأوفرلاي الأسود الافتراضي */}
+            <div className="absolute inset-0 bg-black/20 transition duration-500 group-hover:bg-transparent"></div>
+
+            {/* العنوان */}
+            <div
+  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-center"
+>
+  <span className="text-white text-xl font-medium font-poppins capitalize">
+    {item.title}
+  </span>
+</div>
+
           </div>
-        </div>
-
-        {/* Boat Rides - Column 1, Rows 4-6 */}
-        <div className="flex flex-col row-span-4">
-          <div className="relative overflow-hidden rounded-[32px] mb-4 h-full">
-            <img
-              src="/images/Rectangle 3463861.png"
-              alt="Boat Rides"
-              className="w-full h-full object-cover rounded-[32px]"
-            />
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
-                Boat Rides
-              </span>
-            </div>
-          </div>
-        </div>
-
-        
-
-        {/* Fishing Trips - Column 2, Rows 1-4 */}
-        <div className="flex flex-col row-span-3">
-          <div className="relative overflow-hidden rounded-[32px] mb-4 h-full">
-            <img
-              src="/images/Rectangle 3463862.png"
-              alt="Fishing Trips"
-              className="w-full h-full object-cover rounded-[32px]"
-            />
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
-                Fishing Trips
-              </span>
-            </div>
-          </div>
-        </div>
-
-        
-
-        {/* Family Activities - Column 2, Rows 5-6 */}
-        <div className="flex flex-col row-span-3">
-          <div className="relative overflow-hidden rounded-[32px] mb-4 h-full">
-            <img
-              src="/images/Rectangle 3463863.png"
-              alt="Family Activities"
-              className="w-full h-full object-cover rounded-[32px]"
-            />
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
-                Family Activities
-              </span>
-            </div>
-          </div>
-        </div>
-
-        
-
-        
-
-
-        {/* Snorkelling & Diving - Column 3, Rows 1-3 */}
-        <div className="flex flex-col row-span-3">
-          <div className="relative overflow-hidden rounded-[32px] mb-4 h-full">
-            <img
-              src="/images/Rectangle 3463864.png"
-              alt="Snorkelling & Diving"
-              className="w-full h-full object-cover rounded-[32px]"
-            />
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
-                Snorkelling & Diving
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Cruises - Column 3, Rows 4-6 */}
-        <div className="flex flex-col row-span-2">
-          <div className="relative overflow-hidden rounded-[32px] mb-4 h-full">
-            <img
-              src="/images/Rectangle 3463865.png"
-              alt="Cruises"
-              className="w-full h-full object-cover rounded-[32px]"
-            />
-            <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-              <span className="text-white text-xl md:text-2xl font-medium font-poppins capitalize">
-                Cruises
-              </span>
-            </div>
-          </div>
-        </div>
-
+        ))}
       </div>
     </section>
   );

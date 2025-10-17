@@ -5,7 +5,7 @@ import Hero from '@/components/Hero';
 import OurServices from '@/components/OurServices';
 import AboutApp from '@/components/AboutApp';
 import BoatFleet from '@/components/BoatFleet';
-import WhyUs from '@/components/WhyUs';
+import WhyChoosingUs from '@/components/WhyChoosingUs';
 import Stats from '@/components/Stats';
 import Activities from '@/components/Activities';
 import Destinations from '@/components/Destinations';
@@ -84,7 +84,7 @@ export default function HomePage() {
         <OurServices />
         <AboutApp />
         <BoatFleet homeData={homeData} />
-        <WhyUs />
+        <WhyChoosingUs />
         <Stats />
         <Activities homeData={homeData} />
         <Destinations />
