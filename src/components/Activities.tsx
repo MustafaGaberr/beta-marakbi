@@ -49,6 +49,15 @@ const Activities = ({ homeData }: { homeData: any }) => {
           </div>
         ))}
       </div>
+      <div className="text-center mb-16 mt-16">
+          <p className="text-4xl lg:text-5xl font-signpainter text-[#927C4E] mb-4">
+          Where to sail Now
+          </p>
+          <h2 className="text-5xl lg:text-6xl font-bold text-black font-poppins mb-6">
+          Top Destinations
+          </h2>
+          
+        </div>
     </section>
   );
 };
