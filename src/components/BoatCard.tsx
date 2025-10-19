@@ -1,4 +1,10 @@
-// import Image from 'next/image';
+import Image from "next/image";
+import {
+  MdOutlineBed,
+  MdOutlineGroups2,
+  MdOutlineLocationOn,
+} from "react-icons/md";
+import { GiMeal } from "react-icons/gi";
 
 interface BoatCardProps {
   imageUrl: string;
@@ -10,77 +16,66 @@ interface BoatCardProps {
   rooms: number;
 }
 
-const BoatCard = ({ imageUrl, name, price, location, guests, status, rooms }: BoatCardProps) => {
+export default function BoatCard({
+  imageUrl,
+  name,
+  price,
+  location,
+  guests,
+  status,
+  rooms,
+}: BoatCardProps) {
   return (
-    <div className="w-96 h-[516px] bg-white rounded-2xl shadow-lg">
-      {/* Boat Image */}
-      <div className="relative w-96 h-64 rounded-t-2xl overflow-hidden">
-        <img
-          src={imageUrl}
-          alt={name}
-          className="w-full h-full object-cover"
-        />
+    <div className="bg-white cursor-pointer rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 w-full max-w-md sm:max-w-lg mx-auto">
+      {/* Image */}
+      <div className="px-3 pt-3.5">
+        <div className="relative w-full h-[220px] sm:h-[260px] md:h-[300px]">
+          <Image
+            src={imageUrl}
+            alt={name}
+            fill
+            className="object-cover rounded-lg"
+            sizes="(max-width: 768px) 100vw, 400px"
+          />
+        </div>
       </div>
 
-      {/* Card Content */}
-      <div className="p-6">
-        {/* Name */}
-        <h3 className="text-black text-xl font-semibold font-['Poppins'] mb-2">{name}</h3>
+      {/* Content */}
+      <div className="px-4 sm:px-5 py-4 flex flex-col items-center text-center gap-2">
+        <p className="text-lg sm:text-xl md:text-2xl font-semibold">{name}</p>
+        <p className="text-[#093B77] text-sm sm:text-base font-medium">
+          {price} / Hour
+        </p>
 
-        {/* Price */}
-        <p className="text-sky-900 text-base font-medium font-['Poppins'] mb-4">{price}</p>
-
-        {/* Location */}
-        <div className="flex items-center mb-4">
-          <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center mr-2.5">
-            <svg className="w-4 h-5 text-sky-800" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-            </svg>
-          </div>
-          <span className="text-black text-base font-normal font-['Poppins']">{location}</span>
+        <div className="my-2">
+          <Image src="/CardLine.png" alt="divider" width={56} height={3} />
         </div>
 
-        {/* Orange Line */}
-        <div className="w-14 h-1 bg-orange-300 mb-4"></div>
+        <div className="flex items-center justify-center gap-2.5 flex-wrap">
+          <MdOutlineLocationOn color="#0B4C99" size={22} />
+          <p className="text-gray-600 text-sm sm:text-base">{location}</p>
+        </div>
+      </div>
 
-        {/* Separator Line */}
-        <div className="w-96 h-0 border border-stone-300 mb-4"></div>
+      <div className="w-full h-px bg-gray-200" />
 
-        {/* Details */}
-        <div className="flex justify-between items-center">
-          {/* Guests */}
-          <div className="flex items-center gap-1">
-            <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-              <svg className="w-6 h-3 text-stone-500" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-              </svg>
-            </div>
-            <span className="text-black text-base font-normal font-['Poppins']">{guests} Guest</span>
-          </div>
+      {/* Info Row */}
+      <div className="py-3 sm:py-4 px-4 sm:px-6 text-gray-700 text-sm sm:text-base flex flex-col sm:flex-row items-center sm:justify-between gap-3 sm:gap-0">
+        <div className="flex items-center gap-2">
+          <MdOutlineGroups2 color="#927C4E" size={20} />
+          <span>{guests} Guests</span>
+        </div>
 
-          {/* Status */}
-          <div className="flex items-center gap-1">
-            <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-              <svg className="w-6 h-6 text-stone-500" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <span className="text-black text-base font-normal font-['Poppins']">{status}</span>
-          </div>
+        <div className="flex items-center gap-2">
+          <GiMeal color="#927C4E" size={20} />
+          <span>{status}</span>
+        </div>
 
-          {/* Rooms */}
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-zinc-300 rounded-full flex items-center justify-center">
-              <svg className="w-5 h-3.5 text-stone-500" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-              </svg>
-            </div>
-            <span className="text-black text-base font-normal font-['Poppins']">{rooms} Rooms</span>
-          </div>
+        <div className="flex items-center gap-2">
+          <MdOutlineBed color="#927C4E" size={20} />
+          <span>{rooms} Rooms</span>
         </div>
       </div>
     </div>
   );
-};
-
-export default BoatCard;
+}
