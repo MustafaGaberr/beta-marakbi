@@ -1,4 +1,6 @@
-const Activities = ({ homeData }: { homeData: any }) => {
+import Image from 'next/image';
+
+const Activities = () => {
   const activities = [
     { src: '/images/Rectangle 3463860.png', title: 'Water Sports', height: 'h-150' },
     { src: '/images/Rectangle 3463863.png', title: 'Family Activities', height: 'h-150' },
@@ -28,10 +30,12 @@ const Activities = ({ homeData }: { homeData: any }) => {
             className={`relative overflow-hidden rounded-[32px] mb-6 break-inside-avoid ${item.height} group`}
           >
             {/* الصورة */}
-            <img
+            <Image
               src={item.src}
               alt={item.title}
-              className="w-full h-full object-cover rounded-[32px] transition-transform duration-500 group-hover:scale-105"
+              fill
+              className="object-cover rounded-[32px] transition-transform duration-500 group-hover:scale-105"
+              quality={85}
             />
 
             {/* الأوفرلاي الأسود الافتراضي */}

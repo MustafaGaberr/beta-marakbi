@@ -7,9 +7,9 @@ interface DiagnosticResult {
   success: boolean;
   error?: string;
   errorType?: string;
-  diagnostics?: { status: string; message: string; details: any };
+  diagnostics?: { status: string; message: string; details: unknown };
   status?: number;
-  data?: { status: string; message: string; details: any };
+  data?: { status: string; message: string; details: unknown };
 }
 
 export default function DiagnosticReport() {
@@ -191,7 +191,7 @@ export default function DiagnosticReport() {
                 <div className="mt-2">app = Flask(__name__)</div>
                 <div>CORS(app)  # Enable CORS for all routes</div>
                 <div className="mt-2"># Or configure specific origins:</div>
-                <div>CORS(app, origins=['http://localhost:3000', 'http://127.0.0.1:3000'])</div>
+                <div>CORS(app, origins=[&apos;http://localhost:3000&apos;, &apos;http://127.0.0.1:3000&apos;])</div>
               </div>
             </div>
           )}

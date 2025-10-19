@@ -1,6 +1,8 @@
 'use client';
 import { useRef } from 'react';
 
+import Image from 'next/image';
+
 const Destinations = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -19,15 +21,21 @@ const Destinations = () => {
   return (
     <section className="relative w-full min-h-[573px] bg-sky-100  overflow-hidden py-16">
       {/* Background Images - Hidden on mobile, shown on larger screens */}
-      <img
+      <Image
         src="/images/image 6.png"
         alt="Background"
+        width={1087}
+        height={1023}
         className="hidden lg:block absolute w-[1087px] h-[1023px] -left-[400px] -top-[100px] object-contain"
+        quality={75}
       />
-      <img
+      <Image
         src="/images/image 5.png"
         alt="Background"
+        width={914}
+        height={1017}
         className="hidden lg:block absolute w-[914px] h-[1017px] right-[-200px] -top-[80px] object-contain"
+        quality={75}
       />
       
 
@@ -46,7 +54,7 @@ const Destinations = () => {
             onClick={scrollLeft}
             className="absolute left-0 top-[45%] -translate-y-1/2 -translate-x-full z-10 mr-4 hover:scale-110 transition-transform"
           >
-            <img src="/icons/arrow_circle_left.svg" alt="Previous" className="w-12 h-12 md:w-14 md:h-14" />
+            <Image src="/icons/arrow_circle_left.svg" alt="Previous" width={56} height={56} className="w-12 h-12 md:w-14 md:h-14" />
           </button>
 
           {/* Carousel */}
@@ -57,15 +65,19 @@ const Destinations = () => {
           {/* Philae Temple */}
           <div className="flex flex-col items-center flex-shrink-0 group">
             <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 overflow-hidden">
-              <img
+              <Image
                 src="/images/Rectangle 3463870.png"
                 alt="Philae Temple"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                fill
+                className="object-cover transition-opacity duration-300 group-hover:opacity-0"
+                quality={85}
               />
-              <img
+              <Image
                 src="/images/philae2.png"
                 alt="Philae Temple Hover"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                fill
+                className="object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                quality={85}
               />
             </div>
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
@@ -76,15 +88,19 @@ const Destinations = () => {
           {/* Nubian Village */}
           <div className="flex flex-col items-center flex-shrink-0 group">
             <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 overflow-hidden">
-              <img
+              <Image
                 src="/images/nubian-village1.jpg"
                 alt="Nubian Village"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                fill
+                className="object-cover transition-opacity duration-300 group-hover:opacity-0"
+                quality={85}
               />
-              <img
+              <Image
                 src="/images/nubian-village2.jpg"
                 alt="Nubian Village Hover"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                fill
+                className="object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                quality={85}
               />
             </div>
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
@@ -95,15 +111,19 @@ const Destinations = () => {
           {/* Botanical Garden */}
           <div className="flex flex-col items-center flex-shrink-0 group">
             <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 overflow-hidden">
-              <img
+              <Image
                 src="/images/Aswan-Botanical-Garden1.jpg"
                 alt="Botanical Garden"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                fill
+                className="object-cover transition-opacity duration-300 group-hover:opacity-0"
+                quality={85}
               />
-              <img
+              <Image
                 src="/images/Aswan-Botanical-Garden2.jpg"
                 alt="Botanical Garden Hover"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                fill
+                className="object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                quality={85}
               />
             </div>
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
@@ -114,15 +134,19 @@ const Destinations = () => {
           {/* Elephantine Island */}
           <div className="flex flex-col items-center flex-shrink-0 group">
             <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 overflow-hidden">
-              <img
+              <Image
                 src="/images/Elephantine Island1.jpg"
                 alt="Elephantine Island"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                fill
+                className="object-cover transition-opacity duration-300 group-hover:opacity-0"
+                quality={85}
               />
-              <img
+              <Image
                 src="/images/Elephantine Island2.webp"
                 alt="Elephantine Island Hover"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                fill
+                className="object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                quality={85}
               />
             </div>
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
@@ -133,15 +157,19 @@ const Destinations = () => {
           {/* Abu Simbel Temples */}
           <div className="flex flex-col items-center flex-shrink-0 group">
             <div className="relative w-32 h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 overflow-hidden">
-              <img
+              <Image
                 src="/images/abusimple1.jpg"
                 alt="Abu Simbel Temples"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                fill
+                className="object-cover transition-opacity duration-300 group-hover:opacity-0"
+                quality={85}
               />
-              <img
+              <Image
                 src="/images/abusimple2.jpg"
                 alt="Abu Simbel Temples Hover"
-                className="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                fill
+                className="object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                quality={85}
               />
             </div>
             <div className="text-center mt-4 text-black text-lg md:text-xl font-medium font-poppins capitalize">
@@ -155,7 +183,7 @@ const Destinations = () => {
             onClick={scrollRight}
             className="absolute right-0 top-[45%] -translate-y-1/2 translate-x-full z-10 ml-4 hover:scale-110 transition-transform"
           >
-            <img src="/icons/arrow_circle_right.svg" alt="Next" className="w-12 h-12 md:w-14 md:h-14" />
+            <Image src="/icons/arrow_circle_right.svg" alt="Next" width={56} height={56} className="w-12 h-12 md:w-14 md:h-14" />
           </button>
         </div>
       </div>

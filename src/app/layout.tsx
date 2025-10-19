@@ -59,10 +59,59 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: "Marakbi | Explore Egypt’s Hidden Gems",
+    default: "Marakbi | Explore Egypt's Hidden Gems",
     template: "%s | Marakbi",
   },
-  description: "Discover the best locations, trips, and adventures in Egypt.",
+  description: "Discover the best locations, trips, and adventures in Egypt. Premium boat rentals across Egypt's majestic Nile and vibrant Red Sea.",
+  keywords: ["boat rental", "Egypt", "Nile", "Red Sea", "yacht", "felucca", "water sports", "tourism", "Aswan"],
+  authors: [{ name: "Marakbi Team" }],
+  creator: "Marakbi",
+  publisher: "Marakbi",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('https://marakbi.tours'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: "Marakbi | Explore Egypt's Hidden Gems",
+    description: "Discover the best locations, trips, and adventures in Egypt. Premium boat rentals across Egypt's majestic Nile and vibrant Red Sea.",
+    url: 'https://marakbi.tours',
+    siteName: 'Marakbi',
+    images: [
+      {
+        url: '/images/carousel1.png',
+        width: 1200,
+        height: 630,
+        alt: 'Marakbi - Premium Boat Rentals in Egypt',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Marakbi | Explore Egypt's Hidden Gems",
+    description: "Discover the best locations, trips, and adventures in Egypt. Premium boat rentals across Egypt's majestic Nile and vibrant Red Sea.",
+    images: ['/images/carousel1.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 };
 
 export default function RootLayout({

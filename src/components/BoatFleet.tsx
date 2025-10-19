@@ -1,7 +1,69 @@
 import BoatCard from './BoatCard';
 
-const BoatFleet = ({ homeData }: { homeData: any }) => {
-  const boats = homeData?.new_joiners || [];
+const BoatFleet = () => {
+  // Dummy data for boats
+  const boats = [
+    {
+      id: 1,
+      name: "Luxury Yacht",
+      price_per_hour: 500,
+      max_seats: 8,
+      max_seats_stay: 4,
+      images: ["/images/Rectangle 3463853.png"],
+      cities: ["Aswan"],
+      location: "Aswan - Egypt"
+    },
+    {
+      id: 2,
+      name: "Traditional Felucca",
+      price_per_hour: 200,
+      max_seats: 6,
+      max_seats_stay: 2,
+      images: ["/images/Rectangle 3463855.png"],
+      cities: ["Aswan"],
+      location: "Aswan - Egypt"
+    },
+    {
+      id: 3,
+      name: "Speed Boat",
+      price_per_hour: 300,
+      max_seats: 4,
+      max_seats_stay: 2,
+      images: ["/images/Rectangle 3463856.png"],
+      cities: ["Aswan"],
+      location: "Aswan - Egypt"
+    },
+    {
+      id: 4,
+      name: "Fishing Boat",
+      price_per_hour: 150,
+      max_seats: 4,
+      max_seats_stay: 2,
+      images: ["/images/Rectangle 3463853.png"],
+      cities: ["Luxor"],
+      location: "Luxor - Egypt"
+    },
+    {
+      id: 5,
+      name: "Party Boat",
+      price_per_hour: 400,
+      max_seats: 12,
+      max_seats_stay: 6,
+      images: ["/images/Rectangle 3463855.png"],
+      cities: ["Cairo"],
+      location: "Cairo - Egypt"
+    },
+    {
+      id: 6,
+      name: "Family Boat",
+      price_per_hour: 250,
+      max_seats: 6,
+      max_seats_stay: 3,
+      images: ["/images/Rectangle 3463856.png"],
+      cities: ["Alexandria"],
+      location: "Alexandria - Egypt"
+    }
+  ];
 
   return (
     <section className="relative w-full overflow-hidden py-16">
@@ -39,24 +101,20 @@ const BoatFleet = ({ homeData }: { homeData: any }) => {
 
         {/* Boat Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
-          {boats.length > 0 ? (
-            boats.map((boat: any, index: number) => (
+          {boats.map((boat, index: number) => {
+            return (
               <BoatCard
                 key={boat.id || index}
-                imageUrl={boat.images?.[0] || boat.image || '/images/Rectangle 3463853.png'}
-                name={boat.name}
-                price={`EGP ${boat.price_per_hour || boat.price || 0} /Hour`}
+                imageUrl={boat.images?.[0] || '/images/Rectangle 3463853.png'}
+                name={boat.name || 'Boat'}
+                price={`EGP ${boat.price_per_hour || 0} /Hour`}
                 location={boat.cities?.[0] || boat.location || 'Aswan- Egypt'}
-                guests={boat.max_seats}
+                guests={boat.max_seats || 4}
                 status="available"
-                rooms={boat.max_seats_stay}
+                rooms={boat.max_seats_stay || 2}
               />
-            ))
-          ) : (
-            <div className="col-span-full text-center text-white">
-              <p>No boats available at the moment.</p>
-            </div>
-          )}
+            );
+          })}
         </div>
 
         {/* View All Boats Button */}

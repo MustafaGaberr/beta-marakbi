@@ -1,42 +1,32 @@
 "use client"
 import { useState, useEffect } from 'react';
-import { clientApi } from '@/lib/api';
+import Image from 'next/image';
 
-const Hero = ({ homeData }: { homeData: any }) => {
+const Hero = () => {
   const [city, setCity] = useState('');
   const [boatType, setBoatType] = useState('');
   const [tripType, setTripType] = useState('');
-  const [cities, setCities] = useState<{ id: number; name: string }[]>([]);
-  const [boats, setBoats] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Dummy data for cities
+  const cities = [
+    { id: 1, name: 'Aswan' },
+    { id: 2, name: 'Luxor' },
+    { id: 3, name: 'Cairo' },
+    { id: 4, name: 'Alexandria' },
+    { id: 5, name: 'Hurghada' },
+    { id: 6, name: 'Sharm El Sheikh' }
+  ];
+
+  // Dummy data for boats
+  const boats = [
+    { id: 1, name: 'Traditional Felucca' },
+    { id: 2, name: 'Luxury Yacht' },
+    { id: 3, name: 'Speed Boat' },
+    { id: 4, name: 'Fishing Boat' },
+    { id: 5, name: 'Party Boat' },
+    { id: 6, name: 'Family Boat' }
+  ];
+
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [citiesResponse, boatsResponse] = await Promise.all([
-          clientApi.getCities(),
-          clientApi.getBoats()
-        ]);
-        
-        if (citiesResponse.success && citiesResponse.data) {
-          setCities(citiesResponse.data.cities || []);
-          console.log('Cities loaded:', citiesResponse.data.cities);
-        }
-        
-        if (boatsResponse.success && boatsResponse.data) {
-          setBoats(boatsResponse.data.boats || []);
-          console.log('Boats loaded:', boatsResponse.data.boats);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   // Timer for image gallery animation
   useEffect(() => {
@@ -51,10 +41,13 @@ const Hero = ({ homeData }: { homeData: any }) => {
     <section className="relative w-full h-[1024px] overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
-        <img
+        <Image
           src="/images/Rectangle 3463841.png"
           alt="Hero Background"
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          quality={90}
         />
       </div>
 
@@ -108,11 +101,14 @@ const Hero = ({ homeData }: { homeData: any }) => {
                 onChange={(e) => setBoatType(e.target.value)}
               >
                 <option value="">Felucca</option>
-                {boats.map((boat) => (
-                  <option key={boat.id} value={boat.id}>
-                    {boat.name}
-                  </option>
-                ))}
+                {boats.map((boat, index) => {
+                  const boatData = boat as { id?: number; name?: string };
+                  return (
+                    <option key={boatData.id || index} value={boatData.id}>
+                      {boatData.name}
+                    </option>
+                  );
+                })}
               </select>
             </div>
 
@@ -152,14 +148,17 @@ const Hero = ({ homeData }: { homeData: any }) => {
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 h-40">
               {/* Image 1: Felucca */}
               <div className="relative transition-all duration-500 ease-in-out">
-                <img
+                <Image
                   src="/images/f1.png"
                   alt="Felucca"
+                  width={176}
+                  height={160}
                   className={`rounded-lg transition-all duration-500 ease-in-out ${
-                    activeImageIndex === 0 
-                      ? 'w-44 h-40 scale-105' 
+                    activeImageIndex === 0
+                      ? 'w-44 h-40 scale-105'
                       : 'w-40 h-36'
                   }`}
+                  quality={85}
                 />
                 <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
                   01
@@ -168,14 +167,17 @@ const Hero = ({ homeData }: { homeData: any }) => {
 
               {/* Image 2: Fishing */}
               <div className="relative transition-all duration-500 ease-in-out">
-                <img
+                <Image
                   src="/images/f2.png"
                   alt="Fishing"
+                  width={176}
+                  height={160}
                   className={`rounded-lg transition-all duration-500 ease-in-out ${
                     activeImageIndex === 1 
                       ? 'w-44 h-40 scale-105' 
                       : 'w-40 h-36'
                   }`}
+                  quality={85}
                 />
                 <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
                   02
@@ -184,14 +186,17 @@ const Hero = ({ homeData }: { homeData: any }) => {
 
               {/* Image 3: Kayak */}
               <div className="relative transition-all duration-500 ease-in-out">
-                <img
+                <Image
                   src="/images/f3.png"
                   alt="Kayak"
+                  width={176}
+                  height={160}
                   className={`rounded-lg transition-all duration-500 ease-in-out ${
                     activeImageIndex === 2 
                       ? 'w-44 h-40 scale-105' 
                       : 'w-40 h-36'
                   }`}
+                  quality={85}
                 />
                 <div className="absolute top-4 left-4 w-8 h-8 bg-black/30 rounded-full flex items-center justify-center text-white text-lg font-medium font-poppins">
                   03

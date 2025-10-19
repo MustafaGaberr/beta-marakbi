@@ -1,6 +1,7 @@
 // import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Image from 'next/image';
 
 export default function AboutUsPage() {
   return (
@@ -43,24 +44,33 @@ export default function AboutUsPage() {
         <div className="grid grid-cols-2 gap-12 items-center mt-16">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
-              <img
+              <Image
                 src="/images/f1.png"
                 alt="Sunset boat"
+                width={300}
+                height={256}
                 className="w-full h-64 object-cover rounded-lg shadow-lg"
+                quality={85}
               />
             </div>
             <div className="space-y-4 pt-12">
-              <img
+              <Image
                 src="/images/f2.png"
                 alt="Sunset boat close"
+                width={300}
+                height={256}
                 className="w-full h-64 object-cover rounded-lg shadow-lg"
+                quality={85}
               />
             </div>
             <div className="col-span-2">
-              <img
+              <Image
                 src="/images/f3.png"
                 alt="Sailboat on Nile"
+                width={600}
+                height={288}
                 className="w-full h-72 object-cover rounded-lg shadow-lg"
+                quality={85}
               />
             </div>
           </div>
@@ -163,27 +173,39 @@ export default function AboutUsPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-4">
-              <img
+              <Image
                 src="/images/Rectangle 3463860.png"
                 alt="Nile cruise"
+                width={300}
+                height={192}
                 className="w-full h-48 object-cover rounded-lg shadow-lg"
+                quality={85}
               />
-              <img
+              <Image
                 src="/images/Rectangle 3463861.png"
                 alt="Boat adventure"
+                width={300}
+                height={128}
                 className="w-full h-32 object-cover rounded-lg shadow-lg"
+                quality={85}
               />
             </div>
             <div className="space-y-4 pt-8">
-              <img
+              <Image
                 src="/images/Rectangle 3463862.png"
                 alt="Sunset sailing"
+                width={300}
+                height={128}
                 className="w-full h-32 object-cover rounded-lg shadow-lg"
+                quality={85}
               />
-              <img
+              <Image
                 src="/images/Rectangle 3463863.png"
                 alt="Family trip"
+                width={300}
+                height={192}
                 className="w-full h-48 object-cover rounded-lg shadow-lg"
+                quality={85}
               />
             </div>
           </div>
