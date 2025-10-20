@@ -11,7 +11,9 @@ const BoatFleet = () => {
       max_seats_stay: 4,
       images: ["/images/Rectangle 3463853.png"],
       cities: ["Aswan"],
-      location: "Aswan - Egypt"
+      location: "Aswan - Egypt",
+      rating: 4.8,
+      reviewsCount: 24
     },
     {
       id: 2,
@@ -21,7 +23,9 @@ const BoatFleet = () => {
       max_seats_stay: 2,
       images: ["/images/Rectangle 3463855.png"],
       cities: ["Aswan"],
-      location: "Aswan - Egypt"
+      location: "Aswan - Egypt",
+      rating: 4.5,
+      reviewsCount: 18
     },
     {
       id: 3,
@@ -31,7 +35,9 @@ const BoatFleet = () => {
       max_seats_stay: 2,
       images: ["/images/Rectangle 3463856.png"],
       cities: ["Aswan"],
-      location: "Aswan - Egypt"
+      location: "Aswan - Egypt",
+      rating: 4.7,
+      reviewsCount: 31
     },
     {
       id: 4,
@@ -41,7 +47,9 @@ const BoatFleet = () => {
       max_seats_stay: 2,
       images: ["/images/Rectangle 3463853.png"],
       cities: ["Luxor"],
-      location: "Luxor - Egypt"
+      location: "Luxor - Egypt",
+      rating: 4.2,
+      reviewsCount: 12
     },
     {
       id: 5,
@@ -51,7 +59,9 @@ const BoatFleet = () => {
       max_seats_stay: 6,
       images: ["/images/Rectangle 3463855.png"],
       cities: ["Cairo"],
-      location: "Cairo - Egypt"
+      location: "Cairo - Egypt",
+      rating: 4.9,
+      reviewsCount: 45
     },
     {
       id: 6,
@@ -61,7 +71,9 @@ const BoatFleet = () => {
       max_seats_stay: 3,
       images: ["/images/Rectangle 3463856.png"],
       cities: ["Alexandria"],
-      location: "Alexandria - Egypt"
+      location: "Alexandria - Egypt",
+      rating: 4.6,
+      reviewsCount: 28
     }
   ];
 
@@ -69,7 +81,7 @@ const BoatFleet = () => {
     <section className="relative w-full overflow-hidden py-16">
       {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat h-110"
         style={{backgroundImage: "url('/images/Frame 1321316346.png')"}}
       ></div>
       
@@ -107,11 +119,13 @@ const BoatFleet = () => {
                 key={boat.id || index}
                 imageUrl={boat.images?.[0] || '/images/Rectangle 3463853.png'}
                 name={boat.name || 'Boat'}
-                price={`EGP ${boat.price_per_hour || 0} /Hour`}
+                price={`${boat.price_per_hour || 0}`}
                 location={boat.cities?.[0] || boat.location || 'Aswan- Egypt'}
                 guests={boat.max_seats || 4}
                 status="available"
                 rooms={boat.max_seats_stay || 2}
+                rating={boat.rating || 5}
+                reviewsCount={boat.reviewsCount || 0}
               />
             );
           })}

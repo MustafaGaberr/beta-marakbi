@@ -112,38 +112,6 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
-            
-            {/* Download App Buttons */}
-            <div className="mt-6">
-              <h5 className="text-lg text-amber-300 font-semibold mb-4 font-poppins">Download App</h5>
-              <div className="flex flex-col space-y-3">
-                <Link 
-                  href="https://play.google.com/store/apps/details?id=com.marakbi.app" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 bg-black/20 hover:bg-black/30 rounded-lg p-3 transition-colors"
-                >
-                  <Image src="/icons/flat-color-icons_google.svg" alt="Google Play" width={32} height={32} className="w-8 h-8" />
-                  <div>
-                    <p className="text-white text-sm font-poppins">Get it on</p>
-                    <p className="text-white text-base font-semibold font-poppins">Google Play</p>
-                  </div>
-                </Link>
-                
-                <Link 
-                  href="https://apps.apple.com/app/marakbi/id123456789" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-center space-x-3 bg-black/20 hover:bg-black/30 rounded-lg p-3 transition-colors"
-                >
-                  <Image src="/icons/flat-color-icons_apple.svg" alt="App Store" width={32} height={32} className="w-8 h-8" />
-                  <div>
-                    <p className="text-white text-sm font-poppins">Download on the</p>
-                    <p className="text-white text-base font-semibold font-poppins">App Store</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
           </div>
 
           {/* Column 4: Subscribe */}
@@ -168,6 +136,32 @@ const Footer = () => {
               <button className="h-14 px-6 bg-[#CEAF6E] text-[#093B77] font-semibold hover:bg-[#d8ba78] transition-colors font-poppins flex-[1]">
                 Subscribe
               </button>
+            </div>
+            
+            {/* Download App Buttons */}
+            <div className="mt-2">
+              <h5 className="text-lg text-amber-300 font-semibold mb-2 font-poppins">Download App</h5>
+              <div className="flex">
+                <Link 
+                  href="https://play.google.com/store/apps/details?id=com.marakbi.app" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-start w-36 h-12 hover:scale-105 rounded-lg transition-all duration-200"
+                  title="Download on Google Play"
+                >
+                  <Image src="/icons/Google Play.svg" alt="Google Play" width={128} height={128} className="w-32 h-32" />
+                </Link>
+                
+                <Link 
+                  href="https://apps.apple.com/app/marakbi/id123456789" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-start w-36 h-12 hover:scale-105 rounded-lg transition-all duration-200"
+                  title="Download on App Store"
+                >
+                  <Image src="/icons/App Store.svg" alt="App Store" width={128} height={128} className="w-32 h-32" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>

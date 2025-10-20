@@ -28,41 +28,53 @@ const Hero = () => {
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
-  // Timer for image gallery animation
+  // Background images that correspond to the featured activities
+  const backgroundImages = [
+    "/images/Rectangle 3463841.png", // Felucca background
+    "/images/Rectangle 3463845.png", // Fishing background  
+    "/images/Rectangle 3463846.png"  // Kayak background
+  ];
+
+  // Timer for image gallery animation - slower (5 seconds)
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveImageIndex((prevIndex) => (prevIndex + 1) % 3);
-    }, 2000); // Change every 2 seconds
+    }, 5000); // Change every 5 seconds
 
     return () => clearInterval(interval);
   }, []);
 
+  // Function to handle manual image selection
+  const handleImageClick = (index: number) => {
+    setActiveImageIndex(index);
+  };
+
   return (
-    <section className="relative w-full h-[1024px] overflow-hidden">
+    <section className="relative w-full h-230 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/Rectangle 3463841.png"
+          src={backgroundImages[activeImageIndex]}
           alt="Hero Background"
           fill
-          className="object-cover"
+          className="object-cover transition-all duration-1000 ease-in-out"
           priority
           quality={90}
         />
       </div>
 
       {/* Content */}
-      <div className="relative w-full h-full flex items-center pt-16">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-32">
+      <div className="relative w-full h-full flex items-center px-4">
+        <div className="w-full px-4 sm:px-8 md:px-16 flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-32">
           {/* Left Side: Text Content */}
-          <div className="flex flex-col text-center lg:text-left lg:ml-8">
-            <div className="text-orange-300 text-2xl sm:text-3xl lg:text-4xl font-normal font-['SignPainter'] capitalize mb-4">
+          <div className="flex flex-col text-center lg:text-left">
+            <div className="text-orange-300 text-2xl sm:text-3xl lg:text-4xl font-normal font-['SignPainter'] capitalize ">
               With Marakbi
             </div>
             <div className="text-white text-xl sm:text-2xl lg:text-3xl font-medium font-poppins capitalize mb-8">
               Your Dream boats
             </div>
-            <div className="text-white text-3xl sm:text-4xl lg:text-6xl font-bold font-poppins capitalize leading-tight lg:leading-[68px] mb-8">
+            <div className="text-white text-3xl sm:text-4xl lg:text-6xl font-bold font-poppins capitalize leading-tight lg:leading-[68px] mb-16">
               <span className="text-white">Most Reliable<br/></span>
               <span className="text-white">Luxury Boats </span>
               <span className="text-orange-300">Rentals</span>
@@ -137,7 +149,7 @@ const Hero = () => {
       </div>
 
       {/* Featured Activities Section - Bottom Center */}
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 max-w-5xl w-[600px] px-4">
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 max-w-5xl w-[600px] px-4 ">
         <div className="bg-white rounded-tl-lg rounded-tr-lg shadow-lg">
           <div className="p-4 min-h-[200px] overflow-hidden">
             <h2 className="text-blue-700 text-lg font-medium font-poppins capitalize mb-4">
@@ -147,7 +159,10 @@ const Hero = () => {
             {/* Image Gallery */}
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 h-40">
               {/* Image 1: Felucca */}
-              <div className="relative transition-all duration-500 ease-in-out">
+              <div 
+                className="relative transition-all duration-500 ease-in-out cursor-pointer hover:scale-110"
+                onClick={() => handleImageClick(0)}
+              >
                 <Image
                   src="/images/f1.png"
                   alt="Felucca"
@@ -166,7 +181,10 @@ const Hero = () => {
               </div>
 
               {/* Image 2: Fishing */}
-              <div className="relative transition-all duration-500 ease-in-out">
+              <div 
+                className="relative transition-all duration-500 ease-in-out cursor-pointer hover:scale-110"
+                onClick={() => handleImageClick(1)}
+              >
                 <Image
                   src="/images/f2.png"
                   alt="Fishing"
@@ -185,7 +203,10 @@ const Hero = () => {
               </div>
 
               {/* Image 3: Kayak */}
-              <div className="relative transition-all duration-500 ease-in-out">
+              <div 
+                className="relative transition-all duration-500 ease-in-out cursor-pointer hover:scale-110"
+                onClick={() => handleImageClick(2)}
+              >
                 <Image
                   src="/images/f3.png"
                   alt="Kayak"
