@@ -1,27 +1,32 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { storage } from '@/lib/api';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { storage } from "@/lib/api";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<{id?: string; fullName?: string; email?: string; role?: 'user' | 'boat_owner' | 'admin'} | null>(null);
+  const [user, setUser] = useState<{
+    id?: string;
+    fullName?: string;
+    email?: string;
+    role?: "user" | "boat_owner" | "admin";
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
-  const [profileImage, setProfileImage] = useState<string>('');
+  const [profileImage, setProfileImage] = useState<string>("");
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    address: '',
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: ''
+    firstName: "",
+    lastName: "",
+    email: "",
+    address: "",
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const router = useRouter();
 
   useEffect(() => {
@@ -29,8 +34,8 @@ export default function ProfilePage() {
       try {
         // Check if user is authenticated
         if (!storage.getToken()) {
-          console.log('No token found, redirecting to login');
-          router.push('/login');
+          console.log("No token found, redirecting to login");
+          router.push("/login");
           return;
         }
 
@@ -40,43 +45,49 @@ export default function ProfilePage() {
           setUser({
             id: storedUser.id.toString(),
             fullName: storedUser.username,
-            email: storedUser.email || '',
-            role: 'user'
+            email: storedUser.email || "",
+            role: "user",
           });
         }
 
         // Profile API is not available on server, use stored user data
         if (storedUser) {
           // Try to load saved profile data from localStorage
-          const savedProfile = localStorage.getItem('userProfile');
+          const savedProfile = localStorage.getItem("userProfile");
           let profileData = null;
-          
+
           if (savedProfile) {
             try {
               profileData = JSON.parse(savedProfile);
             } catch (error) {
-              console.error('Error parsing saved profile:', error);
+              console.error("Error parsing saved profile:", error);
             }
           }
-          
+
           setFormData({
-            firstName: profileData?.bio?.split(' ')[0] || storedUser.username?.split(' ')[0] || '',
-            lastName: profileData?.bio?.split(' ').slice(1).join(' ') || storedUser.username?.split(' ').slice(1).join(' ') || '',
-            email: profileData?.phone || storedUser.email || '',
-            address: profileData?.address || '',
-            currentPassword: '',
-            newPassword: '',
-            confirmPassword: ''
+            firstName:
+              profileData?.bio?.split(" ")[0] ||
+              storedUser.username?.split(" ")[0] ||
+              "",
+            lastName:
+              profileData?.bio?.split(" ").slice(1).join(" ") ||
+              storedUser.username?.split(" ").slice(1).join(" ") ||
+              "",
+            email: profileData?.phone || storedUser.email || "",
+            address: profileData?.address || "",
+            currentPassword: "",
+            newPassword: "",
+            confirmPassword: "",
           });
         }
 
         // Load profile image from localStorage
-        const savedImage = localStorage.getItem('profileImage');
+        const savedImage = localStorage.getItem("profileImage");
         if (savedImage) {
           setProfileImage(savedImage);
         }
       } catch (error) {
-        console.error('Error fetching profile:', error);
+        console.error("Error fetching profile:", error);
         // If profile doesn't exist, we'll create it when user saves
       } finally {
         setLoading(false);
@@ -88,25 +99,28 @@ export default function ProfilePage() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSaveChanges = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     // Validation
-    if (formData.newPassword && formData.newPassword !== formData.confirmPassword) {
-      setError('New passwords do not match');
+    if (
+      formData.newPassword &&
+      formData.newPassword !== formData.confirmPassword
+    ) {
+      setError("New passwords do not match");
       return;
     }
 
     if (formData.newPassword && formData.newPassword.length < 6) {
-      setError('New password must be at least 6 characters long');
+      setError("New password must be at least 6 characters long");
       return;
     }
 
@@ -117,44 +131,47 @@ export default function ProfilePage() {
         const profileData = {
           bio: `${formData.firstName} ${formData.lastName}`.trim(),
           phone: formData.email, // Using email as phone for now
-          address: formData.address
+          address: formData.address,
         };
-        
-        localStorage.setItem('userProfile', JSON.stringify(profileData));
-        setSuccess('Profile updated successfully!');
+
+        localStorage.setItem("userProfile", JSON.stringify(profileData));
+        setSuccess("Profile updated successfully!");
       } catch (error) {
-        console.error('Error saving profile:', error);
-        setError('Failed to save profile. Please try again.');
+        console.error("Error saving profile:", error);
+        setError("Failed to save profile. Please try again.");
         return;
       }
-      
+
       // Update local user data
       const updatedUser = {
-        id: user?.id || '1',
+        id: user?.id || "1",
         fullName: `${formData.firstName} ${formData.lastName}`.trim(),
         email: formData.email,
-        role: (user?.role as 'user' | 'boat_owner' | 'admin') || 'user'
+        role: (user?.role as "user" | "boat_owner" | "admin") || "user",
       };
-      
+
       setUser(updatedUser);
-      
+
       // Clear password fields
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: ''
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
       }));
-      
+
       // Exit edit mode after successful save
       setIsEditing(false);
-      
+
       // Hide success message after 3 seconds
-      setTimeout(() => setSuccess(''), 3000);
-      
+      setTimeout(() => setSuccess(""), 3000);
     } catch (error) {
-      console.error('Profile update error:', error);
-      setError(error instanceof Error ? error.message : 'Failed to save profile. Please try again.');
+      console.error("Profile update error:", error);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Failed to save profile. Please try again."
+      );
     }
   };
 
@@ -162,43 +179,43 @@ export default function ProfilePage() {
     const file = e.target.files?.[0];
     if (file) {
       // Validate file type
-      if (!file.type.startsWith('image/')) {
-        setError('Please select a valid image file');
+      if (!file.type.startsWith("image/")) {
+        setError("Please select a valid image file");
         return;
       }
-      
+
       // Validate file size (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        setError('Image size should be less than 5MB');
+        setError("Image size should be less than 5MB");
         return;
       }
-      
+
       const reader = new FileReader();
       reader.onload = (event) => {
         const result = event.target?.result as string;
         setProfileImage(result);
         // Save to localStorage temporarily
-        localStorage.setItem('profileImage', result);
-        setSuccess('Profile image updated successfully!');
-        setTimeout(() => setSuccess(''), 3000);
+        localStorage.setItem("profileImage", result);
+        setSuccess("Profile image updated successfully!");
+        setTimeout(() => setSuccess(""), 3000);
       };
       reader.readAsDataURL(file);
     }
   };
 
   const handleCancel = () => {
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
     setIsEditing(false);
     // Reset form data
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      firstName: user?.fullName?.split(' ')[0] || '',
-      lastName: user?.fullName?.split(' ').slice(1).join(' ') || '',
-      email: user?.email || '',
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: ''
+      firstName: user?.fullName?.split(" ")[0] || "",
+      lastName: user?.fullName?.split(" ").slice(1).join(" ") || "",
+      email: user?.email || "",
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
     }));
   };
 
@@ -219,14 +236,14 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header />
-      
       {/* Hero Section */}
       <div className="bg-black relative overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 bg-cover bg-center opacity-60" 
-             style={{backgroundImage: "url('/images/Rectangle 3463878.jpg')"}}></div>
-        
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-60"
+          style={{ backgroundImage: "url('/images/Rectangle 3463878.jpg')" }}
+        ></div>
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="flex items-center justify-center">
             {/* Left Side - My Profile Text */}
@@ -238,14 +255,16 @@ export default function ProfilePage() {
                 Profile
               </h1>
             </div>
-            
+
             {/* Vertical Line */}
             <div className="w-px h-32 bg-white mx-8"></div>
-            
+
             {/* Right Side - Description */}
             <div className="flex-1 max-w-2xl">
               <p className="text-xl text-white leading-relaxed font-poppins">
-                No Matter The Journey, We Have A Boat For Your Story. Explore Egypt&apos;s Stunning Waterways With A Curated Selection Of Vessels And Seasoned Captains.
+                No Matter The Journey, We Have A Boat For Your Story. Explore
+                Egypt&apos;s Stunning Waterways With A Curated Selection Of
+                Vessels And Seasoned Captains.
               </p>
             </div>
           </div>
@@ -255,41 +274,54 @@ export default function ProfilePage() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
           {/* Left Sidebar - Profile Navigation */}
           <div className="lg:col-span-1 flex">
             <div className="bg-white py-8 rounded-lg shadow-sm w-full flex flex-col">
               <div className="text-center mb-8">
-                <h2 className="text-5xl font-bold text-gray-900 mb-2 font-poppins">Welcome!</h2>
-                <p className="text-blue-500 text-5xl font-bold font-poppins">{user.fullName?.split(' ')[0] || 'User'}</p>
+                <h2 className="text-5xl font-bold text-gray-900 mb-2 font-poppins">
+                  Welcome!
+                </h2>
+                <p className="text-blue-500 text-5xl font-bold font-poppins">
+                  {user.fullName?.split(" ")[0] || "User"}
+                </p>
               </div>
-              
+
               {/* Profile Picture */}
               <div className="flex justify-center mb-6">
                 <div className="relative">
                   <div className="w-32 h-32 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
                     {profileImage ? (
-                      <img 
-                        src={profileImage} 
-                        alt="Profile" 
+                      <img
+                        src={profileImage}
+                        alt="Profile"
                         className="w-full h-full object-cover"
                       />
                     ) : (
                       <span className="text-4xl font-bold text-gray-500 font-poppins">
-                        {user.fullName?.split(' ').map(n => n[0]).join('').toUpperCase() || 'U'}
+                        {user.fullName
+                          ?.split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .toUpperCase() || "U"}
                       </span>
                     )}
                   </div>
-                  
+
                   {/* Edit icon when in edit mode */}
                   {isEditing && (
                     <div className="absolute -bottom-1 -right-1">
-                      <label htmlFor="profileImageInput" className="cursor-pointer">
-                        <img 
-                          src="/icons/iconamoon_edit-fill.svg" 
-                          alt="Edit" 
+                      <label
+                        htmlFor="profileImageInput"
+                        className="cursor-pointer"
+                      >
+                        <img
+                          src="/icons/iconamoon_edit-fill.svg"
+                          alt="Edit"
                           className="w-5 h-5 text-blue-500 drop-shadow-lg"
-                          style={{ filter: 'brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%)' }}
+                          style={{
+                            filter:
+                              "brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%)",
+                          }}
                         />
                       </label>
                       <input
@@ -301,11 +333,14 @@ export default function ProfilePage() {
                       />
                     </div>
                   )}
-                  
+
                   {/* Click to upload when in edit mode */}
                   {isEditing && (
                     <div className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 rounded-full transition-all duration-200 cursor-pointer">
-                      <label htmlFor="profileImageInput" className="w-full h-full flex items-center justify-center cursor-pointer">
+                      <label
+                        htmlFor="profileImageInput"
+                        className="w-full h-full flex items-center justify-center cursor-pointer"
+                      >
                         <span className="text-white text-sm font-poppins opacity-0 hover:opacity-100 transition-opacity">
                           Click to upload
                         </span>
@@ -314,36 +349,47 @@ export default function ProfilePage() {
                   )}
                 </div>
               </div>
-              
+
               {/* Full Name */}
               <div className="text-center mb-6">
-                <p className="text-xl font-semibold text-gray-900 font-poppins">{user.fullName || 'User Name'}</p>
+                <p className="text-xl font-semibold text-gray-900 font-poppins">
+                  {user.fullName || "User Name"}
+                </p>
               </div>
-              
+
               {/* Edit Profile Button */}
               <div className="flex justify-center mb-8">
-                <button 
+                <button
                   onClick={() => setIsEditing(!isEditing)}
                   className="flex items-center justify-center gap-3 px-6 py-3 bg-white border border-gray-300 rounded-lg text-gray-700 font-poppins hover:bg-gray-50 transition-colors"
                 >
                   <span className="font-poppins text-base">Edit Profile</span>
-                  <img 
-                    src="/icons/iconamoon_edit-fill.svg" 
-                    alt="Edit" 
+                  <img
+                    src="/icons/iconamoon_edit-fill.svg"
+                    alt="Edit"
                     className="w-5 h-5"
                   />
                 </button>
               </div>
-              
+
               <div className="mt-auto border-t border-gray-200 pt-6">
                 <nav className=" space-y-2">
-                  <a href="/profile" className="py-5 px-4 block bg-[#0C4A8C] text-white font-medium font-poppins text-base text-left w-full">
+                  <a
+                    href="/profile"
+                    className="py-5 px-4 block bg-[#0C4A8C] text-white font-medium font-poppins text-base text-left w-full"
+                  >
                     Profile
                   </a>
-                  <a href="/manage-account" className=" py-5 px-4 block text-gray-600 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left">
+                  <a
+                    href="/manage-account"
+                    className=" py-5 px-4 block text-gray-600 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left"
+                  >
                     Manage My Account
                   </a>
-                  <a href="/payment-options" className=" py-5 px-4 block text-gray-600 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left">
+                  <a
+                    href="/payment-options"
+                    className=" py-5 px-4 block text-gray-600 font-poppins text-base hover:text-[#0C4A8C] transition-colors text-left"
+                  >
                     My Payment Options
                   </a>
                 </nav>
@@ -354,13 +400,17 @@ export default function ProfilePage() {
           {/* Right Content - Edit Profile Form */}
           <div className="lg:col-span-2 flex">
             <div className="bg-white rounded-lg p-8 shadow-sm w-full flex flex-col">
-              <h2 className="text-2xl font-medium text-blue-500 mb-6 font-poppins">Edit Your Profile</h2>
-              
+              <h2 className="text-2xl font-medium text-blue-500 mb-6 font-poppins">
+                Edit Your Profile
+              </h2>
+
               <form onSubmit={handleSaveChanges} className="space-y-6 flex-1">
                 {/* Personal Information */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">First Name</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">
+                      First Name
+                    </label>
                     <input
                       type="text"
                       name="firstName"
@@ -368,17 +418,19 @@ export default function ProfilePage() {
                       onChange={handleInputChange}
                       disabled={!isEditing}
                       className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                        isEditing 
-                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                        isEditing
+                          ? "bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]"
+                          : "bg-gray-100 border border-gray-200 text-gray-500"
                       }`}
                       placeholder="First Name"
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">Last Name</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">
+                      Last Name
+                    </label>
                     <input
                       type="text"
                       name="lastName"
@@ -386,17 +438,19 @@ export default function ProfilePage() {
                       onChange={handleInputChange}
                       disabled={!isEditing}
                       className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                        isEditing 
-                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                        isEditing
+                          ? "bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]"
+                          : "bg-gray-100 border border-gray-200 text-gray-500"
                       }`}
                       placeholder="Last Name"
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">Email</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">
+                      Email
+                    </label>
                     <input
                       type="email"
                       name="email"
@@ -404,17 +458,19 @@ export default function ProfilePage() {
                       onChange={handleInputChange}
                       disabled={!isEditing}
                       className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                        isEditing 
-                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                        isEditing
+                          ? "bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]"
+                          : "bg-gray-100 border border-gray-200 text-gray-500"
                       }`}
                       placeholder="Email"
                       required
                     />
                   </div>
-                  
+
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">Address</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">
+                      Address
+                    </label>
                     <input
                       type="text"
                       name="address"
@@ -422,9 +478,9 @@ export default function ProfilePage() {
                       onChange={handleInputChange}
                       disabled={!isEditing}
                       className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                        isEditing 
-                          ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                          : 'bg-gray-100 border border-gray-200 text-gray-500'
+                        isEditing
+                          ? "bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]"
+                          : "bg-gray-100 border border-gray-200 text-gray-500"
                       }`}
                       placeholder="Address"
                     />
@@ -433,11 +489,15 @@ export default function ProfilePage() {
 
                 {/* Password Changes Section */}
                 <div className="pt-8">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4 font-poppins">Password Changes</h3>
-                  
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4 font-poppins">
+                    Password Changes
+                  </h3>
+
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">Current Password</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">
+                        Current Password
+                      </label>
                       <input
                         type="password"
                         name="currentPassword"
@@ -445,16 +505,18 @@ export default function ProfilePage() {
                         onChange={handleInputChange}
                         disabled={!isEditing}
                         className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                          isEditing 
-                            ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                            : 'bg-gray-100 border border-gray-200 text-gray-500'
+                          isEditing
+                            ? "bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]"
+                            : "bg-gray-100 border border-gray-200 text-gray-500"
                         }`}
                         placeholder="Current Password"
                       />
                     </div>
-                    
+
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">New Password</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">
+                        New Password
+                      </label>
                       <input
                         type="password"
                         name="newPassword"
@@ -462,16 +524,18 @@ export default function ProfilePage() {
                         onChange={handleInputChange}
                         disabled={!isEditing}
                         className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                          isEditing 
-                            ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                            : 'bg-gray-100 border border-gray-200 text-gray-500'
+                          isEditing
+                            ? "bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]"
+                            : "bg-gray-100 border border-gray-200 text-gray-500"
                         }`}
                         placeholder="New Password"
                       />
                     </div>
-                    
+
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">Confirm New Password</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2 font-poppins">
+                        Confirm New Password
+                      </label>
                       <input
                         type="password"
                         name="confirmPassword"
@@ -479,9 +543,9 @@ export default function ProfilePage() {
                         onChange={handleInputChange}
                         disabled={!isEditing}
                         className={`w-full px-4 py-3 rounded-lg font-poppins ${
-                          isEditing 
-                            ? 'bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]' 
-                            : 'bg-gray-100 border border-gray-200 text-gray-500'
+                          isEditing
+                            ? "bg-white border border-gray-300 focus:ring-2 focus:ring-[#0C4A8C] focus:border-[#0C4A8C]"
+                            : "bg-gray-100 border border-gray-200 text-gray-500"
                         }`}
                         placeholder="Confirm New Password"
                       />
@@ -495,7 +559,7 @@ export default function ProfilePage() {
                     {error}
                   </div>
                 )}
-                
+
                 {success && (
                   <div className="bg-green-100 border border-green-300 text-green-700 px-4 py-3 rounded-lg font-poppins">
                     {success}
@@ -509,9 +573,9 @@ export default function ProfilePage() {
                     onClick={handleCancel}
                     disabled={!isEditing}
                     className={`px-6 py-3 font-medium font-poppins transition-colors ${
-                      isEditing 
-                        ? 'text-gray-700 hover:text-gray-900 cursor-pointer' 
-                        : 'text-gray-400 cursor-not-allowed'
+                      isEditing
+                        ? "text-gray-700 hover:text-gray-900 cursor-pointer"
+                        : "text-gray-400 cursor-not-allowed"
                     }`}
                   >
                     Cancel
@@ -520,9 +584,9 @@ export default function ProfilePage() {
                     type="submit"
                     disabled={!isEditing}
                     className={`px-8 py-3 font-medium rounded-lg transition-colors font-poppins ${
-                      isEditing 
-                        ? 'bg-[#0C4A8C] text-white hover:bg-[#0A3D7A] cursor-pointer' 
-                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      isEditing
+                        ? "bg-[#0C4A8C] text-white hover:bg-[#0A3D7A] cursor-pointer"
+                        : "bg-gray-300 text-gray-500 cursor-not-allowed"
                     }`}
                   >
                     Save Changes
@@ -533,8 +597,6 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }

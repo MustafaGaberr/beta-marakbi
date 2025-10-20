@@ -27,6 +27,27 @@ export default function useDynamicHero() {
         "Get in touch with our team for bookings, inquiries, or partnership opportunities.",
       background: "/contactBg.jpg",
     },
+    {
+      route: "/faqs",
+      title: "FAQS",
+      description:
+        "Set sail with Marakbi and explore Egypt from a new angle — smooth waters, local stories, and moments you'll remember long after the trip ends.",
+      background: "/images/Rectangle 5654.png",
+    },
+    {
+      route: "/our-team",
+      title: "Our\nTeam",
+      description:
+        "Marakbi is powered by a dedicated team of maritimeprofessionals, travel experts, and hospitality specialists. Ourteam combines deep local knowledge with modern booking tools to deliver seamless boat experiences.",
+      background: "/images/Rectangle 56548.jpg",
+    },
+    {
+      route: "/profile",
+      title: "My\nProfile",
+      description:
+        "No Matter The Journey, We Have A Boat For Your Story. Explore Egypt&apos;s Stunning Waterways With A Curated Selection Of Vessels And Seasoned Captains.",
+      background: "/images/Rectangle 56548.jpg",
+    },
   ];
 
   // Find the route that matches the current pathname

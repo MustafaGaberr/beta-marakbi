@@ -10,7 +10,6 @@ import Stats from "@/components/Stats";
 import Activities from "@/components/Activities";
 import Destinations from "@/components/Destinations";
 import FinalCTA from "@/components/FinalCTA";
-import Footer from "@/components/Footer";
 import { clientApi } from "@/lib/api";
 
 export default function HomePage() {
@@ -88,7 +87,6 @@ export default function HomePage() {
         <Activities homeData={homeData} />
         <Destinations />
         <FinalCTA />
-        <Footer />
       </main>
     </div>
   );

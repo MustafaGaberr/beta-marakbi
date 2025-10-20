@@ -7,7 +7,7 @@ export default function DynamicHero() {
   const { title, description, background } = useDynamicHero();
 
   return (
-    <section className="relative w-full h-[70vh] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[380px] flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <Image
         src={background}
