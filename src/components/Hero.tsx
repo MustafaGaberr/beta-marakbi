@@ -50,7 +50,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative w-full h-230 overflow-hidden">
+    <section className="relative w-full h-240 overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -64,7 +64,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative w-full h-full flex items-center px-4">
+      <div className="relative w-full h-200 flex items-center px-4">
         <div className="w-full px-4 sm:px-8 md:px-16 flex flex-col lg:flex-row justify-between items-start gap-8 lg:gap-32">
           {/* Left Side: Text Content */}
           <div className="flex flex-col text-center lg:text-left">
