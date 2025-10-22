@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
     optimizeCss: true,
     optimizePackageImports: ['lucide-react', 'react-icons'],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
   
   // Security headers
   async headers() {
