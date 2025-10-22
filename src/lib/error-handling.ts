@@ -8,6 +8,7 @@ export interface ErrorInfo {
   timestamp: string;
   userAgent?: string;
   url?: string;
+  context?: string;
 }
 
 // Error boundary class
@@ -122,19 +123,20 @@ export const handleApiError = (error: unknown, context?: string) => {
   });
 
   // Return user-friendly error message
-  if (error?.response?.status === 404) {
+  const errorWithResponse = error as { response?: { status?: number } };
+  if (errorWithResponse?.response?.status === 404) {
     return 'The requested resource was not found.';
   }
   
-  if (error?.response?.status === 500) {
+  if (errorWithResponse?.response?.status === 500) {
     return 'Server error. Please try again later.';
   }
   
-  if (error?.response?.status === 401) {
+  if (errorWithResponse?.response?.status === 401) {
     return 'Please log in to continue.';
   }
   
-  if (error?.response?.status === 403) {
+  if (errorWithResponse?.response?.status === 403) {
     return 'You do not have permission to perform this action.';
   }
   
@@ -203,28 +205,42 @@ export enum ErrorType {
 }
 
 // Error classification
-export const classifyError = (error: any): ErrorType => {
-  if (error?.code === 'NETWORK_ERROR' || error?.message?.includes('fetch')) {
+export const classifyError = (error: unknown): ErrorType => {
+  if (error && typeof error === 'object' && 'code' in error && error.code === 'NETWORK_ERROR') {
     return ErrorType.NETWORK;
   }
   
-  if (error?.response?.status === 401) {
+  if (error && typeof error === 'object' && 'message' in error && typeof error.message === 'string' && error.message.includes('fetch')) {
+    return ErrorType.NETWORK;
+  }
+  
+  if (error && typeof error === 'object' && 'response' in error && 
+      error.response && typeof error.response === 'object' && 
+      'status' in error.response && error.response.status === 401) {
     return ErrorType.AUTHENTICATION;
   }
   
-  if (error?.response?.status === 403) {
+  if (error && typeof error === 'object' && 'response' in error && 
+      error.response && typeof error.response === 'object' && 
+      'status' in error.response && error.response.status === 403) {
     return ErrorType.AUTHORIZATION;
   }
   
-  if (error?.response?.status === 404) {
+  if (error && typeof error === 'object' && 'response' in error && 
+      error.response && typeof error.response === 'object' && 
+      'status' in error.response && error.response.status === 404) {
     return ErrorType.NOT_FOUND;
   }
   
-  if (error?.response?.status >= 500) {
+  if (error && typeof error === 'object' && 'response' in error && 
+      error.response && typeof error.response === 'object' && 
+      'status' in error.response && typeof error.response.status === 'number' && error.response.status >= 500) {
     return ErrorType.SERVER;
   }
   
-  if (error?.response?.status >= 400) {
+  if (error && typeof error === 'object' && 'response' in error && 
+      error.response && typeof error.response === 'object' && 
+      'status' in error.response && typeof error.response.status === 'number' && error.response.status >= 400) {
     return ErrorType.CLIENT;
   }
   
@@ -232,7 +248,7 @@ export const classifyError = (error: any): ErrorType => {
 };
 
 // Error reporting
-export const reportError = (error: Error, _context?: string) => {
+export const reportError = (error: Error, context?: string) => {
   const errorType = classifyError(error);
   
   logError({
@@ -241,6 +257,7 @@ export const reportError = (error: Error, _context?: string) => {
     timestamp: new Date().toISOString(),
     userAgent: navigator.userAgent,
     url: window.location.href,
+    context: context || 'Unknown',
   });
   
   // Send to analytics

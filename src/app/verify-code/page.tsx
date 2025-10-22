@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { authApi } from '@/lib/api';
 
-
 export default function VerifyCodePage() {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
@@ -36,23 +35,19 @@ export default function VerifyCodePage() {
     setLoading(true);
 
     try {
-      // Check if code is entered
       if (!code) {
         setError('Please enter the verification code');
         setLoading(false);
         return;
       }
 
-      // Call API
       const response = await authApi.verifyCode(code);
 
       if (response.success) {
-        // Navigate to set password page on success
         router.push('/set-password');
       } else {
         setError(response.error || 'Invalid verification code. Please try again.');
       }
-      
     } catch (err) {
       console.error('Verification error:', err);
       setError('Invalid verification code. Please try again.');
@@ -68,12 +63,13 @@ export default function VerifyCodePage() {
     setError('');
     
     try {
-      const response = await authApi.resendCode();
-      
-      if (!response.success) {
-        setError(response.error || 'Failed to resend code. Please try again.');
-      }
-      
+      // 🔒 مؤقتًا لحد ما يجهز الباك إند
+      // const response = await authApi.resendCode();
+      // if (!response.success) {
+      //   setError(response.error || 'Failed to resend code. Please try again.');
+      // }
+
+      console.log('Resend code is disabled (backend not ready yet)');
     } catch (err) {
       console.error('Resend error:', err);
       setError('Failed to resend code. Please try again.');

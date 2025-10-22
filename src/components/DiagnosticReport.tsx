@@ -17,6 +17,16 @@ export default function DiagnosticReport() {
   const [loading, setLoading] = useState(false);
   const [autoRun, setAutoRun] = useState(true);
 
+  // Helper function to safely get details properties
+  const getDetailsProperty = (property: string): string => {
+    if (diagnostics?.diagnostics?.details && typeof diagnostics.diagnostics.details === 'object' && diagnostics.diagnostics.details !== null) {
+      const details = diagnostics.diagnostics.details as Record<string, unknown>;
+      const value = details[property];
+      return value ? String(value) : 'N/A';
+    }
+    return 'N/A';
+  };
+
   useEffect(() => {
     if (autoRun) {
       runDiagnostics();
@@ -72,13 +82,19 @@ export default function DiagnosticReport() {
       recommendations.push('🔧 Add CORS configuration to your Flask app');
     }
     
-    if (result.diagnostics?.details?.isHttps && result.diagnostics?.details?.baseUrl?.startsWith('http:')) {
-      recommendations.push('🔧 Mixed content error: HTTPS page trying to fetch HTTP resource');
-      recommendations.push('🔧 Solution: Change BASE_URL to HTTPS or run frontend on HTTP');
+    if (result.diagnostics?.details && typeof result.diagnostics.details === 'object' && result.diagnostics.details !== null) {
+      const details = result.diagnostics.details as { isHttps?: boolean; baseUrl?: string };
+      if (details.isHttps && details.baseUrl?.startsWith('http:')) {
+        recommendations.push('🔧 Mixed content error: HTTPS page trying to fetch HTTP resource');
+        recommendations.push('🔧 Solution: Change BASE_URL to HTTPS or run frontend on HTTP');
+      }
     }
     
-    if (!result.diagnostics?.details?.isLocalhost) {
-      recommendations.push('🔧 Consider using localhost instead of 127.0.0.1 for better compatibility');
+    if (result.diagnostics?.details && typeof result.diagnostics.details === 'object' && result.diagnostics.details !== null) {
+      const details = result.diagnostics.details as { isLocalhost?: boolean };
+      if (!details.isLocalhost) {
+        recommendations.push('🔧 Consider using localhost instead of 127.0.0.1 for better compatibility');
+      }
     }
 
     return recommendations;
@@ -145,22 +161,22 @@ export default function DiagnosticReport() {
               <h3 className="text-lg font-semibold mb-2 text-blue-800">System Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
-                  <strong>Backend URL:</strong> {diagnostics.diagnostics?.details?.baseUrl || 'N/A'}
+                  <strong>Backend URL:</strong> {getDetailsProperty('baseUrl')}
                 </div>
                 <div>
-                  <strong>Current Protocol:</strong> {diagnostics.diagnostics?.details?.currentProtocol || 'N/A'}
+                  <strong>Current Protocol:</strong> {getDetailsProperty('currentProtocol')}
                 </div>
                 <div>
-                  <strong>Current Host:</strong> {diagnostics.diagnostics?.details?.currentHost || 'N/A'}
+                  <strong>Current Host:</strong> {getDetailsProperty('currentHost')}
                 </div>
                 <div>
-                  <strong>Is HTTPS:</strong> {diagnostics.diagnostics?.details?.isHttps ? 'Yes' : 'No'}
+                  <strong>Is HTTPS:</strong> {getDetailsProperty('isHttps') === 'true' ? 'Yes' : 'No'}
                 </div>
                 <div>
-                  <strong>Is Localhost:</strong> {diagnostics.diagnostics?.details?.isLocalhost ? 'Yes' : 'No'}
+                  <strong>Is Localhost:</strong> {getDetailsProperty('isLocalhost') === 'true' ? 'Yes' : 'No'}
                 </div>
                 <div>
-                  <strong>Timestamp:</strong> {diagnostics.diagnostics?.details?.timestamp ? new Date(diagnostics.diagnostics.details.timestamp).toLocaleString() : 'N/A'}
+                  <strong>Timestamp:</strong> {getDetailsProperty('timestamp') !== 'N/A' ? new Date(getDetailsProperty('timestamp')).toLocaleString() : 'N/A'}
                 </div>
               </div>
             </div>

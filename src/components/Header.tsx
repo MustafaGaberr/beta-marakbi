@@ -91,7 +91,7 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
     
     try {
       // Clear token and user data
-      storage.clearAll();
+      storage.clear();
       
       // Clear cookies
       document.cookie = 'access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';

@@ -152,9 +152,45 @@ export const clientApi = {
 };
 
 // ===== AUTHENTICATION API =====
+// Forgot Password
+export const forgotPassword = async (email: string): Promise<ApiResponse<{ message: string }>> => {
+  return apiRequest<{ message: string }>('/auth/forgot-password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  });
+};
+
+// Reset Password
+export const resetPassword = async (token: string, password: string): Promise<ApiResponse<{ message: string }>> => {
+  return apiRequest<{ message: string }>('/auth/reset-password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ token, password }),
+  });
+};
+
+// Verify Code
+export const verifyCode = async (code: string): Promise<ApiResponse<{ message: string }>> => {
+  return apiRequest<{ message: string }>('/auth/verify-code', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ code }),
+  });
+};
+
 export const authApi = {
   login,
-  register
+  register,
+  forgotPassword,
+  resetPassword,
+  verifyCode
 };
 
 // ===== STORAGE UTILITIES =====
@@ -179,6 +215,36 @@ export const storage = {
     if (typeof window !== 'undefined') {
       localStorage.clear();
     }
+  },
+  setTokens: (tokens: { access_token: string; refresh_token: string }) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('access_token', tokens.access_token);
+      localStorage.setItem('refresh_token', tokens.refresh_token);
+    }
+  },
+  setUser: (user: { id: number; username: string; role: string }) => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('user', JSON.stringify(user));
+    }
+  },
+  getToken: () => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('access_token');
+    }
+    return null;
+  },
+  getUser: () => {
+    if (typeof window !== 'undefined') {
+      const userStr = localStorage.getItem('user');
+      if (userStr) {
+        try {
+          return JSON.parse(userStr);
+        } catch (error) {
+          return null;
+        }
+      }
+    }
+    return null;
   }
 };
 
