@@ -1,10 +1,19 @@
 'use client';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 
 import Image from 'next/image';
 
 const Destinations = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const destinations = [
+    { name: 'Philae Temple', img1: '/images/Rectangle 3463870.png', img2: '/images/philae2.png' },
+    { name: 'Nubian Village', img1: '/images/nubian-village1.jpg', img2: '/images/nubian-village2.jpg' },
+    { name: 'Botanical Garden', img1: '/images/Aswan-Botanical-Garden1.jpg', img2: '/images/Aswan-Botanical-Garden2.jpg' },
+    { name: 'Elephantine Island', img1: '/images/Elephantine Island1.jpg', img2: '/images/Elephantine Island2.webp' },
+    { name: 'Abu Simbel Temples', img1: '/images/abusimple1.jpg', img2: '/images/abusimple2.jpg' }
+  ];
 
   const scrollLeft = () => {
     if (carouselRef.current) {
@@ -18,8 +27,16 @@ const Destinations = () => {
     }
   };
 
+  const goToPrevious = () => {
+    setCurrentIndex((prev) => (prev === 0 ? destinations.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev === destinations.length - 1 ? 0 : prev + 1));
+  };
+
   return (
-    <section className="relative w-full min-h-[573px] bg-sky-100  overflow-hidden py-16">
+    <section className="relative w-full min-h-[573px] bg-white md:bg-sky-100 overflow-hidden py-8 md:py-16">
       {/* Background Images - Hidden on mobile, shown on larger screens */}
       <Image
         src="/images/image 6.png"
@@ -40,15 +57,56 @@ const Destinations = () => {
       
 
       <div className="container mx-auto px-4">
-        {/* Title */}
-        <div className="text-center mb-8">
+        {/* Title - Hidden on Mobile */}
+        <div className="hidden md:block text-center mb-8">
           <h2 className="text-4xl md:text-6xl lg:text-8xl font-bold font-poppins capitalize text-black/10 mb-4">
             Destinations
           </h2>
         </div>
 
-        {/* Destination Cards Carousel */}
-        <div className="relative max-w-7xl mx-auto flex items-center">
+        {/* Mobile View - Single Card */}
+        <div className="block md:hidden max-w-md mx-auto">
+          <div className="bg-white rounded-3xl shadow-xl overflow-hidden mb-8">
+            <div className="relative h-80 group">
+              <Image
+                src={destinations[currentIndex].img1}
+                alt={destinations[currentIndex].name}
+                fill
+                className="object-cover transition-opacity duration-300 group-hover:opacity-0"
+                quality={85}
+              />
+              <Image
+                src={destinations[currentIndex].img2}
+                alt={`${destinations[currentIndex].name} Hover`}
+                fill
+                className="object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                quality={85}
+              />
+            </div>
+            <div className="text-center py-6 text-black text-2xl font-medium font-poppins capitalize">
+              {destinations[currentIndex].name}
+            </div>
+          </div>
+
+          {/* Navigation Arrows - Below Card */}
+          <div className="flex justify-center items-center gap-4">
+            <button 
+              onClick={goToPrevious}
+              className="hover:scale-110 transition-transform"
+            >
+              <Image src="/icons/arrow_circle_left.svg" alt="Previous" width={48} height={48} className="w-12 h-12" />
+            </button>
+            <button 
+              onClick={goToNext}
+              className="hover:scale-110 transition-transform"
+            >
+              <Image src="/icons/arrow_circle_right.svg" alt="Next" width={48} height={48} className="w-12 h-12" />
+            </button>
+          </div>
+        </div>
+
+        {/* Desktop View - Original Carousel */}
+        <div className="hidden md:flex relative max-w-7xl mx-auto items-center">
           {/* Left Arrow */}
           <button 
             onClick={scrollLeft}

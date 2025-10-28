@@ -97,13 +97,22 @@ const BoatFleet = () => {
             Fleet of Luxury Boats
           </h2>
 
-            {/* Description */}
-            <p className="text-white text-s font-normal font-poppins max-w-4xl leading-relaxed px-4 mb-6">
-            Explore our exquisite collection of high-end yachts and premium vessels, perfect for tailored trips across Aswan&apos;s majestic Nile and Egypt&apos;s stunning Red Sea.
-            </p>
+          {/* Golden Wavy Line - Mobile Only */}
+          <div className="flex justify-center mb-4 md:hidden">
+            <img 
+              src="/icons/Line 74.svg" 
+              alt="Decorative line"
+              className="h-4"
+            />
+          </div>
 
-          {/* Golden Wavy Line */}
-          <div className="flex justify-center">
+          {/* Description */}
+          <p className="text-white text-s font-normal font-poppins max-w-4xl leading-relaxed px-4 mb-6">
+            Explore our exquisite collection of high-end yachts and premium vessels, perfect for tailored trips across Aswan&apos;s majestic Nile and Egypt&apos;s stunning Red Sea.
+          </p>
+
+          {/* Golden Wavy Line - Desktop Only */}
+          <div className="hidden md:flex justify-center">
             <img 
               src="/icons/Line 74.svg" 
               alt="Decorative line"
@@ -113,7 +122,7 @@ const BoatFleet = () => {
         </div>
 
         {/* Boat Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12 px-4 place-items-center md:place-items-stretch">
           {boats.map((boat, index: number) => {
             return (
               <BoatCard
@@ -133,9 +142,9 @@ const BoatFleet = () => {
         </div>
 
         {/* View All Boats Button */}
-        <div className="text-center">
-          <Link href="/boats" className="w-full sm:w-56 h-12 px-6 py-2.5 bg-[#0C4A8C] rounded-lg text-white text-base font-normal font-poppins capitalize hover:bg-[#0A3D7A] transition-colors inline-flex justify-center items-center">
-            View all boats
+        <div className="text-center px-4">
+          <Link href="/boats" className="w-full max-w-md sm:w-auto sm:min-w-[280px] h-12 px-8 py-2.5 bg-[#0C4A8C] rounded-lg text-white text-base font-normal font-poppins capitalize hover:bg-[#0A3D7A] transition-colors inline-flex justify-center items-center">
+            View All Boats
           </Link>
         </div>
       </div>

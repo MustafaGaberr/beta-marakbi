@@ -1,0 +1,955 @@
+{
+  "project": "Marakbi Beta - Mobile Responsive Updates",
+  "date": "2025-10-28",
+  "description": "شرح تفصيلي لكل تعديلات الـ responsive على الموبايل للصفحة الرئيسية",
+  
+  "components": {
+    "Header.tsx": {
+      "section": "Navigation Bar & Top Bar",
+      "changes": [
+        {
+          "element": "Top Bar (الشريط الأزرق العلوي)",
+          "change": "إخفاء كامل على الموبايل",
+          "before": "bg-[#093B77] h-14",
+          "after": "hidden sm:flex bg-[#093B77] h-14",
+          "notes": "الشريط الأزرق العلوي مخفي تماماً على الموبايل ويظهر فقط على sm وما فوق"
+        },
+        {
+          "element": "Main Navigation Bar",
+          "change": "تغيير الموضع والخلفية على الموبايل",
+          "before": "absolute top-14 left-0 right-0 bg-transparent",
+          "after": "absolute top-0 sm:top-14 left-0 right-0 bg-[#093B77] sm:bg-transparent",
+          "notes": "على الموبايل يبدأ من top-0 مع خلفية زرقاء ثابتة، على الشاشات الكبيرة يبدأ من top-14"
+        },
+        {
+          "element": "Logo - Mobile",
+          "change": "لوجو أبيض دائماً على الموبايل",
+          "before": "Logo variant يعتمد على variant الصفحة",
+          "after": "Mobile: <Logo variant=\"white\" width={48} height={60} /> - Always white",
+          "className": "block sm:hidden",
+          "notes": "اللوجو على الموبايل أبيض دائماً بحجم 48x60"
+        },
+        {
+          "element": "Logo - Desktop",
+          "change": "لوجو يعتمد على variant الصفحة",
+          "className": "hidden sm:block",
+          "after": "<Logo width={64} height={80} variant={logoVariant} />",
+          "notes": "اللوجو على الشاشات الكبيرة بحجم 64x80 ويعتمد على logoVariant"
+        },
+        {
+          "element": "Burger Menu Button",
+          "change": "أبيض على الموبايل على اليمين",
+          "className": "md:hidden p-2 rounded-lg hover:bg-white/10",
+          "iconColor": "text-white",
+          "notes": "زر البرجر منيو على اليمين باللون الأبيض، مخفي على md وما فوق"
+        },
+        {
+          "element": "Desktop Navigation Links",
+          "change": "مخفية على الموبايل",
+          "className": "hidden md:flex gap-8",
+          "notes": "الروابط العادية للديسكتوب مخفية على الموبايل"
+        },
+        {
+          "element": "Desktop Auth Links",
+          "change": "مخفية على الموبايل",
+          "className": "hidden md:flex items-center gap-4",
+          "notes": "أزرار Login/Register للديسكتوب مخفية على الموبايل"
+        },
+        {
+          "element": "Mobile Menu",
+          "change": "تحسين التصميم والأنيميشن",
+          "className": "md:hidden bg-white/95 backdrop-blur-sm border-t border-gray-200 animate-fade-in",
+          "menuItems": {
+            "padding": "px-6 py-6",
+            "spacing": "space-y-3",
+            "linkStyle": "block px-4 py-3 rounded-lg font-medium transition-colors",
+            "authButtons": "w-full px-6 py-3 rounded-lg font-medium"
+          },
+          "animation": "@keyframes fade-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }",
+          "notes": "القائمة المنسدلة محسّنة بأنيميشن fade-in وأزرار واضحة"
+        }
+      ]
+    },
+
+    "Hero.tsx": {
+      "section": "Hero Section (القسم الرئيسي)",
+      "changes": [
+        {
+          "element": "Section Height",
+          "change": "ارتفاع تلقائي على الموبايل",
+          "before": "h-240",
+          "after": "h-auto sm:h-240",
+          "notes": "على الموبايل الارتفاع تلقائي، على الشاشات الكبيرة h-240"
+        },
+        {
+          "element": "Content Container Height",
+          "change": "ارتفاع تلقائي على الموبايل",
+          "before": "h-200",
+          "after": "h-auto sm:h-200",
+          "notes": "على الموبايل الارتفاع تلقائي، على الشاشات الكبيرة h-200"
+        },
+        {
+          "element": "Content Container Padding",
+          "change": "إضافة padding علوي على الموبايل",
+          "before": "flex items-center px-4",
+          "after": "flex items-start sm:items-center px-0 sm:px-4 pt-30 pb-8 sm:pt-0 sm:pb-0",
+          "notes": "pt-30 على الموبايل لإبعاد المحتوى عن الناف بار"
+        },
+        {
+          "element": "Text Alignment",
+          "change": "محاذاة يسار على الموبايل",
+          "className": "text-left",
+          "notes": "كل النصوص text-left على الموبايل"
+        },
+        {
+          "element": "\"With Marakbi\" Text",
+          "change": "تكبير حجم النص على الموبايل",
+          "before": "text-xl lg:text-4xl",
+          "after": "text-3xl sm:text-3xl lg:text-4xl",
+          "notes": "من text-xl إلى text-3xl على الموبايل"
+        },
+        {
+          "element": "\"Your Dream Boats\" Text",
+          "change": "تكبير حجم النص على الموبايل",
+          "before": "text-lg lg:text-3xl",
+          "after": "text-2xl sm:text-2xl lg:text-3xl",
+          "notes": "من text-lg إلى text-2xl على الموبايل"
+        },
+        {
+          "element": "\"Most Reliable Luxury Boats Rentals\" Text",
+          "change": "تصغير قليلاً على الموبايل",
+          "before": "text-4xl lg:text-6xl",
+          "after": "text-3xl sm:text-4xl lg:text-6xl",
+          "notes": "text-3xl على الموبايل، text-4xl على sm"
+        },
+        {
+          "element": "Title Margins",
+          "change": "تقليل المسافات على الموبايل",
+          "details": {
+            "subtitle": "mb-4 sm:mb-6",
+            "mainTitle": "mb-6 sm:mb-12 lg:mb-16"
+          },
+          "notes": "مسافات أقل على الموبايل"
+        },
+        {
+          "element": "\"Explore Now\" Button",
+          "change": "إخفاء على الموبايل",
+          "before": "w-56 h-12 px-6 py-2.5 bg-[#0C4A8C]",
+          "after": "hidden sm:flex w-56 h-12 px-6 py-2.5 bg-[#0C4A8C]",
+          "notes": "الزر مخفي تماماً على الموبايل"
+        },
+        {
+          "element": "Booking Form",
+          "change": "تصغير الحجم والمسافات",
+          "before": {
+            "padding": "p-6",
+            "spacing": "space-y-4",
+            "inputHeight": "h-12"
+          },
+          "after": {
+            "padding": "p-5 sm:p-6",
+            "spacing": "space-y-3 sm:space-y-4",
+            "inputHeight": "h-11 sm:h-12",
+            "buttonHeight": "h-11 sm:h-12",
+            "buttonMargin": "mt-2 sm:mt-4"
+          },
+          "notes": "الفورم أصغر على الموبايل"
+        },
+        {
+          "element": "Featured Activities Section",
+          "change": "إخفاء على الموبايل",
+          "before": "absolute bottom-0",
+          "after": "hidden sm:block absolute bottom-0",
+          "notes": "القسم السفلي للأنشطة المميزة مخفي على الموبايل"
+        }
+      ]
+    },
+
+    "OurServices.tsx": {
+      "section": "Our Services (خدماتنا)",
+      "changes": [
+        {
+          "element": "Section Padding",
+          "change": "تقليل padding على الموبايل",
+          "before": "py-20",
+          "after": "py-8 sm:py-20",
+          "notes": "py-8 على الموبايل بدلاً من py-20"
+        },
+        {
+          "element": "Header Margin Bottom",
+          "change": "تقليل المسافة السفلية",
+          "before": "mb-16",
+          "after": "mb-8 sm:mb-16",
+          "notes": "mb-8 على الموبايل"
+        },
+        {
+          "element": "\"What Do We Offer\" Text",
+          "change": "تكبير على الموبايل",
+          "before": "text-3xl lg:text-5xl",
+          "after": "text-4xl sm:text-4xl lg:text-5xl",
+          "notes": "من text-3xl إلى text-4xl على الموبايل"
+        },
+        {
+          "element": "\"Our Services\" Title",
+          "change": "تكبير على الموبايل",
+          "before": "text-4xl lg:text-6xl",
+          "after": "text-5xl sm:text-5xl lg:text-6xl",
+          "notes": "من text-4xl إلى text-5xl على الموبايل"
+        },
+        {
+          "element": "Description Paragraph",
+          "change": "جعل النص رمادي/muted",
+          "before": "text-xl text-[#093B77]",
+          "after": "text-base sm:text-xl text-gray-400",
+          "notes": "تغيير اللون من الأزرق إلى gray-400 وتصغير النص"
+        },
+        {
+          "element": "Services Grid",
+          "change": "عمود واحد على الموبايل",
+          "before": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8",
+          "after": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8",
+          "notes": "كل card في صف منفصل على الموبايل"
+        },
+        {
+          "element": "Service Card Padding",
+          "change": "تقليل padding على الموبايل",
+          "before": "p-6",
+          "after": "p-5 sm:p-6",
+          "notes": "p-5 على الموبايل"
+        },
+        {
+          "element": "Service Icon Size",
+          "change": "تصغير الأيقونات",
+          "before": "w-16 h-16",
+          "after": "w-12 h-12 sm:w-16 sm:h-16",
+          "notes": "أيقونات أصغر على الموبايل"
+        },
+        {
+          "element": "Service Title Size",
+          "change": "تصغير العناوين",
+          "before": "text-xl",
+          "after": "text-lg sm:text-xl",
+          "notes": "text-lg على الموبايل"
+        },
+        {
+          "element": "Service Description Size",
+          "change": "تصغير النص",
+          "before": "text-base mb-6",
+          "after": "text-sm sm:text-base mb-4 sm:mb-6",
+          "notes": "text-sm على الموبايل"
+        },
+        {
+          "element": "\"Explore Now\" Button",
+          "change": "عرض كامل على الموبايل",
+          "before": "px-8 py-3 text-base",
+          "after": "px-6 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-base w-full sm:w-auto",
+          "notes": "الزر بعرض كامل على الموبايل (w-full)"
+        }
+      ]
+    },
+
+    "AboutApp.tsx": {
+      "section": "About Us (من نحن)",
+      "changes": [
+        {
+          "element": "Section Padding",
+          "change": "تقليل padding على الموبايل",
+          "before": "py-20",
+          "after": "py-8 sm:py-20",
+          "notes": "py-8 على الموبايل"
+        },
+        {
+          "element": "Header Margin Bottom",
+          "change": "تقليل المسافة",
+          "before": "mb-16",
+          "after": "mb-8 sm:mb-16",
+          "notes": "mb-8 على الموبايل"
+        },
+        {
+          "element": "\"What is Marakbi\" Text",
+          "change": "تكبير على الموبايل",
+          "before": "text-3xl lg:text-5xl",
+          "after": "text-4xl sm:text-4xl lg:text-5xl",
+          "notes": "من text-3xl إلى text-4xl"
+        },
+        {
+          "element": "\"About us\" Title",
+          "change": "تكبير على الموبايل",
+          "before": "text-4xl lg:text-6xl",
+          "after": "text-5xl sm:text-5xl lg:text-6xl",
+          "notes": "من text-4xl إلى text-5xl"
+        },
+        {
+          "element": "Main Description Paragraph",
+          "change": "جعل النص رمادي",
+          "before": "text-xl text-[#093B77]",
+          "after": "text-base sm:text-xl text-gray-400",
+          "notes": "تغيير اللون إلى gray-400"
+        },
+        {
+          "element": "Grid Gap",
+          "change": "تقليل المسافة",
+          "before": "gap-12",
+          "after": "gap-8 sm:gap-12",
+          "notes": "gap-8 على الموبايل"
+        },
+        {
+          "element": "Large Title",
+          "change": "تصغير على الموبايل",
+          "before": "text-4xl lg:text-5xl",
+          "after": "text-3xl sm:text-4xl lg:text-5xl",
+          "notes": "text-3xl على الموبايل"
+        },
+        {
+          "element": "Description Text",
+          "change": "تصغير النص",
+          "before": "text-lg leading-9 mb-8",
+          "after": "text-base sm:text-lg leading-7 sm:leading-9 mb-6 sm:mb-8",
+          "notes": "text-base وleading-7 على الموبايل"
+        },
+        {
+          "element": "List Items (Bullet Points)",
+          "change": "استبدال بأيقونات tick.svg",
+          "before": "• Premium Boats & Yachts",
+          "after": "<img src=\"/icons/tick.svg\" alt=\"check\" className=\"w-5 h-5 sm:w-6 sm:h-6 mr-3 mt-1 flex-shrink-0\" />",
+          "itemStyle": "flex items-start",
+          "textStyle": "text-base sm:text-lg leading-7 sm:leading-9",
+          "notes": "استبدال النقاط بأيقونات tick.svg مع flex layout"
+        },
+        {
+          "element": "App Store Image",
+          "change": "تصغير الحجم",
+          "before": "w-52 h-11",
+          "after": "w-40 h-9 sm:w-52 sm:h-11",
+          "notes": "أصغر على الموبايل"
+        },
+        {
+          "element": "Right Side Image Container",
+          "change": "توسيط وتصغير",
+          "before": "flex justify-end",
+          "after": "flex justify-center lg:justify-end mt-6 lg:mt-0",
+          "imageClass": "w-full max-w-md sm:max-w-lg lg:w-[640px] lg:h-[661px] object-cover rounded-lg",
+          "notes": "الصورة متوسطة على الموبايل ومحاذاة يمين على lg"
+        }
+      ]
+    },
+
+    "BoatFleet.tsx": {
+      "section": "Fleet of Luxury Boats (أسطول القوارب)",
+      "changes": [
+        {
+          "element": "Line 74.svg Position",
+          "change": "نقل الخط الذهبي تحت العنوان مباشرة على الموبايل",
+          "mobilePosition": {
+            "location": "بعد العنوان مباشرة، قبل الوصف",
+            "className": "flex justify-center mb-4 md:hidden",
+            "notes": "يظهر فقط على الموبايل تحت عنوان Fleet of Luxury Boats"
+          },
+          "desktopPosition": {
+            "location": "بعد الوصف",
+            "className": "hidden md:flex justify-center",
+            "notes": "على الديسكتوب يظهر بعد الفقرة الوصفية"
+          }
+        },
+        {
+          "element": "Boat Cards Grid",
+          "change": "توسيط الكاردات على الموبايل",
+          "before": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
+          "after": "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 place-items-center md:place-items-stretch",
+          "notes": "place-items-center على الموبايل لتوسيط الكاردات"
+        },
+        {
+          "element": "\"View All Boats\" Button",
+          "change": "تقليل العرض على الموبايل",
+          "before": "w-auto h-12 px-8",
+          "after": "w-full max-w-md sm:w-auto sm:min-w-[280px] h-12 px-8",
+          "containerClass": "text-center px-4",
+          "notes": "عرض كامل مع حد أقصى max-w-md على الموبايل"
+        }
+      ]
+    },
+
+    "Activities.tsx": {
+      "section": "Activities Masonry Layout (الأنشطة)",
+      "changes": [
+        {
+          "element": "Section Spacing",
+          "change": "تقليل المسافات",
+          "before": "mb-16 mt-16",
+          "after": "mb-8 sm:mb-16 mt-12 sm:mt-16 px-4",
+          "notes": "مسافات أقل على الموبايل"
+        },
+        {
+          "element": "\"Where To Sail Now\" Text",
+          "change": "تصغير النص",
+          "before": "text-4xl lg:text-5xl mb-4",
+          "after": "text-3xl sm:text-4xl lg:text-5xl mb-2 sm:mb-4",
+          "notes": "text-3xl على الموبايل"
+        },
+        {
+          "element": "\"Top Destination\" Title",
+          "change": "تغيير اللون والحجم على الموبايل",
+          "before": "text-4xl lg:text-6xl text-black mb-6",
+          "after": "text-3xl sm:text-5xl lg:text-6xl text-[#093B77] sm:text-black mb-4 sm:mb-6",
+          "notes": "text-3xl وكحلي على الموبايل، text-5xl وأسود على sm"
+        },
+        {
+          "element": "Line 74.svg under Top Destination",
+          "change": "إضافة خط ذهبي تحت العنوان على الموبايل فقط",
+          "code": "<div className=\"flex justify-center sm:hidden\"><img src=\"/icons/Line 74.svg\" alt=\"Decorative line\" className=\"h-4\" /></div>",
+          "notes": "يظهر فقط على الموبايل تحت Top Destination"
+        },
+        {
+          "element": "Activity Title Text Size",
+          "change": "تكبير النص على الموبايل",
+          "before": "text-xl",
+          "after": "text-2xl sm:text-xl",
+          "notes": "text-2xl على الموبايل للوضوح"
+        },
+        {
+          "element": "Activity Title Wrapping",
+          "change": "منع التفاف النص",
+          "before": "text-white text-xl",
+          "after": "text-white text-2xl sm:text-xl whitespace-nowrap",
+          "notes": "whitespace-nowrap للحفاظ على النص في سطر واحد مثل 'Snorkelling & Diving'"
+        },
+        {
+          "element": "Title Container Padding",
+          "change": "إضافة padding",
+          "className": "px-2",
+          "notes": "px-2 للعنوان داخل الكارد"
+        }
+      ]
+    },
+
+    "Destinations.tsx": {
+      "section": "Destinations Carousel (الوجهات)",
+      "changes": [
+        {
+          "element": "Section Background",
+          "change": "خلفية بيضاء على الموبايل",
+          "before": "bg-sky-100",
+          "after": "bg-white md:bg-sky-100",
+          "notes": "bg-white على الموبايل، bg-sky-100 على md وما فوق"
+        },
+        {
+          "element": "Section Padding",
+          "change": "تقليل padding",
+          "before": "py-16",
+          "after": "py-8 md:py-16",
+          "notes": "py-8 على الموبايل"
+        },
+        {
+          "element": "\"Destinations\" Title",
+          "change": "إخفاء على الموبايل",
+          "before": "text-center mb-8",
+          "after": "hidden md:block text-center mb-8",
+          "notes": "العنوان الكبير مخفي على الموبايل"
+        },
+        {
+          "element": "Mobile View - Single Card",
+          "change": "إنشاء عرض جديد للموبايل",
+          "structure": {
+            "container": "block md:hidden max-w-md mx-auto",
+            "card": "bg-white rounded-3xl shadow-xl overflow-hidden mb-8",
+            "imageHeight": "h-80",
+            "titleStyle": "text-center py-6 text-black text-2xl font-medium"
+          },
+          "state": "useState currentIndex للتحكم في الكارد المعروض",
+          "notes": "عرض كارد واحد فقط على الموبايل"
+        },
+        {
+          "element": "Navigation Arrows - Mobile",
+          "change": "أزرار تحت الكارد",
+          "container": "flex justify-center items-center gap-4",
+          "arrowSize": "w-12 h-12",
+          "functions": {
+            "goToPrevious": "setCurrentIndex((prev) => (prev === 0 ? destinations.length - 1 : prev - 1))",
+            "goToNext": "setCurrentIndex((prev) => (prev === destinations.length - 1 ? 0 : prev + 1))"
+          },
+          "notes": "أزرار التنقل يمين ويسار تحت الكارد على الموبايل"
+        },
+        {
+          "element": "Desktop Carousel",
+          "change": "إخفاء على الموبايل",
+          "before": "flex relative max-w-7xl",
+          "after": "hidden md:flex relative max-w-7xl",
+          "notes": "الكاروسيل الأصلي يظهر فقط على md وما فوق"
+        }
+      ]
+    },
+
+    "WhyChoosingUs.tsx": {
+      "section": "Why Choosing Us (لماذا تختارنا)",
+      "changes": [
+        {
+          "element": "Header Section Padding",
+          "change": "تقليل padding",
+          "before": "py-16",
+          "after": "py-8 sm:py-16",
+          "notes": "py-8 على الموبايل"
+        },
+        {
+          "element": "\"Why Choosing US\" Title",
+          "change": "تعديل الحجم",
+          "before": "text-4xl lg:text-[46px]",
+          "after": "text-4xl sm:text-4xl lg:text-[46px]",
+          "notes": "text-4xl على الموبايل"
+        },
+        {
+          "element": "Subtitle Text",
+          "change": "تصغير النص",
+          "before": "text-2xl lg:text-[30px]",
+          "after": "text-l sm:text-2xl lg:text-[30px]",
+          "notes": "text-l (large) على الموبايل"
+        },
+        {
+          "element": "\"Book With Us\" Button",
+          "change": "عرض كامل على الموبايل",
+          "before": "px-8 py-4 text-base",
+          "after": "px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base w-full max-w-xs sm:w-auto pt-4 mt-4",
+          "notes": "w-full مع max-w-xs على الموبايل"
+        },
+        {
+          "element": "Mobile Cards View",
+          "change": "إنشاء تصميم جديد للموبايل",
+          "structure": {
+            "container": "block md:hidden bg-[#093B77] py-8",
+            "cardWrapper": "max-w-4xl mx-auto px-4 space-y-6",
+            "card": "bg-[#072D5B] rounded-2xl overflow-hidden",
+            "titleSection": "py-8 px-6",
+            "titleStyle": "text-white text-xl font-semibold font-poppins text-center",
+            "imageContainer": "relative h-64 w-full",
+            "imageStyle": "w-full h-full object-cover",
+            "overlay": "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-center p-6",
+            "overlayText": "text-[#CEAF6E] text-sm font-poppins leading-relaxed text-center"
+          },
+          "notes": "تصميم جديد: العنوان في الأعلى، الصورة مع overlay أصفر في الأسفل"
+        },
+        {
+          "element": "Desktop Columns View",
+          "change": "إخفاء على الموبايل",
+          "before": "relative w-full h-[100vh]",
+          "after": "hidden md:block relative w-full h-[100vh]",
+          "notes": "العرض التفاعلي بالأعمدة يظهر فقط على md وما فوق"
+        }
+      ]
+    },
+
+    "Stats.tsx": {
+      "section": "Statistics Cards (الإحصائيات)",
+      "changes": [
+        {
+          "element": "Section Padding",
+          "change": "تقليل padding",
+          "before": "py-16",
+          "after": "py-8 sm:py-16",
+          "notes": "py-8 على الموبايل"
+        },
+        {
+          "element": "Background Map Image",
+          "change": "إخفاء على الموبايل",
+          "before": "absolute inset-0",
+          "after": "absolute inset-0 hidden md:block",
+          "notes": "صورة الخريطة تظهر فقط على md وما فوق"
+        },
+        {
+          "element": "Mobile View - Stacked Cards",
+          "change": "إنشاء عرض جديد للموبايل",
+          "structure": {
+            "container": "grid grid-cols-1 md:hidden gap-6 max-w-md mx-auto",
+            "cardHeight": "h-64",
+            "cardStyle": "rounded-2xl flex flex-col justify-center items-center shadow-lg py-8",
+            "numberStyle": "text-white text-7xl font-bold font-poppins",
+            "labelStyle": "text-white text-2xl font-normal font-poppins text-center mt-4"
+          },
+          "cards": [
+            {
+              "name": "Boat Owners",
+              "bgColor": "bg-purple-700"
+            },
+            {
+              "name": "Water Activities",
+              "bgColor": "bg-[#C8A467]"
+            },
+            {
+              "name": "Available Trips",
+              "bgColor": "bg-teal-500"
+            },
+            {
+              "name": "Trips Done",
+              "bgColor": "bg-red-500"
+            }
+          ],
+          "notes": "كل stat في كارد منفصل بارتفاع h-64 وألوان مختلفة"
+        },
+        {
+          "element": "Desktop View",
+          "change": "إخفاء على الموبايل",
+          "before": "flex justify-center gap-6",
+          "after": "hidden md:flex justify-center gap-6",
+          "notes": "العرض الأفقي الأصلي يظهر فقط على md وما فوق"
+        }
+      ]
+    },
+
+    "FinalCTA.tsx": {
+      "section": "Final CTA Section (It's The Time Book Your Trip)",
+      "changes": [
+        {
+          "element": "Entire Section",
+          "change": "إخفاء كامل على الموبايل",
+          "before": "relative w-full overflow-hidden",
+          "after": "hidden md:block relative w-full overflow-hidden",
+          "notes": "السيكشن بالكامل (العنوان والصورة والمحتوى) مخفي على الموبايل"
+        }
+      ]
+    },
+
+    "Footer.tsx": {
+      "section": "Footer (الفوتر)",
+      "changes": [
+        {
+          "element": "Main Footer Padding",
+          "change": "تحسين padding والمسافات",
+          "before": "px-1 pt-16 pb-4",
+          "after": "px-4 sm:px-6 md:px-8 pt-12 md:pt-16 pb-4",
+          "notes": "زيادة padding الجوانب على الموبايل من px-1 إلى px-4"
+        },
+        {
+          "element": "Footer Grid Gap",
+          "change": "زيادة المسافة بين الأعمدة",
+          "before": "gap-3",
+          "after": "gap-8 md:gap-6",
+          "notes": "gap-8 على الموبايل لتباعد أفضل"
+        },
+        {
+          "element": "Logo Size",
+          "change": "تعديل الحجم",
+          "before": "width={72} height={90}",
+          "after": "width={64} height={80}",
+          "notes": "لوجو أصغر قليلاً"
+        },
+        {
+          "element": "Description Text",
+          "change": "تصغير النص",
+          "before": "text-base leading-7",
+          "after": "text-sm md:text-base leading-6 md:leading-7",
+          "notes": "text-sm على الموبايل"
+        },
+        {
+          "element": "Section Titles (Services, Links, Subscribe)",
+          "change": "تصغير العناوين",
+          "before": "text-xl",
+          "after": "text-lg md:text-xl mb-4 md:mb-6",
+          "notes": "text-lg على الموبايل"
+        },
+        {
+          "element": "List Items (Services & Links)",
+          "change": "تصغير النص والمسافات",
+          "before": "space-y-3",
+          "after": "space-y-2 md:space-y-3 text-sm md:text-base",
+          "notes": "text-sm على الموبايل"
+        },
+        {
+          "element": "Subscribe Section Text",
+          "change": "تصغير النصوص",
+          "textSizes": {
+            "description": "text-sm md:text-base mb-4 md:mb-6",
+            "emailLabel": "text-sm md:text-base mb-2 md:mb-3"
+          },
+          "notes": "نصوص أصغر على الموبايل"
+        },
+        {
+          "element": "Email Input Box",
+          "change": "تصغير الارتفاع والنص",
+          "before": {
+            "height": "h-14",
+            "padding": "pl-4 pr-10",
+            "iconSize": "w-6 h-6"
+          },
+          "after": {
+            "height": "h-12 md:h-14",
+            "padding": "pl-3 md:pl-4 pr-8 md:pr-10",
+            "textSize": "text-sm md:text-base",
+            "iconSize": "w-5 h-5 md:w-6 md:h-6",
+            "iconPosition": "right-2 md:right-3"
+          },
+          "notes": "h-12 على الموبايل"
+        },
+        {
+          "element": "Subscribe Button",
+          "change": "تصغير الحجم",
+          "before": "h-14 px-6",
+          "after": "h-12 md:h-14 px-4 md:px-6 text-sm md:text-base",
+          "notes": "h-12 وpx-4 على الموبايل"
+        },
+        {
+          "element": "Download App Section",
+          "change": "تصغير العناوين والمسافات",
+          "before": {
+            "margin": "mt-2",
+            "titleSize": "text-lg",
+            "titleMargin": "mb-2"
+          },
+          "after": {
+            "margin": "mt-4 md:mt-6",
+            "titleSize": "text-base md:text-lg",
+            "titleMargin": "mb-3 md:mb-4",
+            "gap": "gap-1 md:gap-2"
+          },
+          "notes": "مسافات وعناوين أصغر"
+        },
+        {
+          "element": "App Store Buttons",
+          "change": "تصغير الحجم",
+          "before": "w-32 h-32",
+          "after": "w-28 h-10 md:w-32 md:h-12",
+          "imageProps": "width={120} height={40}",
+          "notes": "أزرار أصغر على الموبايل"
+        },
+        {
+          "element": "Sub-Footer Bar Padding",
+          "change": "تعديل المسافات",
+          "before": "px-1 py-6",
+          "after": "px-4 sm:px-6 md:px-8 py-4 md:py-6",
+          "notes": "px-4 على الموبايل بدلاً من px-1"
+        },
+        {
+          "element": "Contact Info Container",
+          "change": "تحسين المسافات",
+          "before": "flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-74",
+          "after": "flex-col md:flex-row gap-3 md:gap-6 lg:gap-8",
+          "notes": "استخدام gap بدلاً من space-x/y"
+        },
+        {
+          "element": "Contact Info Icons & Text",
+          "change": "تصغير الأيقونات والنص",
+          "before": {
+            "iconSize": "w-5 h-5",
+            "textSize": "text-gray-300"
+          },
+          "after": {
+            "iconSize": "w-4 h-4 md:w-5 md:h-5",
+            "iconWidth": "width={20} height={20}",
+            "textSize": "text-gray-300 text-sm md:text-base",
+            "gap": "gap-2"
+          },
+          "notes": "أيقونات ونصوص أصغر على الموبايل"
+        },
+        {
+          "element": "Social Media Icons",
+          "change": "تصغير الأيقونات",
+          "before": "w-6 h-6 space-x-6",
+          "after": "w-6 h-6 gap-4 md:gap-6",
+          "imageProps": "width={24} height={24}",
+          "notes": "نفس الحجم مع gap أصغر على الموبايل"
+        },
+        {
+          "element": "Copyright Text",
+          "change": "تصغير النص وتعديل المحتوى",
+          "before": "text-sm text-gray-400",
+          "after": "text-xs md:text-sm text-gray-400 text-center md:text-left",
+          "content": "© 2025 Marakbi- Boat rentals. All rights reserved",
+          "notes": "text-xs على الموبايل ومتوسط على الموبايل"
+        },
+        {
+          "element": "Footer Links (Privacy, Terms, Cookie)",
+          "change": "تصغير النص وتقليل المسافات",
+          "before": "space-x-6 text-sm",
+          "after": "gap-4 md:gap-6 text-xs md:text-sm",
+          "linkText": {
+            "1": "Privacy Policy",
+            "2": "Terms of Use",
+            "3": "Cookie Policy"
+          },
+          "notes": "text-xs على الموبايل"
+        }
+      ]
+    }
+  },
+
+  "globals.css": {
+    "section": "Global Styles & Animations",
+    "changes": [
+      {
+        "element": "Mobile Menu Animation",
+        "change": "إضافة أنيميشن fade-in",
+        "code": "@keyframes fade-in {\n  from {\n    opacity: 0;\n    transform: translateY(-10px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n\n.animate-fade-in {\n  animation: fade-in 0.3s ease-out;\n}",
+        "usage": "Used in Header mobile menu",
+        "notes": "أنيميشن سلس لظهور القائمة المنسدلة"
+      }
+    ]
+  },
+
+  "generalPrinciples": {
+    "title": "المبادئ العامة للـ Responsive",
+    "principles": [
+      {
+        "principle": "Mobile First Approach",
+        "description": "البدء بتصميم الموبايل ثم إضافة التحسينات للشاشات الأكبر",
+        "example": "text-3xl sm:text-4xl lg:text-6xl"
+      },
+      {
+        "principle": "Consistent Spacing",
+        "description": "استخدام spacing متناسق على الموبايل",
+        "mobile": "py-8, px-4, gap-6, space-y-3",
+        "desktop": "py-16, px-8, gap-8, space-y-4"
+      },
+      {
+        "principle": "Text Hierarchy",
+        "description": "الموبايل: نصوص أصغر بشكل عام",
+        "mobile": "text-sm, text-base, text-lg, text-xl, text-2xl, text-3xl",
+        "desktop": "text-base, text-lg, text-xl, text-2xl, text-4xl, text-5xl"
+      },
+      {
+        "principle": "Component Heights",
+        "description": "ارتفاعات أقل على الموبايل",
+        "mobile": "h-10, h-11, h-12",
+        "desktop": "h-12, h-14, h-16"
+      },
+      {
+        "principle": "Full Width on Mobile",
+        "description": "الأزرار والعناصر التفاعلية بعرض كامل على الموبايل",
+        "example": "w-full sm:w-auto OR w-full max-w-md sm:w-auto"
+      },
+      {
+        "principle": "Hide/Show Elements",
+        "description": "إخفاء عناصر غير ضرورية على الموبايل",
+        "hideOnMobile": "hidden sm:block OR hidden md:flex",
+        "showOnMobile": "block md:hidden OR flex md:hidden"
+      },
+      {
+        "principle": "Stacked Layout",
+        "description": "تحويل الشبكات إلى عمود واحد على الموبايل",
+        "example": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+      },
+      {
+        "principle": "Centered Content",
+        "description": "توسيط المحتوى على الموبايل",
+        "example": "mx-auto, text-center, place-items-center, justify-center"
+      },
+      {
+        "principle": "Icons & Images",
+        "description": "تصغير الأيقونات والصور",
+        "mobile": "w-4 h-4, w-5 h-5, w-12 h-12",
+        "desktop": "w-5 h-5, w-6 h-6, w-16 h-16"
+      },
+      {
+        "principle": "Gap over Space",
+        "description": "استخدام gap بدلاً من space-x/space-y للتحكم الأفضل",
+        "example": "gap-4 md:gap-6 instead of space-x-4 md:space-x-6"
+      }
+    ]
+  },
+
+  "breakpoints": {
+    "title": "Tailwind Breakpoints Used",
+    "breakpoints": {
+      "default": {
+        "range": "0px - 639px",
+        "description": "Mobile phones",
+        "usage": "القيم الافتراضية بدون prefix"
+      },
+      "sm": {
+        "range": "640px+",
+        "description": "Small tablets",
+        "usage": "sm:text-lg, sm:flex"
+      },
+      "md": {
+        "range": "768px+",
+        "description": "Tablets & small laptops",
+        "usage": "md:grid-cols-2, md:block"
+      },
+      "lg": {
+        "range": "1024px+",
+        "description": "Laptops & desktops",
+        "usage": "lg:text-6xl, lg:grid-cols-3"
+      }
+    }
+  },
+
+  "colorChanges": {
+    "title": "تغييرات الألوان للـ Muted Text",
+    "changes": [
+      {
+        "component": "OurServices.tsx",
+        "element": "Description paragraph",
+        "from": "text-[#093B77]",
+        "to": "text-gray-400",
+        "reason": "لجعل النص muted/رمادي على الموبايل"
+      },
+      {
+        "component": "AboutApp.tsx",
+        "element": "Main description paragraph",
+        "from": "text-[#093B77]",
+        "to": "text-gray-400",
+        "reason": "لجعل النص muted/رمادي"
+      },
+      {
+        "component": "Activities.tsx",
+        "element": "Top Destination title",
+        "from": "text-black",
+        "to": "text-[#093B77] sm:text-black",
+        "reason": "كحلي/أزرق غامق على الموبايل، أسود على sm+"
+      },
+      {
+        "component": "Header.tsx",
+        "element": "Navbar background",
+        "from": "bg-transparent",
+        "to": "bg-[#093B77] sm:bg-transparent",
+        "reason": "خلفية زرقاء ثابتة على الموبايل"
+      }
+    ]
+  },
+
+  "implementationNotes": {
+    "title": "ملاحظات مهمة للتطبيق",
+    "notes": [
+      {
+        "note": "File Import",
+        "description": "تأكد من استيراد useState في Destinations.tsx لإدارة currentIndex"
+      },
+      {
+        "note": "Icons Path",
+        "description": "تأكد من وجود /icons/tick.svg في المشروع لاستخدامه في AboutApp"
+      },
+      {
+        "note": "Line 74.svg",
+        "description": "تأكد من وجود /icons/Line 74.svg للخط الذهبي المتموج"
+      },
+      {
+        "note": "globals.css",
+        "description": "إضافة fade-in animation في ملف globals.css"
+      },
+      {
+        "note": "Testing",
+        "description": "اختبار على أحجام شاشات مختلفة: 375px (iPhone SE), 390px (iPhone 12), 768px (iPad), 1024px (Desktop)"
+      },
+      {
+        "note": "Linting",
+        "description": "جميع التعديلات تم اختبارها ولا توجد linter errors"
+      },
+      {
+        "note": "Git Changes",
+        "description": "جميع التعديلات موجودة في git changes ولم يتم commit أو push بعد"
+      }
+    ]
+  },
+
+  "commandsForAI": {
+    "title": "تعليمات للـ AI (Cursor)",
+    "instructions": [
+      "قم بتطبيق كل التعديلات المذكورة في هذا الملف على الـ codebase",
+      "ابدأ بـ Header.tsx ثم Hero.tsx ثم باقي الـ components بالترتيب",
+      "لا تنس إضافة fade-in animation في globals.css",
+      "تأكد من استخدام نفس الـ class names والـ breakpoints المذكورة",
+      "اتبع المبادئ العامة (General Principles) عند تطبيق التعديلات",
+      "استخدم Mobile First Approach: ابدأ بالموبايل ثم أضف responsive classes",
+      "اختبر كل component بعد تعديله للتأكد من عدم وجود linter errors",
+      "حافظ على نفس البنية والـ structure للـ components",
+      "لا تغير أي functionality، فقط responsive design"
+    ]
+  }
+}
+

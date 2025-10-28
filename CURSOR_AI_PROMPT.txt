@@ -1,0 +1,387 @@
+==========================================
+PROMPT FOR CURSOR AI - MOBILE RESPONSIVE
+==========================================
+
+عاوزك تعمل الموقع responsive للموبايل. هقولك بالتفصيل كل التعديلات المطلوبة لكل component.
+
+المبدأ الأساسي: Mobile First Approach - ابدأ بتصميم الموبايل ثم أضف التحسينات للشاشات الكبيرة.
+
+==========================================
+PART 1: globals.css - إضافة Animation
+==========================================
+
+أضف هذا الكود في ملف src/app/globals.css:
+
+/* Mobile Menu Animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+==========================================
+PART 2: Header.tsx - Navigation Bar
+==========================================
+
+1. الشريط الأزرق العلوي (Top Bar):
+   - أضف hidden sm:flex للـ div
+   - يصبح مخفي على الموبايل ويظهر على sm وما فوق
+
+2. Main Navigation Bar:
+   - غير className من:
+     absolute top-14 left-0 right-0 bg-transparent
+   إلى:
+     absolute top-0 sm:top-14 left-0 right-0 bg-[#093B77] sm:bg-transparent
+   
+3. Logo - عمل نسختين:
+   - Mobile Logo (block sm:hidden):
+     <Logo variant="white" width={48} height={60} />
+   
+   - Desktop Logo (hidden sm:block):
+     <Logo width={64} height={80} variant={logoVariant} />
+
+4. Desktop Navigation Links:
+   - أضف hidden md:flex gap-8
+
+5. Desktop Auth Links:
+   - أضف hidden md:flex items-center gap-4
+
+6. Burger Menu Button:
+   - className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+   - icon: text-white
+
+7. Mobile Menu:
+   - Container: md:hidden bg-white/95 backdrop-blur-sm border-t border-gray-200 animate-fade-in
+   - Content wrapper: px-6 py-6 space-y-3 max-h-[calc(100vh-8rem)] overflow-y-auto
+   - Links: block px-4 py-3 rounded-lg font-medium transition-colors
+   - Auth buttons: w-full px-6 py-3 rounded-lg font-medium
+   - أضف onClick={() => setIsMenuOpen(false)} لكل Link
+
+==========================================
+PART 3: Hero.tsx - Hero Section
+==========================================
+
+1. Section: h-auto sm:h-240
+2. Content Container: h-auto sm:h-200
+3. Content Wrapper: 
+   - flex items-start sm:items-center
+   - px-0 sm:px-4
+   - pt-30 pb-8 sm:pt-0 sm:pb-0
+
+4. Text Alignment: text-left
+
+5. Text Sizes:
+   - "With Marakbi": text-3xl sm:text-3xl lg:text-4xl
+   - "Your Dream Boats": text-2xl sm:text-2xl lg:text-3xl
+   - "Most Reliable...": text-3xl sm:text-4xl lg:text-6xl
+
+6. Margins:
+   - Subtitle: mb-4 sm:mb-6
+   - Main Title: mb-6 sm:mb-12 lg:mb-16
+
+7. "Explore Now" Button: أضف hidden sm:flex
+
+8. Booking Form:
+   - Padding: p-5 sm:p-6
+   - Spacing: space-y-3 sm:space-y-4
+   - Input height: h-11 sm:h-12
+   - Button: h-11 sm:h-12 مع mt-2 sm:mt-4
+
+9. Featured Activities: أضف hidden sm:block
+
+==========================================
+PART 4: OurServices.tsx
+==========================================
+
+1. Section: py-8 sm:py-20
+2. Header margin: mb-8 sm:mb-16
+3. "What Do We Offer": text-4xl sm:text-4xl lg:text-5xl
+4. "Our Services": text-5xl sm:text-5xl lg:text-6xl
+5. Description: text-base sm:text-xl text-gray-400
+6. Grid gap: gap-6 sm:gap-8
+7. Card padding: p-5 sm:p-6
+8. Icon: w-12 h-12 sm:w-16 sm:h-16
+9. Title: text-lg sm:text-xl
+10. Description: text-sm sm:text-base mb-4 sm:mb-6
+11. Button: px-6 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-base w-full sm:w-auto
+
+==========================================
+PART 5: AboutApp.tsx
+==========================================
+
+1. Section: py-8 sm:py-20
+2. Header: mb-8 sm:mb-16
+3. "What is Marakbi": text-4xl sm:text-4xl lg:text-5xl
+4. "About us": text-5xl sm:text-5xl lg:text-6xl
+5. Main description: text-base sm:text-xl text-gray-400
+6. Grid gap: gap-8 sm:gap-12
+7. Large title: text-3xl sm:text-4xl lg:text-5xl
+8. Description text: text-base sm:text-lg leading-7 sm:leading-9 mb-6 sm:mb-8
+
+9. **مهم جداً** - استبدل bullet points بـ tick icons:
+   <li className="text-[#093B77] text-base sm:text-lg font-semibold font-poppins leading-7 sm:leading-9 flex items-start">
+     <img src="/icons/tick.svg" alt="check" className="w-5 h-5 sm:w-6 sm:h-6 mr-3 mt-1 flex-shrink-0" />
+     Premium Boats & Yachts
+   </li>
+
+10. App Store image: w-40 h-9 sm:w-52 sm:h-11
+11. Right image container: flex justify-center lg:justify-end mt-6 lg:mt-0
+12. Image: w-full max-w-md sm:max-w-lg lg:w-[640px] lg:h-[661px] object-cover rounded-lg
+
+==========================================
+PART 6: BoatFleet.tsx
+==========================================
+
+1. **مهم** - Line 74.svg في موقعين:
+
+   Mobile (تحت العنوان مباشرة):
+   <div className="flex justify-center mb-4 md:hidden">
+     <img src="/icons/Line 74.svg" alt="Decorative line" className="h-4" />
+   </div>
+
+   Desktop (بعد الفقرة):
+   <div className="hidden md:flex justify-center">
+     <img src="/icons/Line 74.svg" alt="Decorative line" className="h-4" />
+   </div>
+
+2. Grid: أضف px-4 place-items-center md:place-items-stretch
+
+3. "View All Boats" Button: w-full max-w-md sm:w-auto sm:min-w-[280px] h-12 px-8
+   Container: text-center px-4
+
+==========================================
+PART 7: Activities.tsx
+==========================================
+
+1. Section: mb-8 sm:mb-16 mt-12 sm:mt-16 px-4
+2. "Where To Sail Now": text-3xl sm:text-4xl lg:text-5xl mb-2 sm:mb-4
+3. "Top Destination": text-3xl sm:text-5xl lg:text-6xl text-[#093B77] sm:text-black mb-4 sm:mb-6
+
+4. **إضافة جديدة** - Line تحت Top Destination:
+   <div className="flex justify-center sm:hidden">
+     <img src="/icons/Line 74.svg" alt="Decorative line" className="h-4" />
+   </div>
+
+5. Activity titles: text-white text-2xl sm:text-xl whitespace-nowrap
+6. Title container: أضف px-2
+
+==========================================
+PART 8: Destinations.tsx
+==========================================
+
+1. أضف useState في البداية:
+   const [currentIndex, setCurrentIndex] = useState(0);
+
+2. Section: bg-white md:bg-sky-100 py-8 md:py-16
+3. Title: hidden md:block text-center mb-8
+
+4. **تصميم جديد** - Mobile View:
+
+<div className="block md:hidden max-w-md mx-auto">
+  <div className="bg-white rounded-3xl shadow-xl overflow-hidden mb-8">
+    <div className="relative h-80 group">
+      <Image
+        src={destinations[currentIndex].img1}
+        alt={destinations[currentIndex].name}
+        fill
+        className="object-cover transition-opacity duration-300 group-hover:opacity-0"
+      />
+      <Image
+        src={destinations[currentIndex].img2}
+        alt={`${destinations[currentIndex].name} Hover`}
+        fill
+        className="object-cover transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+      />
+    </div>
+    <div className="text-center py-6 text-black text-2xl font-medium font-poppins capitalize">
+      {destinations[currentIndex].name}
+    </div>
+  </div>
+
+  <div className="flex justify-center items-center gap-4">
+    <button onClick={goToPrevious} className="hover:scale-110 transition-transform">
+      <Image src="/icons/arrow_circle_left.svg" alt="Previous" width={48} height={48} className="w-12 h-12" />
+    </button>
+    <button onClick={goToNext} className="hover:scale-110 transition-transform">
+      <Image src="/icons/arrow_circle_right.svg" alt="Next" width={48} height={48} className="w-12 h-12" />
+    </button>
+  </div>
+</div>
+
+5. أضف Functions:
+const goToPrevious = () => {
+  setCurrentIndex((prev) => (prev === 0 ? destinations.length - 1 : prev - 1));
+};
+
+const goToNext = () => {
+  setCurrentIndex((prev) => (prev === destinations.length - 1 ? 0 : prev + 1));
+};
+
+6. Desktop carousel: hidden md:flex relative max-w-7xl
+
+==========================================
+PART 9: WhyChoosingUs.tsx
+==========================================
+
+1. Header section: py-8 sm:py-16
+2. Title: text-4xl sm:text-4xl lg:text-[46px]
+3. Subtitle: text-l sm:text-2xl lg:text-[30px]
+4. Button: px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base w-full max-w-xs sm:w-auto pt-4 mt-4
+
+5. **تصميم جديد** - Mobile Cards:
+
+<div className="block md:hidden bg-[#093B77] py-8">
+  <div className="max-w-4xl mx-auto px-4 space-y-6">
+    {columns.map((column, index) => (
+      <div key={index} className="bg-[#072D5B] rounded-2xl overflow-hidden">
+        <div className="py-8 px-6">
+          <h3 className="text-white text-xl font-semibold font-poppins text-center">
+            {column.title}
+          </h3>
+        </div>
+        
+        <div className="relative h-64 w-full">
+          <img src={column.image} alt={column.title} className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-center p-6">
+            <p className="text-[#CEAF6E] text-sm font-poppins leading-relaxed text-center">
+              {column.caption}
+            </p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+6. Desktop view: hidden md:block relative w-full h-[100vh]
+
+==========================================
+PART 10: Stats.tsx
+==========================================
+
+1. Section: py-8 sm:py-16
+2. Background map: hidden md:block
+
+3. **تصميم جديد** - Mobile Cards:
+
+<div className="grid grid-cols-1 md:hidden gap-6 max-w-md mx-auto">
+  <div className="h-64 bg-purple-700 rounded-2xl flex flex-col justify-center items-center shadow-lg py-8">
+    <div className="text-white text-7xl font-bold font-poppins">{boatOwners} +</div>
+    <div className="text-white text-2xl font-normal font-poppins text-center mt-4">Boat Owners</div>
+  </div>
+
+  <div className="h-64 bg-[#C8A467] rounded-2xl flex flex-col justify-center items-center shadow-lg py-8">
+    <div className="text-white text-7xl font-bold font-poppins">{waterActivities} +</div>
+    <div className="text-white text-2xl font-normal font-poppins text-center mt-4">Water Activities</div>
+  </div>
+
+  <div className="h-64 bg-teal-500 rounded-2xl flex flex-col justify-center items-center shadow-lg py-8">
+    <div className="text-white text-7xl font-bold font-poppins">{availableTrips} +</div>
+    <div className="text-white text-2xl font-normal font-poppins text-center mt-4">Available Trips</div>
+  </div>
+
+  <div className="h-64 bg-red-500 rounded-2xl flex flex-col justify-center items-center shadow-lg py-8">
+    <div className="text-white text-7xl font-bold font-poppins">{tripsDone} +</div>
+    <div className="text-white text-2xl font-normal font-poppins text-center mt-4">Trips Done</div>
+  </div>
+</div>
+
+4. Desktop view: hidden md:flex justify-center gap-6
+
+==========================================
+PART 11: FinalCTA.tsx
+==========================================
+
+تعديل واحد فقط - إخفاء السيكشن بالكامل على الموبايل:
+- Section: hidden md:block relative w-full overflow-hidden
+
+==========================================
+PART 12: Footer.tsx
+==========================================
+
+1. Main container: px-4 sm:px-6 md:px-8 pt-12 md:pt-16 pb-4
+2. Grid: gap-8 md:gap-6
+3. Logo: width={64} height={80}
+4. Description: text-sm md:text-base leading-6 md:leading-7
+5. Section titles: text-lg md:text-xl mb-4 md:mb-6
+6. List items: space-y-2 md:space-y-3 text-sm md:text-base
+
+7. Subscribe input:
+   - Height: h-12 md:h-14
+   - Padding: pl-3 md:pl-4 pr-8 md:pr-10
+   - Text: text-sm md:text-base
+   - Icon: w-5 h-5 md:w-6 md:h-6, right-2 md:right-3
+   - Border: rounded-lg md:rounded-xl
+
+8. Subscribe button: h-12 md:h-14 px-4 md:px-6 text-sm md:text-base
+
+9. Download section:
+   - Margin: mt-4 md:mt-6
+   - Title: text-base md:text-lg mb-3 md:mb-4
+   - Gap: gap-1 md:gap-2
+   - Buttons: w-28 h-10 md:w-32 md:h-12
+
+10. Sub-footer: px-4 sm:px-6 md:px-8 py-4 md:py-6
+
+11. Contact info:
+    - Container: gap-3 md:gap-6 lg:gap-8
+    - Icons: w-4 h-4 md:w-5 md:h-5
+    - Text: text-sm md:text-base text-gray-300
+    - Gap: gap-2
+
+12. Social icons: gap-4 md:gap-6, w-6 h-6
+
+13. Copyright: text-xs md:text-sm text-center md:text-left
+    Content: "© 2025 Marakbi- Boat rentals. All rights reserved"
+
+14. Footer links: gap-4 md:gap-6 text-xs md:text-sm
+
+==========================================
+IMPORTANT NOTES
+==========================================
+
+1. تأكد من وجود الأيقونات:
+   - /icons/tick.svg
+   - /icons/Line 74.svg
+   - /icons/arrow_circle_left.svg
+   - /icons/arrow_circle_right.svg
+
+2. أضف useState import في Destinations.tsx
+
+3. لا تغير أي functionality، فقط responsive design
+
+4. اتبع Mobile First: ابدأ بالموبايل ثم أضف responsive classes
+
+5. استخدم gap بدلاً من space-x/space-y
+
+6. الألوان الـ muted: استخدم text-gray-400 بدلاً من text-[#093B77] في الفقرات
+
+7. اختبر على أحجام: 375px, 390px, 768px, 1024px
+
+==========================================
+BREAKPOINTS
+==========================================
+
+- default (mobile): 0px - 639px
+- sm: 640px+
+- md: 768px+
+- lg: 1024px+
+
+==========================================
+
+ابدأ بالتطبيق بالترتيب:
+Header → Hero → Services → About → Boats → Activities → Destinations → WhyUs → Stats → FinalCTA → Footer
+
+بعد كل component، اختبر أنه لا يوجد linter errors.
+
+حظ سعيد! 🚀
+

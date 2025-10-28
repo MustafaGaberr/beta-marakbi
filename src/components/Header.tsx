@@ -108,33 +108,33 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
 
   return (
     <header className="relative z-50">
-      {/* Top Bar */}
-      <div className="bg-[#093B77] h-14 flex items-center justify-between px-4 sm:px-8 md:px-16">
+      {/* Top Bar - Hidden on Mobile */}
+      <div className="hidden sm:flex bg-[#093B77] h-14 items-center justify-between px-8 md:px-16">
         {/* Left Side: Phone and Email */}
-        <div className="flex items-center gap-4 sm:gap-8 md:gap-16">
+        <div className="flex items-center gap-4 md:gap-8 lg:gap-16">
           <div className="flex items-center gap-0.5">
             <div className="w-6 h-6 flex items-center justify-center">
               <Image src="/icons/phone_in_talk-1.svg" alt="Phone" width={18} height={18} />
             </div>
-            <Link href="tel:+201031416900" className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
+            <Link href="tel:+201031416900" className="text-white text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
               Phone: +2010 31 41 6 900
             </Link>
           </div>
-          <div className="hidden sm:flex items-center gap-0.5">
+          <div className="flex items-center gap-0.5">
             <div className="w-6 h-6 flex items-center justify-center">
               <Image src="/icons/mail.svg" alt="Email" width={18} height={18} />
             </div>
-            <Link href="mailto:info@marakbi.tours" className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
+            <Link href="mailto:info@marakbi.tours" className="text-white text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
               Email: info@marakbi.tours
             </Link>
           </div>
         </div>
         {/* Right Side: List your Boat and Social Icons */}
-        <div className="flex items-center gap-4 sm:gap-8">
-          <Link href="/list-boat" className="text-white text-xs sm:text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
+        <div className="flex items-center gap-4 md:gap-8">
+          <Link href="/list-boat" className="text-white text-sm md:text-base font-normal font-poppins hover:text-orange-300 transition-colors">
             List your Boat
           </Link>
-          <div className="flex items-center gap-2 sm:gap-4 md:gap-8">
+          <div className="flex items-center gap-2 md:gap-4 lg:gap-8">
             {/* Facebook */}
             <Link href="https://www.facebook.com/profile.php?id=61578325940602" target="_blank" rel="noopener noreferrer" className="w-6 h-6 relative overflow-hidden hover:opacity-80 transition-opacity">
               <Image src="/icons/Facebook.svg" alt="Facebook" width={24} height={24} className="w-full h-full" />
@@ -156,16 +156,23 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
       </div>
       
       {/* Main Navigation Bar */}
-      <nav className={`absolute top-14 left-0 right-0 z-50 ${variant === 'solid' ? 'bg-white shadow-sm' : 'bg-transparent'}`}>
-        <div className="px-4 sm:px-8 md:px-16 py-4 flex justify-between items-center">
-          {/* Left: Logo */}
-          <div className="flex items-center space-x-3">
-            <Link href="/">
-              <Logo width={64} height={80} variant={logoVariant} />
+      <nav className={`absolute top-0 sm:top-14 left-0 right-0 z-50 ${variant === 'solid' ? 'bg-white shadow-sm' : 'bg-[#093B77] sm:bg-transparent'}`}>
+        <div className="px-4 sm:px-8 md:px-16 py-3 sm:py-4 flex justify-between items-center">
+          {/* Logo - Left on Mobile & Desktop */}
+          <div className="flex items-center">
+            <Link href="/" className="block">
+              {/* Mobile Logo - Always White */}
+              <div className="block sm:hidden">
+                <Logo width={48} height={60} variant="white" />
+              </div>
+              {/* Desktop Logo - Depends on page variant */}
+              <div className="hidden sm:block">
+                <Logo width={64} height={80} variant={logoVariant} />
+              </div>
             </Link>
           </div>
           
-          {/* Middle: Navigation Links - Desktop */}
+          {/* Middle: Navigation Links - Desktop Only */}
           <div className="hidden md:flex gap-8">
             <Link href="/" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>Home</Link>
             <Link href="/about-us" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>About us</Link>
@@ -233,8 +240,9 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
             </div>
           </div>
           
-          {/* Right: Auth Links or Profile */}
-          <div className="flex items-center gap-6">
+          {/* Right: Auth Links (Desktop) & Mobile Menu Button */}
+          <div className="flex items-center gap-4">
+            {/* Desktop Auth Links */}
             {user ? (
               <div className="hidden md:flex items-center gap-6">
                 <Link href="/profile" className={`${textColor} text-base font-normal font-poppins ${hoverColor} transition-colors`}>
@@ -271,12 +279,13 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
               </div>
             )}
             
-            {/* Mobile Menu Button */}
+            {/* Burger Menu Button - Mobile Only (Right Side) */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`md:hidden p-2 rounded-lg ${variant === 'solid' ? 'hover:bg-gray-100' : 'hover:bg-white/10'} transition-colors`}
+              className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+              aria-label="Toggle menu"
             >
-              <svg className={`w-6 h-6 ${textColor}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -289,37 +298,110 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
         
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className={`md:hidden ${variant === 'solid' ? 'bg-white shadow-lg' : 'bg-white/95 backdrop-blur-sm'} border-t border-gray-200`}>
-            <div className="px-4 py-4 space-y-4">
-              <Link href="/" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">Home</Link>
-              <Link href="/about-us" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">About us</Link>
-              <span className="block text-gray-800 text-base font-normal font-poppins">Our Services</span>
-              <div className="ml-3 space-y-2">
-                <Link href="/services/private-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">PRIVATE BOATS</Link>
-                <Link href="/services/sharing-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">SHARING BOATS</Link>
-                <Link href="/services/travel-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">TRAVEL BOATS</Link>
-                <Link href="/services/fishing-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">FISHING BOATS</Link>
-                <Link href="/services/stayover-boats" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">STAYOVER BOATS</Link>
-                <Link href="/services/water-activities" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">WATER ACTIVITIES</Link>
-                <Link href="/services/occasions" className="block text-gray-700 text-sm font-poppins hover:text-blue-600">OCCASIONS</Link>
+          <div className={`md:hidden ${variant === 'solid' ? 'bg-white shadow-lg' : 'bg-white/95 backdrop-blur-sm'} border-t border-gray-200 animate-fade-in`}>
+            <div className="px-6 py-6 space-y-3 max-h-[calc(100vh-8rem)] overflow-y-auto">
+              <Link 
+                href="/" 
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-gray-800 text-base font-medium font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+              >
+                Home
+              </Link>
+              <Link 
+                href="/about-us" 
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-gray-800 text-base font-medium font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+              >
+                About us
+              </Link>
+              
+              {/* Services Section */}
+              <div className="space-y-2">
+                <span className="block text-gray-800 text-base font-semibold font-poppins px-3 py-2">Our Services</span>
+                <div className="ml-2 space-y-1 pl-3 border-l-2 border-blue-100">
+                  <Link 
+                    href="/services/private-boats" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-gray-700 text-sm font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+                  >
+                    Private Boats
+                  </Link>
+                  <Link 
+                    href="/services/sharing-boats" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-gray-700 text-sm font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+                  >
+                    Sharing Boats
+                  </Link>
+                  <Link 
+                    href="/services/travel-boats" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-gray-700 text-sm font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+                  >
+                    Travel Boats
+                  </Link>
+                  <Link 
+                    href="/services/fishing-boats" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-gray-700 text-sm font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+                  >
+                    Fishing Boats
+                  </Link>
+                  <Link 
+                    href="/services/stayover-boats" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-gray-700 text-sm font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+                  >
+                    Stayover Boats
+                  </Link>
+                  <Link 
+                    href="/services/water-activities" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-gray-700 text-sm font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+                  >
+                    Water Activities
+                  </Link>
+                  <Link 
+                    href="/services/occasions" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-gray-700 text-sm font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+                  >
+                    Occasions
+                  </Link>
+                </div>
               </div>
-              <Link href="/contact" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">Contact</Link>
+              
+              <Link 
+                href="/contact" 
+                onClick={() => setIsMenuOpen(false)}
+                className="block text-gray-800 text-base font-medium font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+              >
+                Contact
+              </Link>
               
               {/* Mobile Auth Links */}
               {user ? (
                 <div className="pt-4 border-t border-gray-200 space-y-2">
-                  <Link href="/profile" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">
+                  <Link 
+                    href="/profile" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-gray-800 text-base font-medium font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+                  >
                     My Profile
                   </Link>
                   {currentPage !== 'dashboard' && (
-                    <Link href="/dashboard" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">
+                    <Link 
+                      href="/dashboard" 
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block text-gray-800 text-base font-medium font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all"
+                    >
                       Dashboard
                     </Link>
                   )}
                   <button
                     onClick={handleLogout}
                     disabled={isLoggingOut}
-                    className={`px-4 py-2 rounded-lg transition-colors flex items-center gap-2 text-center ${
+                    className={`w-full px-4 py-3 rounded-lg transition-all flex items-center justify-center gap-2 font-medium ${
                       isLoggingOut 
                         ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
                         : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md'
@@ -333,10 +415,18 @@ const Header = ({ variant = 'transparent', currentPage }: HeaderProps) => {
                 </div>
               ) : (
                 <div className="pt-4 border-t border-gray-200 space-y-2">
-                  <Link href="/login" className="block text-gray-800 text-base font-normal font-poppins hover:text-blue-600 transition-colors">
+                  <Link 
+                    href="/login" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block text-gray-800 text-base font-medium font-poppins hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-all text-center"
+                  >
                     Login
                   </Link>
-                  <Link href="/signup" className="block px-4 py-2 border border-orange-300 text-gray-800 text-base font-normal font-poppins rounded hover:bg-orange-300 hover:text-white transition-colors text-center">
+                  <Link 
+                    href="/signup" 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-4 py-3 border-2 border-orange-300 text-orange-300 text-base font-medium font-poppins rounded-lg hover:bg-orange-300 hover:text-white transition-all text-center"
+                  >
                     Register
                   </Link>
                 </div>
