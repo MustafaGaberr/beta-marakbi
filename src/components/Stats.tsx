@@ -11,7 +11,7 @@ const Stats = () => {
   const [hasAnimated, setHasAnimated] = useState(false);
   
   const sectionRef = useRef<HTMLElement>(null);
-
+ 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
